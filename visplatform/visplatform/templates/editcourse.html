@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>可视化课程实验平台</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='node_modules/bootstrap/dist/css/bootstrap.css') }}">
+    <style type="text/css" media="screen">
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: #F5F5F2;
+        }
+
+        #editor3 {
+            position: absolute;
+            top: 3%;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+        }
+
+        .middle {
+            padding: 0;
+        }
+
+        .header {
+            height: 50px;
+            background-color: #F5F5F2;
+
+        }
+
+        .main {
+            height: 95%;
+        }
+
+        .submit-btn {
+            color: #fff;
+            background-color: #67c23a;
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid #67c23a;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 2px;
+            transition: .1s;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 2px;
+        }
+
+        .label {
+
+            background: rgba(230, 230, 230, 0.5);
+            height: 100%;
+            padding: 0 6px;
+            line-height: 20px;
+            z-index: 999;
+            text-align: center;
+            font-size: 12px;
+            color: #BBB;
+            border-radius: 3px;
+        }
+
+        .col-4 iframe {
+            border: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .editarea {
+            height: 97%;
+        }
+
+        .labelcontainer {
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 3%;
+            background-color: rgb(44, 52, 55);
+        }
+
+        #editor1 {
+            position: absolute;
+            top: 3%;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 47%
+        }
+
+        #editor2 {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: 50%
+        }
+       #editor4{
+        border: 1px solid lightgray;
+		margin: auto;
+		height: 200px;
+		width: 100%;
+       }
+
+        .h2_title {
+            color: #04be02;
+            font-weight: 400;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+        }
+
+        .fullscreen {
+            background-color: #272822;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 9;
+        }
+        #file_toolbar{
+
+            border:solid 1px black;
+            position: fixed;
+            z-index: 999;
+            right:0;
+            width:15vw;
+            height:100vh;
+            background-color: #F5F5F2;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="container-fluid" style="height: 100%;">
+<div id="file_toolbar" style="overflow: scroll;display:none" >
+    <h2>上传文件
+    <svg id="svg_closefile"class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
+    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+    </svg>
+    </h2>
+    <hr>
+    <form id="form_upload" action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+        <p>文件：<input type="file" name="upload_file" id="input_file"></p>
+        <p>
+        <label >文件名</label>
+        <input type="text" class="form-control" id="input_filename" name="file_name"></p>
+        <p><button id="submit_upload" type="button" class="btn btn-secondary">提交</button></p>
+    </form>
+    <hr>
+    <div id="div_file_list">
+    <ul>
+    {% for file in files %}
+        <li>{{ file }}<span class="badge badge-danger" style="cursor:pointer;" onclick="delete_file(this)">删除</span></li>
+    {% endfor %}
+    </ul>
+    </div>
+</div>
+    <div class="row header">
+        <a class="submit-btn" href="{{ url_for('Admin') }}">返回列表</a>
+        <a class="submit-btn" id="submit">提交运行</a>
+        <button id="save" class="submit-btn">保存</button>
+        <button id="button_fileopen" class="submit-btn">
+            <svg class="bi bi-paperclip" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+</svg>
+            文件</button>
+    </div>
+    <div class="row main">
+        <div class="col-4 middle">
+            <div class="labelcontainer">
+                <span class="label">结果区域初始代码</span>
+            </div>
+            <div id="editor1">
+            </div>
+            <div id="editor2">
+            </div>
+        </div>
+        <div class="col-4 middle">
+            <div class="labelcontainer">
+                <span class="label">代码区域</span>
+            </div>
+            <div id="editor3" class="editarea">
+            </div>
+
+        </div>
+        <div class="col-4">
+            <iframe id="preview"></iframe>
+        </div>
+    </div>
+    <div class="row main2" style="height:100%">
+        <div class="col-12" style="height:100%;">
+            <h2 class="h2_title">教案编辑</h2>
+               <label for="input_title">Title</label>
+            <div class="input-group mb-3">
+                <input type="text" id="input_title" class="form-control" placeholder="{{ course.title }}"
+                       aria-label="Title" aria-describedby="basic-addon1">
+            </div>
+            <label for="input_course_id">Course ID</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="input_course_id" placeholder="{{ course.course_id }}">
+            </div>
+            <label for="input_tag">标签(使用符号","分隔)</label>
+             <div class="input-group mb-3">
+                <input type="text" class="form-control" id="input_tag">
+            </div>
+            <label for="edittext">Description and tasks</label>
+            <textarea id="edittext" style="width:100%; height:100%;"></textarea>
+            <div class="input-group mb-3">
+            <label for="editor4">Test Cases</label>
+            <pre id="editor4"></pre>
+            </div>
+        </div>
+        <form method="POST" style="display: none" id="form">
+            <!--启动CSRF-->
+
+            {% for item in form %}
+                {{ item }}
+            {% endfor %}
+            <p>
+                <button style="float: right" type="submit">登录</button>
+            </p>
+        </form>
+    </div>
+
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../node_modules/ace-builds/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="../node_modules/ace-builds/src/ext-language_tools.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link href="../js/highlight/styles/monokai-sublime.css" rel="stylesheet">
+<script src="../js/highlight/highlight.pack.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+<script>
+    const fields = ['course_id', 'text', 'code', 'frame_head', 'frame_foot','goal']
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        highlight: function (code, language) {
+            const validLanguage = hljs.getLanguage(language) ? language : 'plaintext';
+            return hljs.highlight(validLanguage, code).value;
+        },
+        pedantic: false,
+        gfm: true,
+        breaks: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false
+    })
+    var simplemde = new SimpleMDE({
+        toolbar: ["bold", "italic", "strikethrough", "horizontal-rule", "heading", "heading-smaller", "heading-bigger", "|", "unordered-list", "ordered-list", "code", "quote", "link", "image", "table", "|", "side-by-side", "preview", "fullscreen"],
+        autosave: {
+            enabled: true,
+            uniqueId: "MyUniqueID",
+            delay: 1000,
+        },
+        previewRender: function (plainText, preview) { // Async method
+            setTimeout(function () {
+                preview.innerHTML = marked(plainText);
+            }, 10);
+            return " ";
+        },
+    })
+    document.addEventListener("keydown", function (e) {
+        //可以判断是不是mac，如果是mac,ctrl变为花键
+        //event.preventDefault() 方法阻止元素发生默认的行为。
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+            save_code();
+        }
+    }, false)
+
+    const editor1 = ace.edit("editor1", {
+        theme: "ace/theme/monokai",
+        mode: "ace/mode/html",
+        autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+
+    });
+    const editor2 = ace.edit("editor2", {
+        theme: "ace/theme/monokai",
+        mode: "ace/mode/html",
+        autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+
+    });
+    const editor3 = ace.edit("editor3", {
+        theme: "ace/theme/monokai",
+        mode: "ace/mode/html",
+        autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+    });
+    const editor4 = ace.edit("editor4", {
+        theme: "ace/theme/chorme",
+        mode: "ace/mode/json",
+        maxLines: 300,
+        minLines: 25,
+        autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+    });
+    const uniqueId = simplemde.options.autosave.uniqueId
+    var course_id = {{ course.course_id }}
+    document.querySelector("#input_course_id").value = course_id
+    document.querySelector("#input_title").value = `{{ course.title|safe|transformText }}`
+    {% if course.tag != None %}
+    document.querySelector("#input_tag").value = `{{ course.tag |safe|transformText}}`
+    {% endif %}
+    console.log($(`#input_title`).val())
+    var editorvalue1 = `{{ course.frame_head|safe|transformText }}`
+    var editorvalue2 = `{{ course.frame_foot|safe|transformText }}`
+    var editorvalue3 = `{{ course.code|safe|transformText }}`
+    var editorvalue4 = `{{ course.goal|safe|transformJson }}`
+    var text = `{{ course.text|safe|transformText }}`
+    editor1.setValue(editorvalue1)
+    editor2.setValue(editorvalue2)
+    editor3.setValue(editorvalue3)
+    editor4.setValue(editorvalue4)
+    simplemde.value(text)
+
+    function isLocalStorageAvailable() {
+        if (typeof localStorage === "object") {
+            try {
+                localStorage.setItem("smde_localStorage", 1);
+                localStorage.removeItem("smde_localStorage");
+            } catch (e) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    function save_code() { //保存代码到本地
+        if (isLocalStorageAvailable()) {
+            if (simplemde.options.autosave.uniqueId == undefined || simplemde.options.autosave.uniqueId == "") {
+                console.log("SimpleMDE: You must set a uniqueId to use the autosave feature");
+                return;
+            }
+
+            for (let field of fields) {
+                if (field == "frame_head") {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor1.getValue());
+                } else if (field == "frame_foot") {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor2.getValue());
+                } else if (field == "code") {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor3.getValue());
+                } else if (field == "text") {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, simplemde.value());
+                } else if (field == 'course_id') {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, course_id);
+                }
+                else if(field == "goal"){
+                     localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor4.getValue());
+                }
+            }
+        }
+    }
+
+
+    function load_code() {//从本地载入代码
+        if (isLocalStorageAvailable()) {
+            if (localStorage.getItem('course_id_' + simplemde.options.autosave.uniqueId) != course_id) {
+                remove_save()
+                return
+            }
+            for (let field of fields) {
+                if (typeof localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId) == "string" && localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId) != "") {
+                    if (field == "frame_head") {
+                        editor1.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId));
+                    } else if (field == "frame_foot") {
+                        editor2.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId));
+                    } else if (field == "code") {
+                        editor3.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId));
+                    } else if (field == "text") {
+                        simplemde.value(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId))
+                    }
+                    else if(field == "goal"){
+                        editor4.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId))
+                    }
+                }
+            }
+        }
+    }
+
+    function remove_save() {
+        for (let field of fields) {
+            localStorage.removeItem(field + "_" + simplemde.options.autosave.uniqueId)
+        }
+    }
+
+    load_code()
+    setInterval(save_code, 50000)//自动保存代码
+    function toIframe() {
+        let head = editor1.getValue()
+        let foot = editor2.getValue()
+        let content = editor3.getValue()
+        let htmlStr = head + foot + content
+        document.getElementById('preview').srcdoc = htmlStr;
+    }
+
+
+    const submit = document.querySelector('#submit');
+    submit.addEventListener('click', toIframe)
+    const savebutton = document.querySelector('#save')
+    savebutton.addEventListener('click', function () {
+        document.querySelector('#frame_head').innerHTML = editor1.getValue()
+        document.querySelector('#frame_foot').innerHTML = editor2.getValue()
+        document.querySelector('#code').innerHTML = editor3.getValue()
+        document.querySelector('#text').innerHTML = simplemde.value()
+        document.querySelector('#title').innerHTML = document.querySelector("#input_title").value
+        document.querySelector('#course_id').value = document.querySelector("#input_course_id").value
+        document.querySelector('#goal').innerHTML = editor4.getValue()
+        document.querySelector("#tag").innerHTML = document.querySelector("#input_tag").value
+        remove_save()
+        document.querySelector('#form').submit()
+    })
+    const submit_upload = document.querySelector("#submit_upload")
+    submit_upload.addEventListener('click',function(){
+        $.ajax({
+            url:"{{ url_for('upload_file') }}",
+            type:"post",
+            data:new FormData(document.querySelector("#form_upload")),
+            dataType: 'json',
+            processData:false,
+            contentType:false,
+            success:function(data){
+                  $('#div_file_list').html(data['html'])
+            },
+            error:function(e){
+            }
+        })
+
+    })
+    const input_file = document.querySelector('#input_file')
+    input_file.addEventListener('change',function(){
+            document.querySelector("#input_filename").value = input_file.files[0].name  //AddFile 结果
+    })
+    function delete_file(obj){
+         $.ajax({
+            url:"{{ url_for('delete_file') }}",
+            type:"post",
+            data:obj.parentNode.innerText.slice(0,-2),
+            dataType: 'html',
+            processData:false,
+            contentType:false,
+            success:function(data){
+                  $('#div_file_list').html(data)
+            },
+            error:function(e){
+            }
+        })
+
+    }
+    const svg_closefile = document.querySelector('#svg_closefile')
+    svg_closefile.addEventListener('click',function(){
+        $('#file_toolbar').css('display', 'none')
+    })
+    const  button_fileopen = document.querySelector('#button_fileopen')
+    button_fileopen.addEventListener('click',function(){
+        if($('#file_toolbar').css('display') == 'none')
+            $('#file_toolbar').css('display','block')
+        else
+            $('#file_toolbar').css('display','none')
+    })
+
+    toIframe()
+
+</script>
+</body>
+</html>

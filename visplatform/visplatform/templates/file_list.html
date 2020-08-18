@@ -1,0 +1,5 @@
+ <ul>
+    {% for file in files %}
+        <li>{{ file }}<span class="badge badge-danger" style="cursor:pointer;" onclick="delete_file(this)">删除</span></li>
+    {% endfor %}
+</ul>
