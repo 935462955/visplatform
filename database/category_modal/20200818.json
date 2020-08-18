@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "5f146b32672e9e08f208c6eb"
+  },
+  "modules": [],
+  "units": [
+    {
+      "unit_id": {
+        "$oid": "5eeb35a452baf26e943af502"
+      },
+      "unit_title": "使用D3中的数据",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb443d52baf26e943af507"
+      },
+      "unit_title": "动态更新元素的高度",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5efb3b4428217464022f9ae7"
+      },
+      "unit_title": "使用area方法绘制堆叠面积图",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff96786321bbe296777f8e"
+      },
+      "unit_title": "使力导向图可拖拽",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb35a452baf26e943af502"
+      },
+      "unit_title": "使用D3中的数据",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb3f6152baf26e943af505"
+      },
+      "unit_title": "根据数据更改样式",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb9b7352baf26e943af512"
+      },
+      "unit_title": "添加坐标轴到可视化中",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5efef9cb60df4cd4c418326b"
+      },
+      "unit_title": "弦图介绍",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff942e6321bbe296777f8c"
+      },
+      "unit_title": "向力导向图的边上添加标签",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb469f52baf26e943af508"
+      },
+      "unit_title": "更改条形图的显示方式",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb3c1d52baf26e943af503"
+      },
+      "unit_title": "使用D3中的动态数据",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb469f52baf26e943af508"
+      },
+      "unit_title": "更改条形图的显示方式",
+      "unit_order": 1
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb579652baf26e943af50c"
+      },
+      "unit_title": "动态设置每个Bar的坐标",
+      "unit_order": 1
+    }
+  ]
+}]
