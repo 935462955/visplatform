@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-flask-mongoengine = "*"
+flask-mongoengine = "==0.9.5"
 flask-dotenv = "*"
 python-dotenv = "*"
 jasmine = "*"
