@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/toastr.min.css" />
+    <script src="/static/js/toastr.min.js"></script>
+    <title>登录</title>
+</head>
+
+<body>
+    <label>帐 号：</label><input type="text" id="username"><br>
+    <label>密 码：</label><input type="password" id="password"><br>
+    <input type="button" value="登录" onclick="login()">
+    <input type="button" value="注册" onclick="register()">
+    <script>
+        function login() {
+            var formdata = {
+                "username": $("#username").val(),
+                "password": $("#password").val(),
+            }
+            $.ajax({
+                url: "/login",
+                type: "POST",
+                data: JSON.stringify(formdata),
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result) {
+                    if (result.result == "OK") {
+                        toastr["success"]("登录成功")
+                        setTimeout(next_url(result.next_url), 3000);//定时函数，为了显示提示
+                    } else if (result.result == "NO") {
+                        toastr["error"](result.msg)
+                    }
+                },
+                error: function() {
+                    toastr["error"]("网络连接失败");
+                }
+            })
+        }
+
+        function next_url(url) {
+            window.location.href = url;
+        }
+
+        function register() {
+            window.location.href = "/register"
+        }
+    </script>
+</body>
+
+</html>

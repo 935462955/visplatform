@@ -1,11 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response
-from visplatform import app
-from visplatform.models import CourseModel,ModuleModel,SubModule,CategoryModel,Unit,EmbeddedModuleModal
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response,redirect, send_from_directory
+from flask_login import login_required, logout_user, login_user
+
+from visplatform import app, loginmanager
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
-import json,os
+import json,os,random
 
+#主页
 @app.route('/')
+@login_required
 def index():
     anchor = request.cookies.get('anchor', '')  # 锚点
     return redirect(url_for('show_category',_anchor=anchor))
@@ -305,3 +309,82 @@ def show_codepages():
 @app.route('/test')
 def test():
     return render_template('test_jasmine.html')
+
+
+# 回调函数，没有则flask-login没法用，主要是用来用id找用户对象
+@loginmanager.user_loader
+def get_user(user_id):
+    return User.objects(id=user_id).first()
+
+
+#退出登录，然后到登录界面
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect("/login")
+
+#注册
+@app.route("/register", methods=["POST", "GET"])
+def register():
+    if request.method == "GET":#get返回注册界面
+        return render_template("register.html")
+    elif request.method == "POST":#如果是post就注册
+        err_msg = {
+            "result": "NO"
+        }
+        param = json.loads(request.data.decode("utf-8"))#解析数据
+        username = param.get("username", "")#获取对应参数
+        password = param.get("password", "")
+        nickname = param.get("nickname", "")
+        if not username:
+            err_msg["msg"] = "缺少用户名"
+            return jsonify(err_msg)
+        if not password:
+            err_msg["msg"] = "缺少密码"
+            return jsonify(err_msg)
+        if not nickname:
+            err_msg["msg"] = "缺少用户名"
+            return jsonify(err_msg)
+        user = User.objects(username=username)#用username查找user，判断是否注册
+        if not user:#没注册
+            user = User(username=username, nickname=nickname)
+            user.hash_password(password)
+            return jsonify({
+                "result": "OK"
+            })
+        else:
+            err_msg["msg"] = "用户已经注册"
+            return jsonify(err_msg)
+            #最后返回结果jsonify是将结果json化并且还能防止跨域
+
+#登录
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html")
+    elif request.method == "POST":
+        err_msg = {
+            "result": "NO"
+        }
+        param = json.loads(request.data.decode("utf-8"))
+        username = param.get("username", "")
+        password = param.get("password", "")
+        if not username:
+            err_msg["msg"] = "缺少用户名"
+            return jsonify(err_msg)
+        if not password:
+            err_msg["msg"] = "缺少密码"
+            return jsonify(err_msg)
+        user = User.objects(username=username).first()#用username找user判断是否注册
+        if not user:
+            err_msg["msg"] = "用户尚未注册"
+            return jsonify(err_msg)
+        if not user.verify_password(password):#密码验证
+            err_msg["msg"] = "密码错误"
+            return jsonify(err_msg)
+        login_user(user)#用户身份验证完成后将用户登录，剩下的身份确认都交给flask_login
+        return jsonify({
+            "result": "OK",
+            "next_url": "/"
+        })

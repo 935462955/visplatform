@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/toastr.min.css" />
+    <script src="/static/js/toastr.min.js"></script>
+    <title>注册</title>
+</head>
+
+<body>
+    <label>用户名：</label><input type="text" id="nickname"><br>
+    <label>账 号：</label><input type="text" id="username"><br>
+    <label>密 码：</label><input type="password" id="password"><br>
+    <input type="button" value="注册" onclick="register()"><br>
+    <a href="/login">登录</a>
+
+    <script>
+        function register() {
+            var formdata = {
+                "username": $("#username").val(),
+                "password": $("#password").val(),
+                "nickname": $("#nickname").val()
+            }
+            //这里是一个json,通过id和.val()函数获取input填写的值
+            $.ajax({
+                url: "/register",
+                data: JSON.stringify(formdata),//将数据标准json化
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result) {//后台返回结果一个json，包含result和msg两个字段
+                    if (result.result == "OK") {
+                        toastr["success"]("注册成功")
+                    } else if (result.result == "NO") {
+                        toastr["error"](result.msg)
+                    }
+                },
+                error: function() {
+                    toastr["error"]("网络连接失败");
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
