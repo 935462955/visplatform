@@ -5,17 +5,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/toastr.min.css" />
-    <script src="/static/js/toastr.min.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="../templates/css/toastr.min.css" />
+    <script src="../templates/js/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../templates/css/style.css">
     <title>登录</title>
 </head>
 
 <body>
-    <label>帐 号：</label><input type="text" id="username"><br>
-    <label>密 码：</label><input type="password" id="password"><br>
-    <input type="button" value="登录" onclick="login()">
-    <input type="button" value="注册" onclick="register()">
+    <form class="box" method="post">
+        <h1>Login</h1>
+        <input type="text" name="" placeholder="Username" id="username">
+        <input type="password" name="" placeholder="Password" id="password">
+        <input id="first" type="button" value="注册" onclick="register()">
+        <input type="button" value="登录" onclick="login()">
+    </form>
     <script>
         function login() {
             var formdata = {
@@ -40,6 +44,7 @@
                     toastr["error"]("网络连接失败");
                 }
             })
+            return false;
         }
 
         function next_url(url) {
