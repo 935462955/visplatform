@@ -338,7 +338,7 @@ def register():
         password = param.get("password", "")
         nickname = param.get("nickname", "")
         if not username:
-            err_msg["msg"] = "缺少用户名"
+            err_msg["msg"] = "缺少帐号"
             return jsonify(err_msg)
         if not password:
             err_msg["msg"] = "缺少密码"
@@ -354,7 +354,7 @@ def register():
                 "result": "OK"
             })
         else:
-            err_msg["msg"] = "用户已经注册"
+            err_msg["msg"] = "帐号已经注册"
             return jsonify(err_msg)
             #最后返回结果jsonify是将结果json化并且还能防止跨域
 
@@ -371,14 +371,14 @@ def login():
         username = param.get("username", "")
         password = param.get("password", "")
         if not username:
-            err_msg["msg"] = "缺少用户名"
+            err_msg["msg"] = "缺少帐号"
             return jsonify(err_msg)
         if not password:
             err_msg["msg"] = "缺少密码"
             return jsonify(err_msg)
         user = User.objects(username=username).first()#用username找user判断是否注册
         if not user:
-            err_msg["msg"] = "用户尚未注册"
+            err_msg["msg"] = "帐号尚未注册"
             return jsonify(err_msg)
         if not user.verify_password(password):#密码验证
             err_msg["msg"] = "密码错误"
