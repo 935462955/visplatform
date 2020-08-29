@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="../node_modules/jquery/dist/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="../templates/css/toastr.min.css" />
-    <script src="../templates/js/toastr.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="../templates/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/toastr.min.css" />
+    <script src="../js/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
     <title>登录</title>
 </head>
 
@@ -27,7 +27,7 @@
                 "password": $("#password").val(),
             }
             $.ajax({
-                url: "/login",
+                url: "{{ url_for('login') }}",
                 type: "POST",
                 data: JSON.stringify(formdata),
                 dataType: "json",
@@ -52,7 +52,7 @@
         }
 
         function register() {
-            window.location.href = "/register"
+            window.location.href = "{{  url_for('register')}}"
         }
     </script>
 </body>

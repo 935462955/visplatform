@@ -11,6 +11,7 @@ flask-mongoengine = "==0.9.5"
 flask-dotenv = "*"
 python-dotenv = "*"
 jasmine = "*"
+flask-login = "*"
 
 [requires]
 python_version = "3.7"
