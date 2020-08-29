@@ -15,7 +15,16 @@ class CourseModel(db.Document):
         "collection": "course",
         "strict": "False"
            }
-
+class ProjectModel(db.Document):
+    _id = db.ObjectIdField()
+    project_id = db.IntField()
+    title = db.StringField()
+    text = db.StringField()
+    test = db.StringField()
+    meta = {
+        "collection": "project",
+        "strict": "False"
+           }
 
 class SubModule(db.EmbeddedDocument):
     sub_id = db.ObjectIdField()

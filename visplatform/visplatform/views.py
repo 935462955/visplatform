@@ -59,11 +59,11 @@ def show_course(_id):
         # 获取下一个课程的链接
         next_order = 1
     response = make_response(render_template('course.html',course=course,goal=goal,next_id = next_id,next_type = next_type,next_order=next_order))
-    response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)
+    response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)# 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
 
 @app.route('/category_set_cookie',methods=['POST'])
-def category_set_cookie():
+def category_set_cookie():#读取列表的展开状态，fold表示展开 unfold表示折叠
     data = json.loads(request.data)
     resp = make_response("success")  # 设置响应体
     resp.set_cookie(data['id'], data['state'], max_age=7*24*3600)
@@ -90,7 +90,7 @@ def Admin():
    '''page = request.args.get('page', 1, type=int)
     per_page = 10
     paginate = CourseModel.objects.order_by('course_id').paginate(page=page, per_page=per_page)
-    return render_template('CourseList1.html', paginate=paginate)'''
+    return render_template('FenYeMoBan.html', paginate=paginate)'''
    return redirect(url_for('show_codepages'))
 
 @app.route('/new',methods=['POST','GET'])
