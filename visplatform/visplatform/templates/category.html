@@ -23,10 +23,39 @@
             min-height: 50px !important;
             padding: 0 !important;
         }
+
+        #user {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            left: 75%;
+            color: #007bff;
+        }
+        #user button:hover{
+            background: #2ecc71;
+        }
+        #user button{
+            border: 0;
+            background: none;
+            display: block;
+            text-align: center;
+            border: 2px solid #2ecc71;
+            padding: 14px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+            color: #007bff;
+        }
     </style>
 </head>
 <body>
 <div class="container">
+    <div id="user">
+        <p>&nbsp;&nbsp;用户 : {{ current_user.nickname }}</p>
+        <button onclick="window.location.href = 'logout'">退出登录</button>
+    </div>
     <div class="row" style="width: 50% ; margin-left:25%; margin-top:5vh">
         <div class="col-12">
 
@@ -84,8 +113,8 @@
                 url: "{{ url_for('category_set_cookie') }}",
                 type: "post",
                 data: JSON.stringify({
-                    'id' : id,
-                    'state':'unfold'
+                    'id': id,
+                    'state': 'unfold'
                 }),
                 dataType: 'json',
                 processData: false,
@@ -103,14 +132,14 @@
         if (path.attr("data-state") == "down") {
             path.attr("d", "M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z")
             path.attr("data-state", "right")
-             let id = $(this).attr('id').slice(3)
+            let id = $(this).attr('id').slice(3)
             console.log(id)
             $.ajax({
                 url: "{{ url_for('category_set_cookie') }}",
                 type: "post",
                 data: JSON.stringify({
-                    'id' : id,
-                    'state':'fold'
+                    'id': id,
+                    'state': 'fold'
                 }),
                 dataType: 'json',
                 processData: false,
