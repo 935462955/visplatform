@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_login import LoginManager
 from flask_mongoengine import MongoEngine
 
 
@@ -12,5 +13,9 @@ app.jinja_env.trim_blocks = True
 app.jinja_env.lstrip_blocks = True
 app.config.from_pyfile('settings.py')
 db = MongoEngine(app)
+
+loginmanager = LoginManager(app)#loginmanager对象定义并对app初始化
+loginmanager.session_protection = "strong"#session保护登记
+loginmanager.login_view = "login"#如果访问需要登录的界面自动重定向到login界面
 
 from visplatform import views, filter

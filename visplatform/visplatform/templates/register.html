@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+    <link rel="stylesheet" type="text/css" href="../templates/css/toastr.min.css" />
+    <script src="../templates/js/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../templates/css/style.css">
+    <title>注册</title>
+</head>
+
+<body>
+    <form class="box" method="post">
+        <h1>Login</h1>
+        <input type="text" name="" placeholder="Nickname" id="nickname">
+        <input type="text" name="" placeholder="Username" id="username">
+        <input type="password" name="" placeholder="Password" id="password">
+        <input id="first" type="button" value="注册" onclick="register()">
+        <input type="button" value="登录" onclick="login()">
+    </form>
+
+    <script>
+        function register() {
+            var formdata = {
+                "username": $("#username").val(),
+                "password": $("#password").val(),
+                "nickname": $("#nickname").val()
+            }
+            //这里是一个json,通过id和.val()函数获取input填写的值
+            $.ajax({
+                url: "/register",
+                data: JSON.stringify(formdata),//将数据标准json化
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                success: function(result) {//后台返回结果一个json，包含result和msg两个字段
+                    if (result.result == "OK") {
+                        toastr["success"]("注册成功")
+                    } else if (result.result == "NO") {
+                        toastr["error"](result.msg)
+                    }
+                },
+                error: function() {
+                    toastr["error"]("网络连接失败");
+                }
+            })
+        }
+        function login(){
+            window.location.href = "/login"
+        }
+    </script>
+</body>
+
+</html>

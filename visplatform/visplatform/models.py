@@ -1,5 +1,7 @@
 from visplatform import db
 from mongoengine import *
+from flask_login import UserMixin#flask-login的UserMixin表
+from werkzeug.security import generate_password_hash, check_password_hash#flask的两个依赖之一werkzeug（密码加密和密码验证）
 
 class CourseModel(db.Document):
     _id = db.ObjectIdField()
@@ -54,3 +56,24 @@ class CategoryModel(db.Document):
         "collection": "category",
         "strict": "False",
     }
+
+#用户表
+class User(db.Document, UserMixin):
+    meta = {
+        "collection": "user",#表名
+        "ordering": ["-id"],#id
+        "strict": True#自动修改表内容
+    }
+    username = db.StringField()#帐号
+    password_hash = db.StringField()#密码
+    nickname = db.StringField()#用户名
+    superuser = db.BooleanField(default=False)#是否为管理员，后续可以用来进入后台（未实现）
+
+    #密码加密
+    def hash_password(self, password):
+    	self.password_hash = generate_password_hash(password)
+    	self.save()
+
+    #密码验证
+    def verify_password(self, password):
+    	return check_password_hash(self.password_hash, password)
