@@ -33,6 +33,7 @@ def upgrade_id():
         flash('序号已更新','success')
     return redirect(url_for('Admin'))
 
+#课程页面
 @app.route('/course/<string:_id>',methods=['POST','GET'])
 def show_course(_id):
     type = request.args.get('type')
