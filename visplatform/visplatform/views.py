@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_login import login_required, logout_user, login_user
 
 from visplatform import app, loginmanager
-from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User, \
+    UserCourseCode
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json,os,random
@@ -40,7 +41,6 @@ def show_course(_id):
     order = request.args.get('order',1,int)
     units = CategoryModel.objects.first_or_404().units
 
-    print(_id)
     try : #获取id为_id的课程
         if type == 'code_page':
             course = CourseModel.objects.get_or_404(_id=_id)
@@ -389,3 +389,32 @@ def login():
             "result": "OK",
             "next_url": "/"
         })
+
+#保存用户代码
+@app.route('/course/savecode',methods=['POST'])
+def save_code():
+    if request.method == 'POST':
+        param = json.loads(request.data.decode("utf-8"))
+        username = param.get("username", "")
+        course_id = param.get("course_id", "")
+        code = param.get("code", "")
+
+        flag = True
+        user = User.objects(username = username).first()
+        user_course_code_list = user.user_course_code
+        for user_course_code in user_course_code_list:
+            if user_course_code.course_id == course_id:
+                #已经存在该id的code
+                user_course_code.code = code
+                flag = False
+                break
+
+        if flag:
+            user_course_code = UserCourseCode(course_id = course_id, code = code)
+            user_course_code_list.append(user_course_code)
+
+        user.user_course_code = user_course_code_list
+        user.save()
+
+    course = CourseModel.objects.get_or_404(_id=course_id)
+    return render_template("course.html", course=course)
