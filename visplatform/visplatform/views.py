@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response,redirect, send_from_directory
-from flask_login import login_required, logout_user, login_user
+from flask_login import login_required, logout_user, login_user, current_user
 
 from visplatform import app, loginmanager
 from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User, \
@@ -63,6 +63,15 @@ def show_course(_id):
         next_type = ' '
         # 获取下一个课程的链接
         next_order = 1
+    # 用户代码显示
+    user = User.objects(username=current_user.username).first()
+    user_course_code_list = user.user_course_code
+    for user_course_code in user_course_code_list:
+        if user_course_code.course_id == course._id.__str__():
+            # 已经存在该id的code
+            course.code = user_course_code.code
+            break
+
     response = make_response(render_template('course.html',course=course,goal=goal,next_id = next_id,next_type = next_type,next_order=next_order))
     response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)# 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
