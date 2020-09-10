@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>visplatform</title>    
+
+    <link href='../node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>
+    
+    <style>
+        #content{
+            min-height:600px;
+            margin-top:10px;
+            margin-bottom:10px;
+        }
+        #toolbar{
+            display:flex ;
+            justify-content: center;
+        }
+    </style>
+  </head>
+  <body>
+               <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="#"
+                >Home <span class="sr-only">(current)</span></a
+              >
+              <a class="nav-item nav-link" href="#">Features</a>
+              <a class="nav-item nav-link" href="#">Pricing</a>
+            </div>
+          </div>
+        </nav> 
+    <div class="container-fluid">
+      <div class="row" style="width:80% ;margin-left:10%" >
+        <div class="col-12">
+            <div id="title"><h1 style="text-align: center; margin-top: 20px;">标题</h1></div>
+            <hr/>
+            <div id="content"></div>
+            <hr/>
+            <div id="toolbar">
+                 <button class="btn btn-outline-dark" id="start_code_btn" type="button" >
+                 Start
+                <svg class="bi bi-terminal-fill" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M0 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3zm9.5 5.5h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm-6.354-.354L4.793 6.5 3.146 4.854a.5.5 0 1 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708z"/>
+</svg>
+</button>
+            </div>
+        </div>
+      </div>
+    </div>  
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script src='../node_modules/bootstrap/dist/js/bootstrap.js'></script>
+    <script src="../node_modules/marked/marked.min.js"></script>
+
+    <script>
+      $('#start_code_btn').on('click',function(){
+          window.open("https://cdn.jsdelivr.net/npm/marked/marked.min.js")
+      })
+      document.getElementById("content").innerHTML = marked(
+        "# Marked in browser\n\nRendered by **marked**."
+      );
+    </script>
+  </body>
+</html>

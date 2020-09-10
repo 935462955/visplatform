@@ -29,8 +29,11 @@
 
         .draggable--over {
             background-color: #007bff;
-        }
 
+        }
+        .draggable--over a{
+            color:white;
+        }
         .modal-li-active, .modal-type-active {
             background-color: deepskyblue;
         }
@@ -62,13 +65,13 @@
          </div>
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-modules-tab" data-toggle="pill" href="#v-pills-modules" role="tab"
+                <a class="nav-link active" id="v-pills-modules-tab"  href="#v-pills-modules" role="tab"
                    aria-controls="v-pills-modules" aria-selected="true">目录</a>
                 <a class="nav-link" id="v-pills-codepage-tab"  href="{{ url_for('show_codepages') }}" role="tab"
                    aria-controls="v-pills-codepage" aria-selected="false">编程课程</a>
-                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
-                   aria-controls="v-pills-messages" aria-selected="false">Messages</a>
-                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                <a class="nav-link" id="v-pills-messages-tab"  href="{{ url_for('show_projectpages') }}" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">项目挑战</a>
+                <a class="nav-link" id="v-pills-settings-tab"  href="#v-pills-settings" role="tab"
                    aria-controls="v-pills-settings" aria-selected="false">Settings</a>
             </div>
         </div>
@@ -143,7 +146,7 @@
                                     <div class="col-2" style="border-right:solid grey 1px;">
                                         <ul style="padding: 0"><!-- 需要循环处理 -->
                                             <li class="modal-module-type" data-activeType="code_page"><a>课程</a></li>
-                                            <li class="modal-module-type" data-activeType="search">调查</li>
+                                            <li class="modal-module-type" data-activeType="project_page">项目</li>
                                             <li class="modal-module-type" data-activeType="assignment">作业</li>
                                             <li class="modal-module-type" data-activeType="discuss">讨论</li>
                                         </ul>
@@ -321,13 +324,13 @@
         container.innerHTML = this.getAttribute("data-module-name")
     })
     document.querySelectorAll('.modal-module-type').forEach(i => i.addEventListener('click', function () {//模态框中被点击的模块高亮并加载模块中所有子模块
-        if (active_module_ele != null) {
+        if (active_module_ele != null) { //设置激活样式
             active_module_ele.classList.remove('modal-type-active')
         }
         active_module_ele = this
         active_module_ele.classList.add('modal-type-active')
         let active_module_type = this.getAttribute("data-activeType")
-        $.ajax({
+        $.ajax({//获取某一模块类型的所有内容
             url: "{{ url_for('get_sub_module') }}",
             type: "post",
             data: JSON.stringify({
@@ -419,6 +422,7 @@
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    //更新对应模块列表显示
                     let ul = document.querySelector(`#id_${module_as_container}`)
                     ul.innerHTML = data
                     $('#exampleModal').modal('hide')

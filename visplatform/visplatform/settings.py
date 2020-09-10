@@ -9,4 +9,5 @@ MONGODB_SETTINGS ={
     'port': 27017
 }
 CSRF_ENABLED = True
-UPLOAD_FOLDER = 'visplatform/data'
+COURSE_UPLOAD_FOLDER = 'visplatform/data'
+PROJECT_UPLOAD_FOLDER = 'visplatform/js/test4project'

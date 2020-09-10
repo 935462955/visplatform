@@ -2,14 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97d2ee60-7cd4-4838-b28a-c8cddda963fd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/visplatform/templates/editproject.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/visplatform/templates/fragment_editproject_file_selector.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/visplatform/templates/make_project.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/visplatform/templates/project_description.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pipfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Pipfile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visplatform/templates/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visplatform/templates/css/toastr.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/css/toastr.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visplatform/templates/js/toastr.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/js/toastr.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visplatform/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/templates/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/visplatform/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/templates/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/templates/codepagelist.html" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/templates/codepagelist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/templates/courselist.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/templates/modules.html" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/templates/modules.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/templates/projectlist.html" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/templates/projectpagelist.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/templates/test_jasmine.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/tools.py" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/tools.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/visplatform/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/visplatform/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,11 +27,30 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/visplatform/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7373">
-              <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+            <state relative-caret-position="174">
+              <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
               <folding>
                 <element signature="e#0#129#0" expanded="true" />
+                <element signature="e#16276#17365#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visplatform/templates/make_project.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="190" column="30" lean-forward="true" selection-start-line="190" selection-start-column="30" selection-end-line="190" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/visplatform/templates/project_description.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -34,8 +58,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/visplatform/templates/course.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1074">
-              <caret line="169" column="92" selection-start-line="169" selection-start-column="92" selection-end-line="169" selection-end-column="92" />
+            <state relative-caret-position="202">
+              <caret line="169" column="85" selection-start-line="169" selection-start-column="85" selection-end-line="169" selection-end-column="85" />
             </state>
           </provider>
         </entry>
@@ -43,14 +67,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/visplatform/templates/category.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1263">
-              <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+            <state relative-caret-position="428">
+              <caret line="87" column="124" lean-forward="true" selection-start-line="87" selection-start-column="124" selection-end-line="87" selection-end-column="124" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visplatform/templates/editproject.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1034">
+              <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
               <folding>
-                <element signature="e#1243#1249#0#HTML" expanded="true" />
-                <element signature="e#1249#1255#0#HTML" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#h2#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#textarea#0;n#div#2;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visplatform/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,68 +104,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/visplatform/templates/modules.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="526">
-              <caret line="474" column="38" selection-start-line="474" selection-start-column="38" selection-end-line="474" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Pipfile">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visplatform/templates/register.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/visplatform/templates/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="54" column="58" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visplatform/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+            <state relative-caret-position="386">
+              <caret line="424" column="27" selection-start-line="424" selection-start-column="27" selection-end-line="424" selection-end-column="27" />
               <folding>
-                <element signature="e#0#23#0" expanded="true" />
+                <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="e#10456#11428#0#HTML" />
+                <element signature="e#11476#11618#0#HTML" />
+                <element signature="e#11669#11715#0#HTML" />
+                <element signature="e#11758#12637#0#HTML" />
+                <element signature="e#12701#13056#0#HTML" />
+                <element signature="e#13120#13478#0#HTML" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visplatform/templates/projectlist.html">
+        <entry file="file://$PROJECT_DIR$/visplatform/templates/codepagelist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+            <state relative-caret-position="69">
+              <caret line="15" column="97" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="97" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/visplatform/models.py">
+        <entry file="file://$PROJECT_DIR$/visplatform/templates/projectpagelist.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="679">
-              <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="197">
+              <caret line="77" column="17" lean-forward="true" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -139,17 +152,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>course_id</find>
-      <find>submit</find>
-      <find>csrf</find>
-      <find>list-group-div</find>
-      <find>modal-module-type</find>
-      <find>course</find>
-      <find>SubModule</find>
-      <find>data-activeType</find>
-      <find>dropdown-item</find>
-      <find>modal-sub-list</find>
-      <find>add-module-btn</find>
       <find>module-title</find>
       <find>url_for</find>
       <find>order</find>
@@ -160,6 +162,26 @@
       <find>unit</find>
       <find>runtest</find>
       <find>get_sub_module_detals</find>
+      <find>send_from_directory</find>
+      <find>courselist</find>
+      <find>iframe</find>
+      <find>submit_upload</find>
+      <find>input_filename</find>
+      <find>MyProjectUniqueID</find>
+      <find>input_title</find>
+      <find>#form</find>
+      <find>uniqueId</find>
+      <find>UPLOAD_FOLDER</find>
+      <find>test</find>
+      <find>file_selector</find>
+      <find>fileSelector</find>
+      <find>upload_file</find>
+      <find>form_upload</find>
+      <find>course</find>
+      <find>edittext</find>
+      <find>code_page</find>
+      <find>data-activeType</find>
+      <find>next_type</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +190,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/templates/course.html" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/models.py" />
         <option value="$PROJECT_DIR$/setting.py" />
@@ -182,7 +203,6 @@
         <option value="$PROJECT_DIR$/visplatform/data/us-population.csv" />
         <option value="$PROJECT_DIR$/visplatform/js/iframe_js.py" />
         <option value="$PROJECT_DIR$/visplatform/js/iframe_js.js" />
-        <option value="$PROJECT_DIR$/visplatform/settings.py" />
         <option value="$PROJECT_DIR$/visplatform/__init__.py" />
         <option value="$PROJECT_DIR$/visplatform/js/draggable.js" />
         <option value="$PROJECT_DIR$/visplatform/js/popper.js" />
@@ -198,29 +218,37 @@
         <option value="$PROJECT_DIR$/visplatform/templates/category1.html" />
         <option value="$PROJECT_DIR$/visplatform/templates/courselist.html" />
         <option value="$PROJECT_DIR$/visplatform/templates/macros/modules.html" />
-        <option value="$PROJECT_DIR$/visplatform/tools.py" />
         <option value="$PROJECT_DIR$/visplatform/templates/category.html" />
-        <option value="$PROJECT_DIR$/visplatform/templates/codepagelist.html" />
         <option value="$PROJECT_DIR$/visplatform/templates/course.html" />
-        <option value="$PROJECT_DIR$/visplatform/templates/editcourse.html" />
         <option value="$PROJECT_DIR$/visplatform/js/iframe.js" />
         <option value="$PROJECT_DIR$/visplatform/filter.py" />
-        <option value="$PROJECT_DIR$/visplatform/templates/modules.html" />
         <option value="$PROJECT_DIR$/visplatform/js/test01.js" />
         <option value="$PROJECT_DIR$/visplatform/templates/test_jasmine.html" />
         <option value="$PROJECT_DIR$/visplatform/templates/projectlist.html" />
         <option value="$PROJECT_DIR$/visplatform/models.py" />
-        <option value="$PROJECT_DIR$/visplatform/views.py" />
         <option value="$PROJECT_DIR$/visplatform/templates/register.html" />
         <option value="$PROJECT_DIR$/visplatform/templates/login.html" />
+        <option value="$PROJECT_DIR$/visplatform/templates/codepagelist.html" />
+        <option value="E:/图像处理作业/DST_HOMEWORK/main.py" />
+        <option value="$PROJECT_DIR$/visplatform/templates/editcourse.html" />
+        <option value="$PROJECT_DIR$/visplatform/settings.py" />
+        <option value="$PROJECT_DIR$/visplatform/templates/fragment_editproject_selector_option.html" />
+        <option value="$PROJECT_DIR$/visplatform/templates/fragment_editproject_file_selector.html" />
+        <option value="$PROJECT_DIR$/visplatform/templates/projectpagelist.html" />
+        <option value="$PROJECT_DIR$/visplatform/templates/editproject.html" />
+        <option value="$PROJECT_DIR$/visplatform/tools.py" />
+        <option value="$PROJECT_DIR$/visplatform/templates/modules.html" />
+        <option value="$PROJECT_DIR$/visplatform/views.py" />
+        <option value="$PROJECT_DIR$/visplatform/templates/make_project.html" />
+        <option value="$PROJECT_DIR$/visplatform/templates/project_description.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="189" />
-    <option name="y" value="17" />
-    <option name="width" value="1438" />
-    <option name="height" value="1055" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="966" />
+    <option name="y" value="186" />
+    <option name="width" value="1287" />
+    <option name="height" value="807" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -228,6 +256,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -244,6 +273,19 @@
               <item name="visplatform" type="b2602c69:ProjectViewProjectNode" />
               <item name="visplatform" type="462c0819:PsiDirectoryNode" />
               <item name="visplatform" type="462c0819:PsiDirectoryNode" />
+              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visplatform" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visplatform" type="462c0819:PsiDirectoryNode" />
+              <item name="visplatform" type="462c0819:PsiDirectoryNode" />
+              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="marked" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="visplatform" type="b2602c69:ProjectViewProjectNode" />
+              <item name="visplatform" type="462c0819:PsiDirectoryNode" />
+              <item name="visplatform" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -254,14 +296,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="E:/图像处理作业/DST_HOMEWORK" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/visplatform/templates" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -273,18 +314,18 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\js" />
-      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\node_modules" />
-      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\templates" />
-      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\backup" />
-      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\data" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\程序\visplatform\visplatform\visplatform" />
       <recent name="G:\程序\visplatform\visplatform\visplatform\js" />
       <recent name="G:\程序\可视化课程平台\visplatform\visplatform\backup" />
       <recent name="G:\程序\可视化课程平台\visplatform\visplatform" />
+      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\templates" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\程序\visplatform\visplatform\visplatform\templates" />
+      <recent name="G:\程序\visplatform\visplatform\visplatform\node_modules\jquery\dist" />
+      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\js" />
+      <recent name="G:\程序\可视化课程平台\visplatform\visplatform\node_modules" />
       <recent name="G:\程序\可视化课程平台\visplatform\visplatform\templates" />
     </key>
   </component>
@@ -365,12 +406,14 @@
       <workItem from="1597075741593" duration="8903000" />
       <workItem from="1597377331710" duration="8422000" />
       <workItem from="1598438799701" duration="70000" />
-      <workItem from="1598624798682" duration="8723000" />
+      <workItem from="1598624798682" duration="50469000" />
+      <workItem from="1599023348744" duration="1825000" />
+      <workItem from="1599641940279" duration="11115000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="504280000" />
+    <option name="totallyTimeSpent" value="558966000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -385,7 +428,7 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26332623" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1924307" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -399,7 +442,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.23180874" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.0997921" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3253638" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -438,32 +481,6 @@
     <SUITE FILE_PATH="coverage/visplatform$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1591864065970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/models.py" />
-    <entry file="file://$PROJECT_DIR$/settings.py" />
-    <entry file="file://$USER_HOME$/.virtualenvs/visplatform-Yhf3cRiS/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54901">
-          <caret line="2446" selection-start-line="2446" selection-end-line="2446" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/course.html" />
-    <entry file="file://$PROJECT_DIR$/app.py" />
-    <entry file="file://$USER_HOME$/.virtualenvs/visplatform-Yhf3cRiS/Lib/site-packages/mongoengine/base/metaclasses.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1380">
-          <caret line="375" column="39" selection-start-line="375" selection-start-column="39" selection-end-line="375" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.virtualenvs/visplatform-Yhf3cRiS/Lib/site-packages/mongoengine/queryset/manager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="11" column="33" selection-start-line="11" selection-start-column="33" selection-end-line="11" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/newcourse.html" />
     <entry file="file://$USER_HOME$/.virtualenvs/visplatform-Yhf3cRiS/Lib/site-packages/werkzeug/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10925">
@@ -536,13 +553,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/file_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.virtualenvs/visplatform-Yhf3cRiS/Lib/site-packages/mongoengine/queryset/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
@@ -554,26 +564,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="1" column="20" lean-forward="true" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/fragment_modules_modal_li.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="1" column="56" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
-          <folding>
-            <element signature="e#35#59#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -591,27 +581,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/macros/modules.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="68" column="113" selection-start-line="68" selection-start-column="113" selection-end-line="68" selection-end-column="113" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/templates/fragment_modules_sub_li.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="1" column="20" selection-start-line="1" selection-start-column="20" selection-end-line="1" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/tools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -622,34 +595,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/codepagelist.html">
+    <entry file="file://$PROJECT_DIR$/visplatform/spec/javascripts/support/jasmine.yml" />
+    <entry file="file://$PROJECT_DIR$/visplatform/js/test01.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.flaskenv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
-          </folding>
+        <state relative-caret-position="46">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Pipfile.lock">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/spec/javascripts/support/jasmine.yml" />
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/test_jasmine.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="36" column="25" selection-start-line="36" selection-start-column="25" selection-end-line="36" selection-end-column="25" />
+        <state relative-caret-position="-828" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Pipfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/js/test01.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/editcourse.html">
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/test_jasmine.html" />
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="116" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="116" />
+        <state relative-caret-position="403">
+          <caret line="34" column="45" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -660,110 +633,216 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.flaskenv">
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/courselist.html" />
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="46">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        <state relative-caret-position="184">
+          <caret line="8" column="62" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/js/iframe.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="11" column="54" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/courselist.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="50" column="16" selection-end-line="70" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="679">
-          <caret line="61" column="35" selection-start-line="61" selection-start-column="35" selection-end-line="61" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Pipfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" column="19" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/register.html">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
-          <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
+          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="29" selection-start-line="12" selection-start-column="29" selection-end-line="12" selection-end-column="29" />
+        <state relative-caret-position="391">
+          <caret line="17" column="54" lean-forward="true" selection-start-line="17" selection-start-column="54" selection-end-line="17" selection-end-column="54" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/views.py">
+    <entry file="file://E:/图像处理作业/DST_HOMEWORK/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7373">
-          <caret line="18" column="41" selection-start-line="18" selection-start-column="41" selection-end-line="18" selection-end-column="41" />
+        <state relative-caret-position="345">
+          <caret line="29" column="45" selection-start-line="29" selection-start-column="45" selection-end-line="29" selection-end-column="45" />
+          <caret line="30" column="17" lean-forward="true" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
           <folding>
-            <element signature="e#0#129#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/macros/modules.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1564">
+          <caret line="68" column="113" selection-start-line="68" selection-start-column="113" selection-end-line="68" selection-end-column="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/node_modules/bootstrap/dist/js/bootstrap.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/node_modules/bootstrap/dist/js/bootstrap.bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/fragment_editproject_file_selector.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="52" selection-start-line="1" selection-start-column="52" selection-end-line="1" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/file_list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="11" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="12" column="53" selection-start-line="12" selection-start-column="53" selection-end-line="12" selection-end-column="53" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/editcourse.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="219" column="18" lean-forward="true" selection-start-line="219" selection-start-column="18" selection-end-line="219" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/fragment_modules_modal_li.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="1" column="86" lean-forward="true" selection-start-line="1" selection-start-column="86" selection-end-line="1" selection-end-column="86" />
+          <folding>
+            <element signature="e#35#59#0#HTML" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/codepagelist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="15" column="97" selection-start-line="15" selection-start-column="61" selection-end-line="15" selection-end-column="97" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharm2019.1/system/python_stubs/-1323839456/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="2871" column="8" selection-start-line="2871" selection-start-column="8" selection-end-line="2871" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/tools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="92">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/templates/modules.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="474" column="38" selection-start-line="474" selection-start-column="38" selection-end-line="474" selection-end-column="38" />
+        <state relative-caret-position="386">
+          <caret line="424" column="27" selection-start-line="424" selection-start-column="27" selection-end-line="424" selection-end-column="27" />
+          <folding>
+            <element signature="n#style#0;n#ul#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#2;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#10456#11428#0#HTML" />
+            <element signature="e#11476#11618#0#HTML" />
+            <element signature="e#11669#11715#0#HTML" />
+            <element signature="e#11758#12637#0#HTML" />
+            <element signature="e#12701#13056#0#HTML" />
+            <element signature="e#13120#13478#0#HTML" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/templates/category.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1263">
-          <caret line="89" column="32" selection-start-line="89" selection-start-column="32" selection-end-line="89" selection-end-column="32" />
+        <state relative-caret-position="428">
+          <caret line="87" column="124" lean-forward="true" selection-start-line="87" selection-start-column="124" selection-end-line="87" selection-end-column="124" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="62" column="38" lean-forward="true" selection-start-line="62" selection-start-column="38" selection-end-line="62" selection-end-column="38" />
           <folding>
-            <element signature="e#1243#1249#0#HTML" expanded="true" />
-            <element signature="e#1249#1255#0#HTML" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#h2#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/visplatform/templates/course.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1074">
-          <caret line="169" column="92" selection-start-line="169" selection-start-column="92" selection-end-line="169" selection-end-column="92" />
+        <state relative-caret-position="202">
+          <caret line="169" column="85" selection-start-line="169" selection-start-column="85" selection-end-line="169" selection-end-column="85" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/projectlist.html">
+    <entry file="file://$PROJECT_DIR$/visplatform/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+        <state relative-caret-position="174">
+          <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#129#0" expanded="true" />
+            <element signature="e#16276#17365#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visplatform/templates/login.html">
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/editproject.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="54" column="58" selection-start-line="54" selection-start-column="58" selection-end-line="54" selection-end-column="58" />
+        <state relative-caret-position="1034">
+          <caret line="58" column="7" lean-forward="true" selection-start-line="58" selection-start-column="7" selection-end-line="58" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#div#2;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/projectpagelist.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="77" column="17" lean-forward="true" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/make_project.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="190" column="30" lean-forward="true" selection-start-line="190" selection-start-column="30" selection-end-line="190" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visplatform/templates/project_description.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
         </state>
       </provider>
     </entry>

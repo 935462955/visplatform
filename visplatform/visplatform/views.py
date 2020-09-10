@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_login import login_required, logout_user, login_user
 
 from visplatform import app, loginmanager
-from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User,ProjectModel
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json,os,random
@@ -14,45 +14,14 @@ def index():
     anchor = request.cookies.get('anchor', '')  # 锚点
     return redirect(url_for('show_category',_anchor=anchor))
 
-@app.route('/upgrade_id')
-def upgrade_id():
-    start = request.args.get('start_num')
-    end = request.args.get('end_num')
-    try:
-        op = int(request.args.get('op'))
-    except:
-        flash('必须填写数字','danger')
-        return redirect(url_for('Admin'))
-    if start > end:
-        flash('起点序号不能大于终点序号','danger')
-    else:
-        for item in CourseModel.objects.filter(course_id__gte=start, course_id__lte=end):
-                item.course_id += op
-                item.save()
-
-        flash('序号已更新','success')
-    return redirect(url_for('Admin'))
-
 @app.route('/course/<string:_id>',methods=['POST','GET'])
+@login_required
 def show_course(_id):
     type = request.args.get('type')
     order = request.args.get('order',1,int)
     units = CategoryModel.objects.first_or_404().units
 
     print(_id)
-    try : #获取id为_id的课程
-        if type == 'code_page':
-            course = CourseModel.objects.get_or_404(_id=_id)
-            try:  # 处理非法goal
-                goal = json.loads(course.goal)
-            except:
-                goal = json.loads('[]')
-        else:
-            return redirect(url_for('show_category'))
-    except:
-        return redirect(url_for('show_category'))
-
-
     try:
         next_id = units[order].unit_id
         next_type = units[order].unit_type
@@ -62,7 +31,26 @@ def show_course(_id):
         next_type = ' '
         # 获取下一个课程的链接
         next_order = 1
-    response = make_response(render_template('course.html',course=course,goal=goal,next_id = next_id,next_type = next_type,next_order=next_order))
+    try : #获取id为_id的课程
+        if type == 'code_page':
+            course = CourseModel.objects.get_or_404(_id=_id)
+            try:  # 处理非法goal
+                goal = json.loads(course.goal)
+            except:
+                goal = json.loads('[]')
+            response = make_response(
+                render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order))
+        elif type == 'project_page':
+            project = ProjectModel.objects.get_or_404(_id = _id)
+            response = make_response(render_template('project.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))
+        else:
+            return redirect(url_for('show_category'))
+    except:
+        return redirect(url_for('show_category'))
+
+
+
+
     response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)# 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
 
@@ -83,7 +71,7 @@ def show_category():
     for module in modules:
         collapse_state[str(module._id)] = request.cookies.get(str(module._id),'fold') #折叠状态
         dics.update(tools.get_sub_module_details(module.sub_modules))
-        for sub in module.sub_modules:
+        for sub in module.sub_modules: #统计所有课程的顺序
             sub.order = order
             order +=1
 
@@ -97,7 +85,7 @@ def Admin():
     return render_template('FenYeMoBan.html', paginate=paginate)'''
    return redirect(url_for('show_codepages'))
 
-@app.route('/new',methods=['POST','GET'])
+@app.route('/codepage/new',methods=['POST','GET'])
 def add_course():
     course = CourseModel.objects.get_or_404(course_id=0)
     CourseForm = model_form(CourseModel)
@@ -117,8 +105,27 @@ def add_course():
         new_course.save(force_insert=True)
         return redirect(url_for('Admin'))
     course.course_id = max_id
-    files = tools.listdir(app.config['UPLOAD_FOLDER'])
+    files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
     return render_template('editcourse.html', course=course, form=form,files = files)
+
+@app.route('/projectpage/new',methods=['POST','GET'])
+def add_project():
+    project = ProjectModel(title="",text="",test="")
+    ProjectForm = model_form(ProjectModel)
+    form = ProjectForm(request.form)
+    all_id = ProjectModel.objects.order_by('project_id').fields(project_id=1)
+    max_id = 1 if len(all_id) == 0 else all_id[len(all_id)-1].project_id + 1
+    if request.method == 'POST':
+        title = form.title.data
+        text = form.text.data
+        test = form.test.data
+        project_id = form.project_id.data
+        new_project = ProjectModel(title=title,text=text,project_id=project_id,test=test)
+        new_project.save(force_insert=True)
+        return redirect(url_for('show_projectpages'))
+    project.project_id = max_id
+    files = tools.listdir(app.config['PROJECT_UPLOAD_FOLDER'])
+    return render_template('editproject.html', project=project, form=form,files = files)
 
 @app.route('/editcourse/<string:_id>', methods=['POST', 'GET'])
 def edit_course(_id):
@@ -139,33 +146,69 @@ def edit_course(_id):
         course.save()
         # flash('Course updated.','success')
         return redirect(url_for('edit_course',_id = _id))
-    files = tools.listdir(app.config['UPLOAD_FOLDER'])
+    files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
     #print(files)
     return render_template('editcourse.html', course=course, form=form,files=files)
 
-@app.route('/editcourse/upload',methods=['POST'])
+@app.route('/editproject/<string:_id>', methods=['POST', 'GET'])
+def edit_project(_id):
+    project = ProjectModel.objects.get_or_404(_id=_id)
+    ProjectForm = model_form(ProjectModel)
+    form = ProjectForm(request.form)
+    if request.method == 'POST':
+        project.title = form.title.data
+        project.text = form.text.data
+        project.project_id = form.project_id.data
+        project.test = form.test.data
+        project.save()
+        # flash('Course updated.','success')
+        return redirect(url_for('edit_project',_id = _id))
+    files = tools.listdir(app.config['PROJECT_UPLOAD_FOLDER'])
+    #print(files)
+    return render_template('editproject.html', project=project, form=form,files=files)
+
+@app.route('/editcourse/upload_file',methods=['POST'])
 def upload_file():
     if request.method == 'POST':
         file = request.files['upload_file']
         filename = request.form['file_name']
-        file_path =  os.path.join(app.config['UPLOAD_FOLDER'],filename)
+        file_path =  os.path.join(app.config['COURSE_UPLOAD_FOLDER'],filename)
         file.save(file_path)
-        files = tools.listdir(app.config['UPLOAD_FOLDER'])
+        files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
         return jsonify({'html':render_template('file_list.html',files = files)})
 
-@app.route('/editcourse/delete',methods=['POST'])
+@app.route('/editcourse/delete_file',methods=['POST'])
 def delete_file():
     if request.method == 'POST':
         filename = str(request.data,'utf-8')
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file_path = os.path.join(app.config['COURSE_UPLOAD_FOLDER'], filename)
         os.remove(file_path)
-        files = tools.listdir(app.config['UPLOAD_FOLDER'])
+        files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
         return render_template('file_list.html',files =files)
 
-@app.route('/modules')
+@app.route('/editproject/upload_file',methods=['POST'])
+def project_upload_file():
+    if request.method == 'POST':
+        file = request.files['project_upload_file']
+        filename = request.form['file_name']
+        file_path =  os.path.join(app.config['PROJECT_UPLOAD_FOLDER'],filename)
+        file.save(file_path)
+        files = tools.listdir(app.config['PROJECT_UPLOAD_FOLDER'])
+        return jsonify({'list':render_template('file_list.html',files = files),'selector':render_template('fragment_editproject_file_selector.html',files=files)})
+
+@app.route('/editproject/delete_file',methods=['POST'])
+def project_delete_file():
+    if request.method == 'POST':
+        filename = str(request.data,'utf-8')
+        file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)
+        os.remove(file_path)
+        files = tools.listdir(app.config['PROJECT_UPLOAD_FOLDER'])
+        return jsonify({'list':render_template('file_list.html',files = files),'selector':render_template('fragment_editproject_file_selector.html',files=files)})
+
+@app.route('/Admin/modules')
 def show_modules():
     modules = ModuleModel.objects.order_by('order').all()
-    dics  = {}
+    dics  = {}#id 和 子模块名称映射字典
     order = 1
     for module in modules:
         dics.update(tools.get_sub_module_details(module.sub_modules))
@@ -175,7 +218,7 @@ def show_modules():
     return render_template('modules.html', modules=modules, dics=dics)
 
 
-@app.route('/modules/update',methods=['POST'])
+@app.route('/Admin/modules/update',methods=['POST'])
 def update_modules():
     if request.method == 'POST':
         data = json.loads(request.data)
@@ -284,17 +327,58 @@ def update_modules():
 
     return 'success'
 
-@app.route('/modules/fetch',methods=['POST'])
+@app.route('/Admin/modules/fetch',methods=['POST'])
 def get_sub_module():
     if request.method == 'POST':
         data = json.loads(request.data)
         if data['type'] == 'code_page':
             courses = CourseModel.objects.order_by('course_id').fields(_id=1,title=1)
             return render_template('fragment_modules_modal_li.html', sub_modules = courses)
+        elif data['type'] == 'project_page':
+            projects = ProjectModel.objects.order_by('project_id').fields(_id=1,title=1)
+            return render_template('fragment_modules_modal_li.html',sub_modules = projects)
 
     return '1'
 
-@app.route('/codepage')
+@app.route('/Admin/codepage/update')
+def upgrade_course_id():
+    start = request.args.get('start_num')
+    end = request.args.get('end_num')
+    try:
+        op = int(request.args.get('op'))
+    except:
+        flash('必须填写数字','danger')
+        return redirect(url_for('Admin'))
+    if start > end:
+        flash('起点序号不能大于终点序号','danger')
+    else:
+        for item in CourseModel.objects.filter(course_id__gte=start, course_id__lte=end):
+                item.course_id += op
+                item.save()
+
+        flash('序号已更新','success')
+    return redirect(url_for('Admin'))
+
+@app.route('/Admin/projectpage/update')
+def upgrade_project_id():
+    start = request.args.get('start_num')
+    end = request.args.get('end_num')
+    try:
+        op = int(request.args.get('op'))
+    except:
+        flash('必须填写数字','danger')
+        return redirect(url_for('Admin'))
+    if start > end:
+        flash('起点序号不能大于终点序号','danger')
+    else:
+        for item in ProjectModel.objects.filter(project_id__gte=start, project_id__lte=end):
+                item.course_id += op
+                item.save()
+
+        flash('序号已更新','success')
+    return redirect(url_for('show_projectpages'))
+
+@app.route('/Admin/codepage')
 def show_codepages():
     courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, tag=1,_id=1)[1:]
     for course in courses:
@@ -306,10 +390,10 @@ def show_codepages():
             course.tag = [' ']
     return render_template('codepagelist.html', courses=courses)
 
-@app.route('/test')
-def test():
-    return render_template('test_jasmine.html')
-
+@app.route('/Admin/projectpage')
+def show_projectpages():
+    projects = ProjectModel.objects().order_by('project_id').fields(title=1,project_id=1,_id=1)
+    return render_template('projectpagelist.html',projects=projects)
 
 # 回调函数，没有则flask-login没法用，主要是用来用id找用户对象
 @loginmanager.user_loader

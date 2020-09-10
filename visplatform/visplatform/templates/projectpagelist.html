@@ -15,24 +15,24 @@
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                 <a class="nav-link" id="v-pills-modules-tab" href="{{ url_for('show_modules') }}" role="tab"
                    aria-controls="v-pills-modules" aria-selected="true">目录</a>
-                <a class="nav-link active" id="v-pills-codepage-tab"  href="#v-pills-codepage"
+                <a class="nav-link" id="v-pills-codepage-tab"  href="{{ url_for('show_codepages') }}"
                    role="tab"
                    aria-controls="v-pills-codepage" aria-selected="false">编程课程</a>
-                <a class="nav-link" id="v-pills-messages-tab" href="{{ url_for('show_projectpages')}}" role="tab"
+                <a class="nav-link active" id="v-pills-messages-tab"  href="#v-pills-messages" role="tab"
                    aria-controls="v-pills-messages" aria-selected="false">项目挑战</a>
                 <a class="nav-link" id="v-pills-settings-tab"  href="#v-pills-settings" role="tab"
                    aria-controls="v-pills-settings" aria-selected="false">Settings</a>
             </div>
         </div>
         <div class="col-8">
-            <form action="{{ url_for('upgrade_course_id') }}">
+            <form action="{{ url_for('upgrade_project_id') }}">
                 <div class="row">
                     <div class="col-3">
                         <label>课程顺序调整：</label>
                         <label for="FormControlSelect1">起点序号</label>
                         <select class="form-control" id="FormControlSelect1" name="start_num">
-                            {% for course in courses %}
-                                <option>{{ course.course_id }}</option>
+                            {% for project in projects %}
+                                <option>{{ project.project_id }}</option>
                             {% endfor %}
 
                         </select>
@@ -40,8 +40,8 @@
                     <div class="col-3">
                         <label for="FormControlSelect2">终点序号</label>
                         <select class="form-control" id="FormControlSelect2" name="end_num">
-                            {% for course in courses %}
-                                <option>{{ course.course_id }}</option>
+                            {% for project in projects %}
+                                <option>{{ project.project_id }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -68,19 +68,15 @@
                 </div>
             {% endfor %}
             <ul>
-                课程数：{{ courses|length }}
-                {% for course in courses %}
+                项目数：{{ projects|length }}
+                {% for project in projects %}
                     <li>
-                        <a href="{{ url_for('edit_course',_id = course._id) }}">{{ course.course_id }}.{{ course.title }}</a>
-                        {% if course.tag != None %}
-                            {% for tag in course.tag %}
-                                <span class="badge badge-secondary">{{ tag }}</span>
-                            {% endfor %}
-                        {% endif %}
+                        <a href="{{ url_for('edit_project',_id = project._id) }}">{{ project.project_id }}.{{ project.title }}</a>
+
                     </li>
                 {% endfor %}
             </ul>
-            <a href="{{ url_for('add_course') }}">new</a>
+            <a href="{{ url_for('add_project') }}">new</a>
         </div>
 
 
