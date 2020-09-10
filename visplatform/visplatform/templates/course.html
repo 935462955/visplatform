@@ -31,7 +31,7 @@
             height: 38px;
             top: 0;
             width: 100%;
-            background-color:#67c23a;
+            background-color: #67c23a;
         }
 
         .main {
@@ -40,7 +40,7 @@
         }
 
         .submit-btn {
-            color: #fff!important;
+            color: #fff !important;
             background-color: #67c23a;
             display: inline-block;
             line-height: 1;
@@ -113,19 +113,20 @@
             background-color: #f5f5f2;
             position: fixed !important;
             top: 0 !important;
-            min-width:100vw !important;
+            min-width: 100vw !important;
             left: 0;
             right: 0;
             bottom: 0;
             height: 100%;
             z-index: 9;
         }
-        #a_home{
-             text-decoration:none;
-             color: #f5f5f2;
-             display: inline-block;
-             padding: 7px;
-             height:24px;
+
+        #a_home {
+            text-decoration: none;
+            color: #f5f5f2;
+            display: inline-block;
+            padding: 7px;
+            height: 24px;
         }
 
     </style>
@@ -139,38 +140,45 @@
         <div id="text1">
         </div>
         <div id="div_test"></div>
-        <button id="scale1" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+        <button id="scale1" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg">
+        </button>
     </div>
     <div class="col-4" id="code">
         <div id="editor"></div>
-        <button id="scale3" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+        //代码区
+        <button id="scale3" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg">
+        </button>
     </div>
     <div class="col-4">
         <iframe style="height: 100%; width: 100%;" id="preview" name="preview"></iframe>
-        <button id="scale2" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+        <button id="scale2" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg">
+        </button>
     </div>
 </div>
-<button style="display: none" type="button" id="button_show_model" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-  Launch demo modal
+<button style="display: none" type="button" id="button_show_model" class="btn btn-primary" data-toggle="modal" onclick="saveCode()"
+        data-target="#exampleModalCenter">
+    Launch demo modal
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">测试通过！</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">测试通过！</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a type="button" class="btn btn-success" href="{{ url_for('show_course',_id=next_id,type=next_type,order=next_order) }}">下一节</a>
-      </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a type="button" class="btn btn-success"
+                   href="{{ url_for('show_course',_id=next_id,type=next_type,order=next_order) }}">下一节</a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
@@ -202,6 +210,27 @@
         xhtml: false,
     });
 
+    function saveCode() {
+        var formdata = {
+            "username": "{{current_user.username}}",
+            "code": editor.getValue(),
+            "course_id": "{{course._id}}"
+        }
+        $.ajax({
+            url: "{{ url_for('save_code') }}",
+            type: "POST",
+            data: JSON.stringify(formdata),
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+
+            },
+            error: function (e) {
+            }
+        })
+        return false;
+    }
+
     var editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
         mode: "ace/mode/html",
@@ -211,7 +240,7 @@
         enableLiveAutocompletion: true,
     });
     const title = `## {{ course.title|safe|transformText }}  \n`
-    const description  = `{{  course.text|safe|transformText }}`
+    const description = `{{  course.text|safe|transformText }}`
     var editorvalue = `{{ course.code|safe|transformText }}`
     var frame_head = `{{ course.frame_head|safe|transformText}}`
     var frame_foot = `{{ course.frame_foot|safe|transformText }}`
@@ -226,20 +255,21 @@
     })*/
     document.querySelector(
         "#text1"
-    ).innerHTML = marked(title + description+submit_part)
+    ).innerHTML = marked(title + description + submit_part)
     //document.querySelector("#test").innerHTML= marked(init_test_part)
     editor.setValue(editorvalue);
 
 
     function toIframe() {
         let htmlValue = editor.getValue();
-        let htmlStr = frame_head+htmlValue+frame_foot
+        let htmlStr = frame_head + htmlValue + frame_foot
         preview.srcdoc = htmlStr;
     }
+
     toIframe();
-    preview.onload = function(){
-    const submit = document.querySelector("#submit")
-    submit.addEventListener("click",preview.contentWindow.runtest.bind(this,goal))
+    preview.onload = function () {
+        const submit = document.querySelector("#submit")
+        submit.addEventListener("click", preview.contentWindow.runtest.bind(this, goal))
     };
 
     function toFullscreen(editor, first, second, classtype) {

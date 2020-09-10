@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response,redirect, send_from_directory
-from flask_login import login_required, logout_user, login_user
+from flask_login import login_required, logout_user, login_user, current_user
 
 from visplatform import app, loginmanager
-from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User,ProjectModel
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User,UserCourseCode,ProjectModel
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json,os,random
@@ -21,7 +21,7 @@ def show_course(_id):
     order = request.args.get('order',1,int)
     units = CategoryModel.objects.first_or_404().units
 
-    print(_id)
+ 
     try:
         next_id = units[order].unit_id
         next_type = units[order].unit_type
@@ -38,6 +38,14 @@ def show_course(_id):
                 goal = json.loads(course.goal)
             except:
                 goal = json.loads('[]')
+             # 用户代码显示
+            user = User.objects(username=current_user.username).first()
+            user_course_code_list = user.user_course_code
+            for user_course_code in user_course_code_list:
+                if user_course_code.course_id == course._id.__str__():
+                    # 已经存在该id的code
+                    course.code = user_course_code.code
+                    break
             response = make_response(
                 render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order))
         elif type == 'project_page':
@@ -48,9 +56,7 @@ def show_course(_id):
     except:
         return redirect(url_for('show_category'))
 
-
-
-
+    
     response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)# 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
 
@@ -372,7 +378,7 @@ def upgrade_project_id():
         flash('起点序号不能大于终点序号','danger')
     else:
         for item in ProjectModel.objects.filter(project_id__gte=start, project_id__lte=end):
-                item.course_id += op
+                item.project_id += op
                 item.save()
 
         flash('序号已更新','success')
@@ -472,3 +478,32 @@ def login():
             "result": "OK",
             "next_url": "/"
         })
+
+#保存用户代码
+@app.route('/course/savecode',methods=['POST'])
+def save_code():
+    if request.method == 'POST':
+        param = json.loads(request.data.decode("utf-8"))
+        username = param.get("username", "")
+        course_id = param.get("course_id", "")
+        code = param.get("code", "")
+
+        flag = True
+        user = User.objects(username = username).first()
+        user_course_code_list = user.user_course_code
+        for user_course_code in user_course_code_list:
+            if user_course_code.course_id == course_id:
+                #已经存在该id的code
+                user_course_code.code = code
+                flag = False
+                break
+
+        if flag:
+            user_course_code = UserCourseCode(course_id = course_id, code = code)
+            user_course_code_list.append(user_course_code)
+
+        user.user_course_code = user_course_code_list
+        user.save()
+
+    course = CourseModel.objects.get_or_404(_id=course_id)
+    return render_template("course.html", course=course)
