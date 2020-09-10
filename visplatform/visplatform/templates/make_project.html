@@ -166,6 +166,7 @@
     <div>
       <iframe id="iframe"  frameborder=1></iframe>
     </div>
+<!-- 事件遮罩层-->
     <div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
     
     <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -240,6 +241,8 @@
          document.querySelector('#iframe').contentWindow.$('#test-result-modal').modal('toggle')
         //doc.querySelector('#')
       })
+      // 保存代码并显示到iframe
+      //保存功能还没实现
       $("#save_btn").on("click", function () {
         html_editor.save();
         css_editor.save();
@@ -255,9 +258,9 @@
         doc =
           "<html lang='en'>" +
           "<head>" +
-          "<link href='node_modules/mocha/mocha.css' rel='stylesheet'/>"+
-          "<link href='node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>"+
-          "<link href='iframe-style.css' rel='stylesheet'/>"+
+          "<link href='../node_modules/mocha/mocha.css' rel='stylesheet'/>"+
+          "<link href='../node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>"+
+          "<link href='../css/project_iframe.css' rel='stylesheet'/>"+
           "<style id='user_css'>" +
           css +
           "</style>" +
@@ -285,22 +288,23 @@
           "<script id='user_js'>" +
           js +
           "<\/script>" +
-          "<script src='node_modules/jquery/dist/jquery.min.js'><\/script>"+
-          "<script src='popper.js'><\/script>"+
-          "<script src='node_modules/bootstrap/dist/js/bootstrap.js'><\/script>"+
-          "<script src='node_modules/mocha/mocha.js'><\/script>"+
-          "<script src='node_modules/chai/chai.js'><\/script>"+
+          "<script src='../node_modules/jquery/dist/jquery.min.js'><\/script>"+
+          "<script src='../js/popper.js'><\/script>"+
+          "<script src='../node_modules/bootstrap/dist/js/bootstrap.js'><\/script>"+
+          "<script src='../node_modules/mocha/mocha.js'><\/script>"+
+          "<script src='../node_modules/chai/chai.js'><\/script>"+
           "<script type='text/javascript' src='https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js'><\/script>"+
-          "<script src='iframe.js'><\/script>"+
-          "<script src='test-project-util.js'><\/script>"+
-          "<script src='test01.js'><\/script>"+
+          "<script src='../js/project_iframe.js'><\/script>"+
+          "<script src='../js/test-project-util.js'><\/script>"+
+          "<script src='../js/test4project/project01.js'><\/script>"+
           "</body>" +
           "</html>";
         $("#iframe").attr("srcdoc", doc);
       });
     </script>
-   
+
     <script>
+        /* 代码窗口伸缩功能 */
       var begin_x1;
       var begin_x2;
       var dragging1;

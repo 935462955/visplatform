@@ -155,7 +155,7 @@
         </button>
     </div>
 </div>
-<button style="display: none" type="button" id="button_show_model" class="btn btn-primary" data-toggle="modal" onclick="saveCode()"
+<button style="display: none" type="button" id="button_show_model" class="btn btn-primary" data-toggle="modal"
         data-target="#exampleModalCenter">
     Launch demo modal
 </button>
@@ -220,7 +220,7 @@
             url: "{{ url_for('save_code') }}",
             type: "POST",
             data: JSON.stringify(formdata),
-            dataType: "json",
+            dataType: "text",
             contentType: "application/json",
             success: function (data) {
 
@@ -267,7 +267,9 @@
     }
 
     toIframe();
+    //提交按钮点击事件
     preview.onload = function () {
+        saveCode()
         const submit = document.querySelector("#submit")
         submit.addEventListener("click", preview.contentWindow.runtest.bind(this, goal))
     };

@@ -50,7 +50,7 @@ def show_course(_id):
                 render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order))
         elif type == 'project_page':
             project = ProjectModel.objects.get_or_404(_id = _id)
-            response = make_response(render_template('project.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))
+            response = make_response(render_template('project_description.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))
         else:
             return redirect(url_for('show_category'))
     except:
@@ -505,5 +505,4 @@ def save_code():
         user.user_course_code = user_course_code_list
         user.save()
 
-    course = CourseModel.objects.get_or_404(_id=course_id)
-    return render_template("course.html", course=course)
+    return "1"
