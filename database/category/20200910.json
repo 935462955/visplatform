@@ -1,0 +1,1017 @@
+[{
+  "_id": {
+    "$oid": "5f15c4ea34a23f068d52e13d"
+  },
+  "modules": [
+    {
+      "_id": {
+        "$oid": "5f48b4d285ea7714215e1626"
+      },
+      "module_name": "基础部分",
+      "order": 1,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5eeb09b05ee28411388f1da0"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb238752baf26e943af501"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb35a452baf26e943af502"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb3c1d52baf26e943af503"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb3d6b52baf26e943af504"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb3f6152baf26e943af505"
+          },
+          "sub_order": 6,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb41c352baf26e943af506"
+          },
+          "sub_order": 7,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb443d52baf26e943af507"
+          },
+          "sub_order": 8,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb469f52baf26e943af508"
+          },
+          "sub_order": 9,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb482d52baf26e943af509"
+          },
+          "sub_order": 10,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb548852baf26e943af50a"
+          },
+          "sub_order": 11,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb562052baf26e943af50b"
+          },
+          "sub_order": 12,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb579652baf26e943af50c"
+          },
+          "sub_order": 13,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb58ac52baf26e943af50d"
+          },
+          "sub_order": 14,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb59f552baf26e943af50e"
+          },
+          "sub_order": 15,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeba25152baf26e943af515"
+          },
+          "sub_order": 16,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb9e7852baf26e943af513"
+          },
+          "sub_order": 17,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeba75252baf26e943af519"
+          },
+          "sub_order": 18,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb6aeb52baf26e943af50f"
+          },
+          "sub_order": 19,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb703e52baf26e943af510"
+          },
+          "sub_order": 20,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5ef1b3dd44e193dba1e93c61"
+          },
+          "sub_order": 21,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b51b85ea7714215e1627"
+      },
+      "module_name": "散点图",
+      "order": 2,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5eeba4a652baf26e943af517"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb712952baf26e943af511"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeba1b752baf26e943af514"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeba40152baf26e943af516"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeba63a52baf26e943af518"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eebb3d952baf26e943af51c"
+          },
+          "sub_order": 6,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eebb26952baf26e943af51b"
+          },
+          "sub_order": 7,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eebb18a52baf26e943af51a"
+          },
+          "sub_order": 8,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eeb9b7352baf26e943af512"
+          },
+          "sub_order": 9,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b53b85ea7714215e1628"
+      },
+      "module_name": "饼图",
+      "order": 3,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5ef36d1f44e193dba1e93c62"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f20dd796a62dbaaee2dc692"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f1824ed8031ac071e1d9f4f"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f1850c78031ac071e1d9f50"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f2425bd6a62dbaaee2dc695"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f297f0bc7a38b281067cb3e"
+          },
+          "sub_order": 6,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f3899d1d2b0d13ce1b312cd"
+          },
+          "sub_order": 7,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f18129e8031ac071e1d9f4e"
+          },
+          "sub_order": 8,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b55085ea7714215e1629"
+      },
+      "module_name": "堆叠面积图",
+      "order": 4,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5ef496a6af46d8f770865697"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5efafec425c55250a7981a2b"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5efb0ad84b260f8b46a87b99"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5efb3b4428217464022f9ae7"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b56c85ea7714215e162a"
+      },
+      "module_name": "弦图",
+      "order": 5,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5efef9cb60df4cd4c418326b"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eff41e8984f6cc210ab22e4"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5effecb06321bbe296777f8f"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f004b106321bbe296777f90"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f0164ff6321bbe296777f91"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b57885ea7714215e162b"
+      },
+      "module_name": "力导向图",
+      "order": 6,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5eff31e7984f6cc210ab22e3"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f0f1fe712b5e905b0c05b47"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f0f1ff912b5e905b0c05b48"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eff965c6321bbe296777f8d"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eff96786321bbe296777f8e"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5eff942e6321bbe296777f8c"
+          },
+          "sub_order": 6,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f21e0756a62dbaaee2dc693"
+          },
+          "sub_order": 7,
+          "type": "code_page"
+        }
+      ]
+    },
+    {
+      "_id": {
+        "$oid": "5f48b58785ea7714215e162c"
+      },
+      "module_name": "矩形树图",
+      "order": 7,
+      "sub_modules": [
+        {
+          "sub_id": {
+            "$oid": "5f080ff40bc4b87ac34bc7b9"
+          },
+          "sub_order": 1,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f119011e69daf8d2215b607"
+          },
+          "sub_order": 2,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f119602e69daf8d2215b608"
+          },
+          "sub_order": 3,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f11a67fe69daf8d2215b60a"
+          },
+          "sub_order": 4,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f12714dbcc7512a0b05140c"
+          },
+          "sub_order": 5,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f1273f1bcc7512a0b05140d"
+          },
+          "sub_order": 6,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f12c73fbcc7512a0b05140f"
+          },
+          "sub_order": 7,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f2d0a0bf97310b6fbc9f9f1"
+          },
+          "sub_order": 8,
+          "type": "code_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f12e6c9bcc7512a0b051410"
+          },
+          "sub_order": 9,
+          "type": "code_page"
+        }
+      ]
+    }
+  ],
+  "units": [
+    {
+      "unit_id": {
+        "$oid": "5eeb09b05ee28411388f1da0"
+      },
+      "unit_title": "使用D3添加文档元素",
+      "unit_order": 1,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb238752baf26e943af501"
+      },
+      "unit_title": "用D3选择一组元素",
+      "unit_order": 2,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb35a452baf26e943af502"
+      },
+      "unit_title": "使用D3中的数据",
+      "unit_order": 3,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb3c1d52baf26e943af503"
+      },
+      "unit_title": "使用D3中的动态数据",
+      "unit_order": 4,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb3d6b52baf26e943af504"
+      },
+      "unit_title": "给元素添加内联样式",
+      "unit_order": 5,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb3f6152baf26e943af505"
+      },
+      "unit_title": "根据数据更改样式",
+      "unit_order": 6,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb41c352baf26e943af506"
+      },
+      "unit_title": "用D3添加Class",
+      "unit_order": 7,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb443d52baf26e943af507"
+      },
+      "unit_title": "动态更新元素的高度",
+      "unit_order": 8,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb469f52baf26e943af508"
+      },
+      "unit_title": "更改条形图的显示方式",
+      "unit_order": 9,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb482d52baf26e943af509"
+      },
+      "unit_title": "了解D3中的SVG",
+      "unit_order": 10,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb548852baf26e943af50a"
+      },
+      "unit_title": "用SVG显示形状",
+      "unit_order": 11,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb562052baf26e943af50b"
+      },
+      "unit_title": "为集合中的每个数据点创建一个Bar",
+      "unit_order": 12,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb579652baf26e943af50c"
+      },
+      "unit_title": "动态设置每个Bar的坐标",
+      "unit_order": 13,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb58ac52baf26e943af50d"
+      },
+      "unit_title": "动态更改每个条的高度",
+      "unit_order": 14,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb59f552baf26e943af50e"
+      },
+      "unit_title": "反转SVG元素",
+      "unit_order": 15,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba25152baf26e943af515"
+      },
+      "unit_title": "更改 SVG 元素的颜色",
+      "unit_order": 16,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb9e7852baf26e943af513"
+      },
+      "unit_title": "给 D3 元素添加标签",
+      "unit_order": 17,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba75252baf26e943af519"
+      },
+      "unit_title": "给 D3 标签添加样式",
+      "unit_order": 18,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb6aeb52baf26e943af50f"
+      },
+      "unit_title": "给 D3 元素添加悬停效果",
+      "unit_order": 19,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb703e52baf26e943af510"
+      },
+      "unit_title": "给 D3 元素添加工具提示",
+      "unit_order": 20,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5ef1b3dd44e193dba1e93c61"
+      },
+      "unit_title": "给D3元素添加动画效果",
+      "unit_order": 21,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba4a652baf26e943af517"
+      },
+      "unit_title": "使用 SVG Circles 创建散点图",
+      "unit_order": 22,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb712952baf26e943af511"
+      },
+      "unit_title": "给 Circle 元素添加属性",
+      "unit_order": 23,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba1b752baf26e943af514"
+      },
+      "unit_title": "向散点图的 Circles 添加标签",
+      "unit_order": 24,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba40152baf26e943af516"
+      },
+      "unit_title": "用 D3 创建线性比例",
+      "unit_order": 25,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeba63a52baf26e943af518"
+      },
+      "unit_title": "按比例设置域和范围",
+      "unit_order": 26,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eebb3d952baf26e943af51c"
+      },
+      "unit_title": "使用 d3.max 和 d3.min 函数在数据集中查找最小值和最大值",
+      "unit_order": 27,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eebb26952baf26e943af51b"
+      },
+      "unit_title": "使用动态比例",
+      "unit_order": 28,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eebb18a52baf26e943af51a"
+      },
+      "unit_title": "使用预定义的比例放置元素",
+      "unit_order": 29,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eeb9b7352baf26e943af512"
+      },
+      "unit_title": "添加坐标轴到可视化中",
+      "unit_order": 30,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5ef36d1f44e193dba1e93c62"
+      },
+      "unit_title": "使用D3读取文件",
+      "unit_order": 31,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f20dd796a62dbaaee2dc692"
+      },
+      "unit_title": "使用pie()方法进行数据转换",
+      "unit_order": 32,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f1824ed8031ac071e1d9f4f"
+      },
+      "unit_title": "饼图中的弧生成器",
+      "unit_order": 33,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f1850c78031ac071e1d9f50"
+      },
+      "unit_title": "饼图中的布局",
+      "unit_order": 34,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f2425bd6a62dbaaee2dc695"
+      },
+      "unit_title": "在画布上绘制扇形",
+      "unit_order": 35,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f297f0bc7a38b281067cb3e"
+      },
+      "unit_title": "给饼图加上文字标签",
+      "unit_order": 36,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f3899d1d2b0d13ce1b312cd"
+      },
+      "unit_title": "介绍插值函数",
+      "unit_order": 37,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f18129e8031ac071e1d9f4e"
+      },
+      "unit_title": "给饼图上色",
+      "unit_order": 38,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5ef496a6af46d8f770865697"
+      },
+      "unit_title": "使用D3绘制堆叠面积图",
+      "unit_order": 39,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5efafec425c55250a7981a2b"
+      },
+      "unit_title": "D3时间比例尺",
+      "unit_order": 40,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5efb0ad84b260f8b46a87b99"
+      },
+      "unit_title": "使用extent来获取数据的最大最小值区间",
+      "unit_order": 41,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5efb3b4428217464022f9ae7"
+      },
+      "unit_title": "使用area方法绘制堆叠面积图",
+      "unit_order": 42,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5efef9cb60df4cd4c418326b"
+      },
+      "unit_title": "弦图介绍",
+      "unit_order": 43,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff41e8984f6cc210ab22e4"
+      },
+      "unit_title": "使用d3.chord方法进行数据转换",
+      "unit_order": 44,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5effecb06321bbe296777f8f"
+      },
+      "unit_title": "绘制弦图的圆环",
+      "unit_order": 45,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f004b106321bbe296777f90"
+      },
+      "unit_title": "使用D3的rgb方法调整颜色的明暗",
+      "unit_order": 46,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f0164ff6321bbe296777f91"
+      },
+      "unit_title": "使用ribbon绘制弦",
+      "unit_order": 47,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff31e7984f6cc210ab22e3"
+      },
+      "unit_title": "用D3创建力导向图",
+      "unit_order": 48,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f0f1fe712b5e905b0c05b47"
+      },
+      "unit_title": "设定力导向图节点的参数",
+      "unit_order": 49,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f0f1ff912b5e905b0c05b48"
+      },
+      "unit_title": "设定力导向图连线的参数",
+      "unit_order": 50,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff965c6321bbe296777f8d"
+      },
+      "unit_title": "给力导向图添加tick事件监听器",
+      "unit_order": 51,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff96786321bbe296777f8e"
+      },
+      "unit_title": "使力导向图可拖拽",
+      "unit_order": 52,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5eff942e6321bbe296777f8c"
+      },
+      "unit_title": "向力导向图的连线和节点上添加标签",
+      "unit_order": 53,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f21e0756a62dbaaee2dc693"
+      },
+      "unit_title": "让你的力导向图充满色彩",
+      "unit_order": 54,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f080ff40bc4b87ac34bc7b9"
+      },
+      "unit_title": "使用D3生成树形层次结构的数据",
+      "unit_order": 55,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f119011e69daf8d2215b607"
+      },
+      "unit_title": "使用D3创建一个矩阵树图布局",
+      "unit_order": 56,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f119602e69daf8d2215b608"
+      },
+      "unit_title": "使用D3构造使用层次数据构造treemap数据结构",
+      "unit_order": 57,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f11a67fe69daf8d2215b60a"
+      },
+      "unit_title": "使用D3为所有叶子节点在SVG中绑定`<g>`元素",
+      "unit_order": 58,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f12714dbcc7512a0b05140c"
+      },
+      "unit_title": "将每个叶子节点对应的矩形画出",
+      "unit_order": 59,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f1273f1bcc7512a0b05140d"
+      },
+      "unit_title": "为矩形画上不同的颜色",
+      "unit_order": 60,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f12c73fbcc7512a0b05140f"
+      },
+      "unit_title": "在矩形上添加标签",
+      "unit_order": 61,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f2d0a0bf97310b6fbc9f9f1"
+      },
+      "unit_title": "隐藏超出矩形范围的信息",
+      "unit_order": 62,
+      "unit_type": "code_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f12e6c9bcc7512a0b051410"
+      },
+      "unit_title": "给矩形添加标题提示",
+      "unit_order": 63,
+      "unit_type": "code_page"
+    }
+  ]
+}]

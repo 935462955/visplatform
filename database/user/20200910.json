@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "5f4a142cbbd12c4a279a2e6a"
+  },
+  "username": "935462955",
+  "password_hash": "pbkdf2:sha256:150000$2fOS9o73$0b9a3bd6ad220a446c6e9c1aefdb3a537cca38e26e640dd7699bb795682b1748",
+  "nickname": "刘小二",
+  "superuser": false,
+  "user_course_code": [
+    {
+      "course_id": "5ef1b3dd44e193dba1e93c61",
+      "code": "<style>\n  .bar:hover {\n    fill: brown;\n  }\n</style>\n<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n\n    const w = 500;\n    const h = 100;\n\n    const svg = d3.select(\"body\")\n                  .append(\"svg\")\n                  .attr(\"width\", w)\n                  .attr(\"height\", h);\n\n    svg.selectAll(\"rect\")\n       .data(dataset)\n       .enter()\n       .append(\"rect\")\n       // 在下面添加你的代码\n       .transition()\n       .duration(2000)\n\n       // 在上面添加你的代码\n       .attr(\"x\", (d, i) => i * 30)\n       .attr(\"y\", (d, i) => h - 3 * d)\n       .attr(\"width\", 25)\n       .attr(\"height\", (d, i) => d * 3)\n       .attr(\"fill\", \"navy\")\n       .attr(\"class\", \"bar\")\n       // 在下面添加你的代码\n \n\n\n       // 在上面添加你的代码\n       .append(\"title\")\n       .text(d=>d)\n       \n    svg.selectAll(\"text\")\n       .data(dataset)\n       .enter()\n       .append(\"text\")\n       .text((d) => d)\n       .attr(\"x\", (d, i) => i * 30)\n       .attr(\"y\", (d, i) => h - (d * 3 + 3))\n\n  </script>\n</body>"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f4a43a0bbd12c4a279a2e6b"
+  },
+  "username": "Vlgar",
+  "password_hash": "pbkdf2:sha256:150000$mFlI8YYs$72c7263a055150e389644c81f63193fcbbcba54aa4c59820d9b151612eea4aca",
+  "nickname": "th",
+  "superuser": false
+},{
+  "_id": {
+    "$oid": "5f4a4759bbd12c4a279a2e6c"
+  },
+  "username": "123456",
+  "password_hash": "pbkdf2:sha256:150000$FuIEmYZN$5cf6590a7d4d20f78a92525f308a8b8ef79dc3672d057623d5e8834f1b8ca452",
+  "nickname": "发抖的dog",
+  "superuser": false
+}]
