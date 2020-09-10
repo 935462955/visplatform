@@ -14,7 +14,7 @@
 
 <body>
     <form class="box" method="post">
-        <h1>Login</h1>
+        <h1>REGISTER</h1>
         <input type="text" name="" placeholder="Nickname" id="nickname">
         <input type="text" name="" placeholder="Username" id="username">
         <input type="password" name="" placeholder="Password" id="password">
@@ -39,6 +39,7 @@
                 success: function(result) {//后台返回结果一个json，包含result和msg两个字段
                     if (result.result == "OK") {
                         toastr["success"]("注册成功")
+                        window.location.href = "/login";
                     } else if (result.result == "NO") {
                         toastr["error"](result.msg)
                     }
@@ -49,7 +50,7 @@
             })
         }
         function login(){
-            window.location.href = "/login"
+            window.location.href = "/login";
         }
     </script>
 </body>

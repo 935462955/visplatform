@@ -1,7 +1,8 @@
 from visplatform import db
 from mongoengine import *
-from flask_login import UserMixin#flask-login的UserMixin表
-from werkzeug.security import generate_password_hash, check_password_hash#flask的两个依赖之一werkzeug（密码加密和密码验证）
+from flask_login import UserMixin  # flask-login的UserMixin表
+from werkzeug.security import generate_password_hash, check_password_hash  # flask的两个依赖之一werkzeug（密码加密和密码验证）
+
 
 class CourseModel(db.Document):
     _id = db.ObjectIdField()
@@ -16,7 +17,9 @@ class CourseModel(db.Document):
     meta = {
         "collection": "course",
         "strict": "False"
-           }
+    }
+
+
 class ProjectModel(db.Document):
     _id = db.ObjectIdField()
     project_id = db.IntField()
@@ -26,24 +29,26 @@ class ProjectModel(db.Document):
     meta = {
         "collection": "project",
         "strict": "False"
-           }
+    }
+
 
 class SubModule(db.EmbeddedDocument):
     sub_id = db.ObjectIdField()
-    sub_order  = db.IntField()
-    type =  db.StringField()
+    sub_order = db.IntField()
+    type = db.StringField()
 
 
 class ModuleModel(db.Document):
     _id = db.ObjectIdField()
     module_name = db.StringField()
-    order = db.IntField(unique_with = 'module_name')
-    sub_modules = db.SortedListField(db.EmbeddedDocumentField(SubModule),ordering="sub_order",reverse=False)
+    order = db.IntField(unique_with='module_name')
+    sub_modules = db.SortedListField(db.EmbeddedDocumentField(SubModule), ordering="sub_order", reverse=False)
     meta = {
-        "collection":"module",
-        "strict":"False",
-         'ordering': ['-order']
+        "collection": "module",
+        "strict": "False",
+        'ordering': ['-order']
     }
+
 
 class Unit(db.EmbeddedDocument):
     unit_id = db.ObjectIdField()
@@ -58,31 +63,40 @@ class EmbeddedModuleModal(db.EmbeddedDocument):
     order = db.IntField(unique_with='module_name')
     sub_modules = db.SortedListField(db.EmbeddedDocumentField(SubModule), ordering="sub_order", reverse=False)
 
+
 class CategoryModel(db.Document):
-    modules = db.SortedListField(db.EmbeddedDocumentField(EmbeddedModuleModal),ordering ='order',reverse=False)
-    units = db.SortedListField(db.EmbeddedDocumentField(Unit),ordering='unit_order',reverse=False)
+    modules = db.SortedListField(db.EmbeddedDocumentField(EmbeddedModuleModal), ordering='order', reverse=False)
+    units = db.SortedListField(db.EmbeddedDocumentField(Unit), ordering='unit_order', reverse=False)
     meta = {
         "collection": "category",
         "strict": "False",
     }
 
-#用户表
+
+# 用户代码
+class UserCourseCode(db.EmbeddedDocument):
+    course_id = db.StringField()
+    code = db.StringField()
+
+
+# 用户表
 class User(db.Document, UserMixin):
     meta = {
-        "collection": "user",#表名
-        "ordering": ["-id"],#id
-        "strict": True#自动修改表内容
+        "collection": "user",  # 表名
+        "ordering": ["-id"],  # id
+        "strict": True  # 自动修改表内容
     }
-    username = db.StringField()#帐号
-    password_hash = db.StringField()#密码
-    nickname = db.StringField()#用户名
-    superuser = db.BooleanField(default=False)#是否为管理员，后续可以用来进入后台（未实现）
+    username = db.StringField()  # 帐号
+    password_hash = db.StringField()  # 密码
+    nickname = db.StringField()  # 用户名
+    user_course_code = db.SortedListField(db.EmbeddedDocumentField(UserCourseCode), ordering="course_id", reverse=False)
+    superuser = db.BooleanField(default=False)  # 是否为管理员，后续可以用来进入后台（未实现）
 
-    #密码加密
+    # 密码加密
     def hash_password(self, password):
-    	self.password_hash = generate_password_hash(password)
-    	self.save()
+        self.password_hash = generate_password_hash(password)
+        self.save()
 
-    #密码验证
+    # 密码验证
     def verify_password(self, password):
-    	return check_password_hash(self.password_hash, password)
+        return check_password_hash(self.password_hash, password)

@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, make_response,redirect, send_from_directory
-from flask_login import login_required, logout_user, login_user
+from flask_login import login_required, logout_user, login_user, current_user
 
 from visplatform import app, loginmanager
-from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User, \
+    UserCourseCode
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json,os,random
@@ -33,13 +34,13 @@ def upgrade_id():
         flash('序号已更新','success')
     return redirect(url_for('Admin'))
 
+#课程页面
 @app.route('/course/<string:_id>',methods=['POST','GET'])
 def show_course(_id):
     type = request.args.get('type')
     order = request.args.get('order',1,int)
     units = CategoryModel.objects.first_or_404().units
 
-    print(_id)
     try : #获取id为_id的课程
         if type == 'code_page':
             course = CourseModel.objects.get_or_404(_id=_id)
@@ -62,6 +63,15 @@ def show_course(_id):
         next_type = ' '
         # 获取下一个课程的链接
         next_order = 1
+    # 用户代码显示
+    user = User.objects(username=current_user.username).first()
+    user_course_code_list = user.user_course_code
+    for user_course_code in user_course_code_list:
+        if user_course_code.course_id == course._id.__str__():
+            # 已经存在该id的code
+            course.code = user_course_code.code
+            break
+
     response = make_response(render_template('course.html',course=course,goal=goal,next_id = next_id,next_type = next_type,next_order=next_order))
     response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)# 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
@@ -388,3 +398,32 @@ def login():
             "result": "OK",
             "next_url": "/"
         })
+
+#保存用户代码
+@app.route('/course/savecode',methods=['POST'])
+def save_code():
+    if request.method == 'POST':
+        param = json.loads(request.data.decode("utf-8"))
+        username = param.get("username", "")
+        course_id = param.get("course_id", "")
+        code = param.get("code", "")
+
+        flag = True
+        user = User.objects(username = username).first()
+        user_course_code_list = user.user_course_code
+        for user_course_code in user_course_code_list:
+            if user_course_code.course_id == course_id:
+                #已经存在该id的code
+                user_course_code.code = code
+                flag = False
+                break
+
+        if flag:
+            user_course_code = UserCourseCode(course_id = course_id, code = code)
+            user_course_code_list.append(user_course_code)
+
+        user.user_course_code = user_course_code_list
+        user.save()
+
+    course = CourseModel.objects.get_or_404(_id=course_id)
+    return render_template("course.html", course=course)
