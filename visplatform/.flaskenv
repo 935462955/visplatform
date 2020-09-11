@@ -1,2 +1,0 @@
-FLASK_APP=visplatform
-FLASK_ENV=development
