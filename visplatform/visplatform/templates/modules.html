@@ -1,0 +1,495 @@
+{% from 'macros/modules.html' import sub_module_li,module_li %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>visplatform</title>
+    <link
+            rel="stylesheet"
+            href="../node_modules/bootstrap/dist/css/bootstrap.css"
+    />
+    <style>
+        ul li {
+            list-style: none;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none !important
+        }
+
+        ul {
+            min-height: 50px !important;
+            padding: 0 !important;
+        }
+
+        .draggable--over {
+            background-color: #007bff;
+
+        }
+        .draggable--over a{
+            color:white;
+        }
+        .modal-li-active, .modal-type-active {
+            background-color: deepskyblue;
+        }
+
+        .modal-module-type {
+            cursor: pointer;
+        }
+
+        .header-bar {
+            min-height: 35px;
+            border-bottom: 1px solid #C7CDD1;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container-fluid">
+    <div class="row header" style="height:100px">
+
+    </div>
+    <div class="row main"> <!-- flash消息-->
+         <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none;margin-left:50%;position: fixed;z-index:1000" >
+            发布成功！
+            <button type="button" class="close"  aria-label="Close" onclick="$('.alert').css('display','none')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+        <div class="col-2">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-modules-tab"  href="#v-pills-modules" role="tab"
+                   aria-controls="v-pills-modules" aria-selected="true">目录</a>
+                <a class="nav-link" id="v-pills-codepage-tab"  href="{{ url_for('show_codepages') }}" role="tab"
+                   aria-controls="v-pills-codepage" aria-selected="false">编程课程</a>
+                <a class="nav-link" id="v-pills-messages-tab"  href="{{ url_for('show_projectpages') }}" role="tab"
+                   aria-controls="v-pills-messages" aria-selected="false">项目挑战</a>
+                <a class="nav-link" id="v-pills-settings-tab"  href="#v-pills-settings" role="tab"
+                   aria-controls="v-pills-settings" aria-selected="false">Settings</a>
+            </div>
+        </div>
+        <div class="col-8">
+
+
+                    <div class="header-bar" style="display: flex;flex-direction:row-reverse">
+                <div class="dropdown" style="padding-top:3px">
+                    <button style="padding:0" class="btn" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg style="cursor:pointer" class="bi bi-three-dots-vertical sub_module_extend"
+                             width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="grey"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item " href="#">1</a>
+                        <a class="dropdown-item " href="#">Another action</a>
+                        <a class="dropdown-item " href="#">Something else here</a>
+                    </div>
+                </div>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-module-modal">+单元</button>
+                <button class="btn btn-success" type="button" id="btn-publish">发布</button>
+            </div>
+            <ul class="module-ul" style="padding: 0">
+                  {{ module_li(modules,dics) }}
+            </ul>
+                <!--  添加单元模态框 -->
+               <div class="modal fade" id="add-module-modal" tabindex="-1" role="dialog" aria-labelledby="addModuleLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addModalLabel">添加单元</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="padding: 0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-10">
+                                            <label for="">单元名称</label>
+    <input type="text" class="form-control"  id="new-module-title" style="margin-bottom: 10px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button id="add-modal-btn" type="button" class="btn btn-primary">确定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 添加子模块Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">把子模块添加到<span id="modal-title" data-module=""></span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body" style="padding: 0">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-2" style="border-right:solid grey 1px;">
+                                        <ul style="padding: 0"><!-- 需要循环处理 -->
+                                            <li class="modal-module-type" data-activeType="code_page"><a>课程</a></li>
+                                            <li class="modal-module-type" data-activeType="project_page">项目</li>
+                                            <li class="modal-module-type" data-activeType="assignment">作业</li>
+                                            <li class="modal-module-type" data-activeType="discuss">讨论</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-10" style="padding: 0">
+                                        <ul style="margin: 0;" id="modal_sub_modules">
+                                            <li>新课程</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button id="modal-submit-btn" type="button" class="btn btn-primary">添加</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="col-2"></div>
+    </div>
+
+</div>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../js/popper.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+
+<script src="../js/draggable.js"></script>
+<script>
+
+    const containerSelector = '.list-group';
+    const containers = document.querySelectorAll(containerSelector);
+    const sortable = new Draggable.Sortable(containers, {
+        draggable: '.list-group-item',
+        handle: '.horizontal-sub-module',//允许拖动的元素
+
+        mirror: {
+            appendTo: '.list-group',//最后一个组的id
+            constrainDimensions: true,//使镜像宽高和原来的元素保持一致
+            xAxis: false,
+        },
+        //sensor:[Draggable.Sensors.MouseSensor]
+    });
+
+    const containerSelector1 = '.module-ul';
+    const containers1 = document.querySelectorAll(containerSelector1);
+    const sortable1 = new Draggable.Sortable(containers1, {
+        draggable: '.module-li',
+        handle: '.horizontal-module',//整个可拖动的元素中允许拖动的子元素
+        mirror: {
+            appendTo: '.module-ul',
+            constrainDimensions: true,//使镜像宽高和原来的元素保持一致
+            xAxis: false,
+        },
+
+    });
+    const module_course = document.querySelector('#module-course')
+    var sub_source_container = null
+    var sub_source = null
+    var sub_target_container = null
+    var sub_target = null
+    var module_source = null
+    var module_source_id = null
+    var module_target = null
+    var active_module_ele = null
+
+    sortable.on('mirror:created', (e) => {
+        e.mirror.style.opacity = 0.5
+        e.mirror.style.zIndex = 99
+    });
+    sortable1.on('mirror:created', (e) => {
+        e.mirror.style.opacity = 0.5
+        e.mirror.style.zIndex = 99
+    });
+    sortable.on('sortable:start', (event) => {
+        sub_source_container = event.startContainer.id.slice(3)
+        sub_source = event.startIndex
+    });
+    /*sortable.on('mirror:attached', (event) => {
+        console.log(event)
+
+    })*/
+    sortable.on('sortable:sorted', (event) => {
+        // console.log(event)
+        sub_target_container = event.newContainer.id.slice(3)
+        sub_target = event.newIndex
+    })
+    sortable.on('drag:stop', (event) => {//子模块重排序
+
+        if (sub_source_container != null && sub_source != null && sub_target_container != null && sub_target != null) {
+
+            $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                async: false,
+                data: JSON.stringify({
+                    'type': 'sub_module',
+                    'sub_source_container': sub_source_container,
+                    'sub_source': sub_source,
+                    'sub_target_container': sub_target_container,
+                    'sub_target': sub_target
+                }),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+
+                },
+                error: function (e) {
+                }
+            })
+        }
+        sub_source_container = null
+        sub_source = null
+        sub_target_container = null
+        sub_target = null
+    })
+    sortable1.on('sortable:start', (event) => {
+        module_source_id = event.dragEvent.originalSource.children[0].children[1].id.slice(3)
+        module_source = event.startIndex
+    });
+
+    sortable1.on('sortable:sorted', (event) => {
+        module_target = event.newIndex
+    })
+    sortable1.on('drag:stop', (event) => {
+        if (module_target != null && module_source != null && module_source_id != null) { //单元重排序
+            $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                async: false,
+                data: JSON.stringify({
+                    'type': 'module',
+                    'module_source': module_source,
+                    'module_source_id': module_source_id,
+                    'module_target': module_target
+                }),
+                dataType: 'json',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    //console.log(data)
+                },
+                error: function (e) {
+                }
+            })
+        }
+        module_target = null
+        module_source = null
+        module_source_id = null
+    })
+    $(document).on('show.bs.collapse','.list-group',function(){ //折叠箭头
+        let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
+         if (path.attr("data-state") == "right") {
+            path.attr("d", "M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z")
+            path.attr("data-state", "down")
+        }
+    })
+    $(document).on('hide.bs.collapse','.list-group',function(){ //折叠箭头
+         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
+         if (path.attr("data-state") == "down") {
+           path.attr("d", "M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z")
+            path.attr("data-state", "right")
+        }
+    })
+
+    $(document).on('click','.add_sub_module_btn', function () { //模态框标题
+        let container = document.querySelector('#modal-title')
+        console.log(this)
+        container.setAttribute('data-module', this.getAttribute("data-module"))
+        container.innerHTML = this.getAttribute("data-module-name")
+    })
+    document.querySelectorAll('.modal-module-type').forEach(i => i.addEventListener('click', function () {//模态框中被点击的模块高亮并加载模块中所有子模块
+        if (active_module_ele != null) { //设置激活样式
+            active_module_ele.classList.remove('modal-type-active')
+        }
+        active_module_ele = this
+        active_module_ele.classList.add('modal-type-active')
+        let active_module_type = this.getAttribute("data-activeType")
+        $.ajax({//获取某一模块类型的所有内容
+            url: "{{ url_for('get_sub_module') }}",
+            type: "post",
+            data: JSON.stringify({
+                'type': active_module_type
+            }),
+            dataType: 'html',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                document.querySelector('#modal_sub_modules').innerHTML = data
+            },
+            error: function (e) {
+            }
+        })
+    }.bind(i)))
+    $(document).on('click', '.module-operation', function () {//删除模块
+        let op = this.getAttribute("data-operation")
+        if (op == 'delete_module') {
+            let target_id = $(this).parents('.module-li').children('ul').children('.list-group').attr('id').slice(3)
+            $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                data: JSON.stringify({
+                    'type': op,
+                    'target_id': target_id,
+                }),
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log($('#id_' + target_id).parents('.module-li'))
+                    $('#id_' + target_id).parents('.module-li').remove()
+                },
+                error: function (e) {
+                }
+            })
+
+        }
+    })
+    $(document).on('click', '.sub-module-operation', function () {//删除子模块
+        let op = this.getAttribute("data-operation")
+        if (op == 'delete_sub_module') {
+            let sub_module_id = $(this).parents('.list-group-item').attr("id").slice(3)
+            let container_id = $(this).parents('.list-group').attr("id").slice(3)
+            $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                data: JSON.stringify({
+                    'type': op,
+                    'container_id': container_id,
+                    'sub_module_id': sub_module_id
+                }),
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    let container = $('#id_' + container_id).children('#id_' + sub_module_id).remove()
+
+                },
+                error: function (e) {
+                }
+            })
+            console.log(sub_module_id)
+        }
+
+    })
+    document.querySelector('#modal-submit-btn').addEventListener('click', function () { //在单元下添加子模块
+        let sub_modules = document.querySelectorAll('.modal-li-active')
+        let type = active_module_ele.getAttribute("data-activeType")
+        let module_as_container = document.querySelector('#modal-title').getAttribute('data-module')
+        console.log(module_as_container)
+        if (sub_modules.length == 0 || type == null)
+            return
+        else {
+            let l = []
+            sub_modules.forEach(i => l.push({'id': i.getAttribute('data-id').slice(4)}))
+            //ajax添加到数据库， js添加到dom
+            $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                async: false,
+                data: JSON.stringify({
+                    'type': 'add_sub_module',
+                    'module_as_container': module_as_container,
+                    'sub_modules': l,
+                    'sub_module_type': type
+                }),
+                dataType: 'html',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    //更新对应模块列表显示
+                    let ul = document.querySelector(`#id_${module_as_container}`)
+                    ul.innerHTML = data
+                    $('#exampleModal').modal('hide')
+
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+    })
+    // document.querySelectorAll('.arrow').forEach(i=>i.addEventListener("mousedown",()=> sortable1.options.draggable = '.list-li'))
+    //document.querySelectorAll('.sub_module_extend').forEach(i => i.addEventListener())
+    $(document).on('click', '.modal-sub-list', function () { //给尚未加载的DOM绑定事件
+        if (this.classList.contains('modal-li-active'))
+            this.classList.remove('modal-li-active')
+        else
+            this.classList.add('modal-li-active')
+    });
+    $('#exampleModal').on('hidden.bs.modal', function (event) {
+        let li = document.querySelectorAll('.modal-sub-list')
+        li.forEach(i => i.classList.remove('modal-li-active'))
+    })//关闭模态框后重置li状态
+    $('#add-modal-btn').on('click',function(){
+        let title = document.querySelector('#new-module-title').value
+        if(title != "")
+        {
+             $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                async: false,
+                data: JSON.stringify({
+                    'type': 'add_module',
+                    'module_title':title
+                }),
+                dataType: 'html',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('.module-ul').append(data)
+                    $('#add-module-modal').modal('hide')
+                },
+                error: function (e) {
+
+                }
+            })
+        }
+    })
+    $('#btn-publish').on('click',function(){
+        $.ajax({
+                url: "{{ url_for('update_modules') }}",
+                type: "post",
+                data: JSON.stringify({
+                    'type': 'publish',
+                }),
+                dataType: 'text',
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    $('.alert').css('display','block')
+                    setTimeout(function(){$('.alert').css('display','none')},3000)
+                },
+                error: function (e) {
+
+                }
+            })
+    })
+</script>
+</body>
+</html>

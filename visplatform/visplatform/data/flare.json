@@ -1,0 +1,30 @@
+{
+    "name": "gen",
+    "children": [{
+            "name": "num1",
+            "children": [{
+                "name": "num1-1",
+                "size": "4"
+            }, {
+                "name": "num1-2",
+                "size": "6"
+            }]
+        },
+        {
+            "name": "num2",
+            "size": 5
+        },
+        {
+            "name": "num3",
+            "size": 15
+        },
+        {
+            "name": "num4",
+            "size": 12
+        },
+        {
+            "name": "num5",
+            "size": 8
+        }
+    ]
+}

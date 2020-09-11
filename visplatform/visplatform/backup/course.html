@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>visplatform</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <style type="text/css" media="screen">
+        html,
+        body {
+            background-color: #f5f5f2;
+        }
+
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .left {
+            overflow: scroll;
+        }
+
+        .header {
+            position: fixed;
+            height: 38px;
+            top: 0;
+            width: 100%;
+            background-color:#67c23a;
+        }
+
+        .main {
+            margin-top: 38px;
+            height: calc(100vh - 38px);
+        }
+
+        .submit-btn {
+            color: #fff!important;
+            background-color: #67c23a;
+            display: inline-block;
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            border: 1px solid #67c23a;
+            -webkit-appearance: none;
+            text-align: center;
+            box-sizing: border-box;
+            outline: none;
+            margin: 0;
+            transition: 0.1s;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            padding: 12px 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            margin-bottom: 2px;
+            box-shadow: 0px 0px 10px #888888;
+        }
+
+        .row {
+            margin-bottom: 0;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        iframe {
+            border: 0;
+        }
+
+        .scale {
+            position: fixed;
+            background-color: transparent;
+            border-style: none;
+            opacity: 0.8;
+            z-index: 10;
+            display: none;
+        }
+
+        #scale3 {
+            top: 38px;
+            left: calc(66.6666vw - 40px);
+        }
+
+        #scale1 {
+            top: 38px;
+            left: calc(33.3333vw - 50px);
+        }
+
+        #scale2 {
+            top: 38px;
+            left: calc(100vw - 60px);
+        }
+
+        .fullscreen {
+            background-color: #272822;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 9;
+        }
+
+        .fullscreen2 {
+            overflow: scroll;
+            background-color: #f5f5f2;
+            position: fixed !important;
+            top: 0 !important;
+            min-width:100vw !important;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+            z-index: 9;
+        }
+        #a_home{
+             text-decoration:none;
+             color: #f5f5f2;
+             display: inline-block;
+             padding: 7px;
+             height:24px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <a id="a_home" href="{{ url_for('show_category') }}">课程</a>
+</div>
+<div class="row main">
+    <div class="col-4 left" style="height: 100%;">
+        <div id="text1">
+        </div>
+        <div id="div_test"></div>
+        <button id="scale1" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+    </div>
+    <div class="col-4" id="code">
+        <div id="editor"></div>
+        <button id="scale3" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+    </div>
+    <div class="col-4">
+        <iframe style="height: 100%; width: 100%;" id="preview"></iframe>
+        <button id="scale2" class="scale"><img src="../node_modules/bootstrap-icons/icons/arrows-fullscreen.svg"></button>
+    </div>
+</div>
+<button style="display: none" type="button" id="button_show_model" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">测试通过！</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a type="button" class="btn btn-success" href="{{ url_for('show_course',course_id=(course.course_id+1)) }}">下一节</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="../node_modules/ace-builds/src/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="../node_modules/ace-builds/src/ext-language_tools.js"></script>
+<script src="../node_modules/marked/marked.min.js"></script>
+<link href="../js/highlight/styles/monokai-sublime.css" rel="stylesheet"/>
+<script src="../js/highlight/highlight.pack.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script>
+    marked.setOptions({
+        renderer: new marked.Renderer(),
+        highlight: function (code, language) {
+            const validLanguage = hljs.getLanguage(language)
+                ? language
+                : "plaintext";
+            return hljs.highlight(validLanguage, code).value;
+        },
+        pedantic: false,
+        gfm: true,
+        breaks: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false,
+        xhtml: false,
+    });
+
+    const editor = ace.edit("editor", {
+        theme: "ace/theme/monokai",
+        mode: "ace/mode/html",
+        autoScrollEditorIntoView: true,
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: true,
+    });
+    const title = `## {{ course.title|safe|transformText }}  \n`
+    const description  = `{{  course.text|safe|transformText }}`
+    var editorvalue = `{{ course.code|safe|transformText }}`
+    var frame_head = `{{ course.frame_head|safe|transformText}}`
+    var frame_foot = `{{ course.frame_foot|safe|transformText }}`
+    var goal = {{ goal|safe }}
+    const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>  \n`
+    const mark_todo = '- [ ] '
+    const mark_finish = '- [x] '
+    var init_test_part = ``
+    goal.map((test)=>{
+         init_test_part = init_test_part + mark_todo +test['text'] + '  '
+    })
+    document.querySelector(
+        "#text1"
+    ).innerHTML = marked(title + description+submit_part)
+    //document.querySelector("#test").innerHTML= marked(init_test_part)
+    editor.setValue(editorvalue);
+    function runtest(goal){
+         let code = editor.getValue()
+         toIframe()
+         let $ = document.querySelector("#preview").contentWindow.$
+         let $F = document.querySelector("#preview").contentWindow
+         let all_pass = true
+         let output_result = ``
+         console.log(scale)
+         goal.map((test,index)=>{
+           try {
+
+               if (eval(test['teststring'])) {
+                   output_result = output_result + mark_finish + '~~' + test['text'] + '~~  \n'
+               } else {
+                   output_result= output_result + mark_todo + test['text'] + '  \n'
+                   all_pass = false
+               }
+           }
+            catch{
+                output_result = output_result + mark_todo + test['text'] + '  \n'
+                all_pass = false
+            }
+         })
+        document.querySelector(
+        "#div_test"
+         ).innerHTML = marked(output_result)
+        if(all_pass)
+        {
+            document.querySelector('#button_show_model').click()
+        }
+
+      }
+    const submit = document.querySelector("#submit")
+    submit.addEventListener("click",runtest.bind(this,goal))
+    function toIframe() {
+        let htmlValue = editor.getValue();
+        let htmlStr = frame_head+htmlValue+frame_foot
+        document.getElementById("preview").srcdoc = htmlStr;
+    }
+    toIframe();
+
+    function toFullscreen(editor, first, second, classtype) {
+        let editor3 = document.querySelector(editor);
+        if (!editor3.classList.contains(classtype)) {
+            editor3.classList.add(classtype);
+            this.style.left = first;
+            this.style.top = "0";
+        } else {
+            editor3.classList.remove(classtype);
+            this.style.left = second;
+            this.style.top = "38px";
+        }
+    }
+
+    const fullscreen3 = document.querySelector("#scale3");
+    fullscreen3.addEventListener("click", toFullscreen.bind(fullscreen3, "#editor", "calc(100vw - 40px)", "calc(66.6666vw - 40px)", "fullscreen"));
+    const fullscreen1 = document.querySelector("#scale1");
+    fullscreen1.addEventListener("click", toFullscreen.bind(fullscreen1, ".left", "calc(100vw - 40px)", "calc(33.3333vw - 50px)", "fullscreen2"));
+    const fullscreen2 = document.querySelector("#scale2");
+    fullscreen2.addEventListener("click", toFullscreen.bind(fullscreen2, "#preview", "calc(100vw - 40px)", "calc(100vw - 60px)", "fullscreen2"));
+
+    function showButton(elem) {
+        elem.style.display = "block";
+    }
+
+    function hiddenButton(elem) {
+        elem.style.display = "none";
+    }
+
+    const editor3 = document.querySelector("#editor");
+    fullscreen3.addEventListener("mouseover", showButton.bind(this, fullscreen3));
+    fullscreen3.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen3));
+    editor3.addEventListener("mouseover", showButton.bind(this, fullscreen3));
+    editor3.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen3));
+    const text = document.querySelector("#text1");
+    fullscreen1.addEventListener("mouseover", showButton.bind(this, fullscreen1));
+    fullscreen1.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen1));
+    text.addEventListener("mouseover", showButton.bind(this, fullscreen1));
+    text.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen1));
+    const preview = document.querySelector("#preview");
+    fullscreen2.addEventListener("mouseover", showButton.bind(this, fullscreen2));
+    fullscreen2.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen2));
+    preview.addEventListener("mouseover", showButton.bind(this, fullscreen2));
+    preview.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen2));
+    editor3.addEventListener("keyup", function (e) {
+        toIframe()
+    })
+
+</script>
+
+
+</body>
+</html>

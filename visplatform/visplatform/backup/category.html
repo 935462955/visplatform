@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>visplatform</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+        html,
+        body,li {
+            background-color: #f5f5f2!important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="row" style="width: 50% ; margin-left:25%; margin-top:5vh">
+<div class="col-12">
+<ul class="list-group list-group-flush">
+    <h2 style="color:#67c23a">  用D3实现数据可视化</h2>
+    {% for course in courses %}
+        <li class="list-group-item"><a href="{{ url_for('show_course',_id=course._id) }}">{{ course.title }}</a></li>
+    {% endfor %}
+</ul>
+</div>
+</div>
+</div>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
+</body>
+</html>

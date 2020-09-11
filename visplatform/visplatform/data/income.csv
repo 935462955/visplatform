@@ -1,0 +1,37 @@
+company,revenues_mm,profit_mm,profit_as_of_revenues,category
+Johnson & Johnson,71890,18540,0.2578940047294478,Pharmaceuticals
+Procter & Gamble,71726,10508,0.14650196581434904,Household & Personal Products
+Abbvie,25638,5953,0.23219439893907481,Pharmaceuticals
+Amgen,22991,7722,0.33587055804445215,Pharmaceuticals
+Eli Lilly,21222,2738,0.12901705777023842,Pharmaceuticals
+Bristol-Myers Squibb,19427,4457,0.22942296803417925,Pharmaceuticals
+Altria Group,19337,14239,0.7363603454517247,Tobacco
+Kimberly-Clark,18202,2166,0.11899791231732777,Household & Personal Products
+General Mills,16563,1697,0.10245728430839823,Food
+Colgate-Palmolive,15195,2441,0.16064494899638038,Household & Personal Products
+Conagra Brands,14134,-677,-0.04789868402433847,Food
+Land O'Lakes,13233,245,0.01851432025995617,Food
+Pepsico,62789,6329,0.1007979104620236,Food
+Kellogg,13014,694,0.053327186107269095,Food
+Reynolds American,12503,6073,0.48572342637766935,Tobacco
+Biogen,11449,3703,0.32343436107957024,Pharmaceuticals
+Estee Lauder,11262,1115,0.09900550523885633,Household & Personal Products
+Celgene,11229,1999,0.17802119511977915,Pharmaceuticals
+Hormel Foods,9523,890,0.09345794392523364,Food
+Campbell Soup,7961,563,0.07071975882426831,Food
+J. M. Smucker,7811,689,0.08820893611573422,Food
+Dean Foods,7710,120,0.01556420233463035,Food
+Hershey,7440,720,0.0967741935483871,Food
+Pfizer,52824,7215,0.13658564288959563,Pharmaceuticals
+Constellation Brands,6548,1055,0.16111789859499084,Beverages
+Dr. Pepper Snapple Group,6440,847,0.13152173913043477,Beverages
+HRG Group,6403,-199,-0.031079181633609246,Household & Personal Products
+Treehouse Foods,6175,-229,-0.03708502024291498,Food
+Avon Products,5853,-108,-0.018452075858534086,Household & Personal Products
+Clorox,5761,648,0.11248047214025343,Household & Personal Products
+Coca-Cola,41863,6527,0.15591333635907603,Beverages
+Merck,39807,3920,0.09847514256286583,Pharmaceuticals
+Gilead Sciences,30390,13501,0.4442579795985522,Pharmaceuticals
+Philip Morris International,26685,6967,0.2610830054337643,Tobacco
+Kraft Heinz,26487,3632,0.1371238720881942,Food
+Mondelez International,25923,1659,0.06399722254368707,Food
