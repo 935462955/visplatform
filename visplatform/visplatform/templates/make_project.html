@@ -207,6 +207,9 @@
 <script src="../node_modules/codemirror/addon/hint/css-hint.js"></script>
 <script src="../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
 <script>
+    var htmlvalue = `{{ html_code|safe|transformText }}`
+    var cssvalue = `{{ css_code|safe|transformText }}`
+    var jsvalue = `{{ js_code|safe|transformText }}`
     var html_editor = CodeMirror.fromTextArea(
         document.querySelector("#html-textarea"),
         {
@@ -244,7 +247,6 @@
             extraKeys: {Ctrl: "autocomplete"},
         }
     );
-    document.querySelector('#js-textarea').value = "function myScript(){return 100;}\n"
     var js_editor = CodeMirror.fromTextArea(
         document.querySelector("#js-textarea"),
         {
@@ -259,6 +261,11 @@
             extraKeys: {Ctrl: "autocomplete"},
         }
     );
+
+    html_editor.setValue(htmlvalue)
+    css_editor.setValue(cssvalue)
+    js_editor.setValue(jsvalue)
+
     $('#run_test_btn').on('click', function () {
         document.querySelector('#iframe').contentWindow.document.querySelector('#mocha').innerHTML = ""
         document.querySelector('#iframe').contentWindow.mocha.run()

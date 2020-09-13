@@ -71,10 +71,28 @@ def show_project_workstation():
     file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)
     project_id = request.args.get('project_id',' ')
     ## code = user.code
+    #取默认值
+    html_code = ""
+    css_code = ""
+    js_code = "function myScript(){return 100;}\n"
+    user = User.objects(username=current_user.username).first()
+    user_project_code_list = user.user_project_code
+    for user_project_code in user_project_code_list:
+        if user_project_code.project_id == project_id:
+            # 已经存在该id的code
+            html_code = user_project_code.html_code
+            css_code = user_project_code.css_code
+            js_code = user_project_code.js_code
+            print(html_code)
+            print(css_code)
+            print(js_code)
+            break
+
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)
         return redirect(url_for('show_404'))
-    return render_template('make_project.html',filename = filename, project_id = project_id)
+    return render_template('make_project.html',filename = filename, project_id = project_id, html_code = html_code,
+                           css_code = css_code, js_code = js_code)
 
 @app.route('/category_set_cookie',methods=['POST'])
 def category_set_cookie():#读取列表的展开状态，fold表示展开 unfold表示折叠
