@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask_login import login_required, logout_user, login_user, current_user
 
 from visplatform import app, loginmanager
-from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User,UserCourseCode,ProjectModel
+from visplatform.models import CourseModel, ModuleModel, SubModule, CategoryModel, Unit, EmbeddedModuleModal, User, \
+    UserCourseCode, ProjectModel, UserProjectCode
 from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json,os,random
@@ -68,11 +69,12 @@ def show_course(_id):
 def show_project_workstation():
     filename = request.args.get('test_file',' ')
     file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)
+    project_id = request.args.get('project_id',' ')
     ## code = user.code
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)
         return redirect(url_for('show_404'))
-    return render_template('make_project.html',filename = filename)
+    return render_template('make_project.html',filename = filename, project_id = project_id)
 
 @app.route('/category_set_cookie',methods=['POST'])
 def category_set_cookie():#读取列表的展开状态，fold表示展开 unfold表示折叠
@@ -493,7 +495,7 @@ def login():
             "next_url": "/"
         })
 
-#保存用户代码
+#保存用户课程代码
 @app.route('/course/savecode',methods=['POST'])
 def save_code():
     if request.method == 'POST':
@@ -519,4 +521,37 @@ def save_code():
         user.user_course_code = user_course_code_list
         user.save()
 
-    return "1"
+    return "OK"
+
+#保存用户项目挑战代码
+@app.route('/project/savecode',methods=['POST'])
+def save_project_code():
+    if request.method == 'POST':
+        param = json.loads(request.data.decode("utf-8"))
+        username = param.get("username", "")
+        project_id = param.get("project_id", "")
+        html_code = param.get("html_code", "")
+        css_code = param.get("css_code", "")
+        js_code = param.get("js_code", "")
+
+        flag = True
+        user = User.objects(username = username).first()
+        user_project_code_list = user.user_project_code
+        for user_project_code in user_project_code_list:
+            if user_project_code.project_id == project_id:
+                #已经存在该id的code
+                user_project_code.html_code = html_code
+                user_project_code.css_code = css_code
+                user_project_code.js_code = js_code
+                flag = False
+                break
+
+        if flag:
+            user_project_code = UserProjectCode(project_id=project_id, html_code=html_code, css_code=css_code,
+                                                js_code=js_code)
+            user_project_code_list.append(user_project_code)
+
+        user.user_project_code = user_project_code_list
+        user.save()
+
+    return "OK"

@@ -78,6 +78,12 @@ class UserCourseCode(db.EmbeddedDocument):
     course_id = db.StringField()
     code = db.StringField()
 
+# 项目挑战代码
+class UserProjectCode(db.EmbeddedDocument):
+    project_id = db.StringField()
+    html_code = db.StringField()
+    css_code = db.StringField()
+    js_code = db.StringField()
 
 # 用户表
 class User(db.Document, UserMixin):
@@ -90,6 +96,7 @@ class User(db.Document, UserMixin):
     password_hash = db.StringField()  # 密码
     nickname = db.StringField()  # 用户名
     user_course_code = db.SortedListField(db.EmbeddedDocumentField(UserCourseCode), ordering="course_id", reverse=False)
+    user_project_code = db.SortedListField(db.EmbeddedDocumentField(UserProjectCode), ordering="project_id", reverse=False)
     superuser = db.BooleanField(default=False)  # 是否为管理员，后续可以用来进入后台（未实现）
 
     # 密码加密
