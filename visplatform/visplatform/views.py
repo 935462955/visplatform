@@ -56,7 +56,7 @@ def show_course(_id):
             project = ProjectModel.objects.get_or_404(_id = _id)
             response = make_response(render_template('project_description.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))
         else:
-            return redirec2t(url_for('show_category'))
+            return redirect(url_for('show_category'))
     except:
         return redirect(url_for('show_category'))
 
@@ -67,7 +67,7 @@ def show_course(_id):
 @app.route('/project/workstation')
 def show_project_workstation():
     filename = request.args.get('test_file',' ')
-    file_path = os.path.join(app.config['COURSE_UPLOAD_FOLDER'], filename)
+    file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)
     ## code = user.code
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)

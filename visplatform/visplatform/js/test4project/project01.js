@@ -62,7 +62,7 @@ var assert = chai.assert
 
       it('柱状图的每一个元素中的"data-date"属性的值应该按照数据原始的顺序和数据值一一对应',function(done){
   
-        $.getJSON('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json',
+        $.getJSON('https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json',
         function(res){
           try{
           let bars = document.querySelectorAll('rect.bar')
@@ -81,7 +81,7 @@ var assert = chai.assert
 
        it(`柱状图的每一个元素中的"data-gdp"属性的值应该按照数据原始的顺序和数据值一一对应`, function (done) {
    
-        $.getJSON('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json',
+        $.getJSON('https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json',
           function (res) {
             try {
               const bars = document.querySelectorAll('rect.bar');

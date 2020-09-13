@@ -81,9 +81,9 @@
         smartypants: false,
         xhtml: false,
     })
-        document.querySelector('#content').innerHTML(marked({{ project.text }}))
+      document.querySelector('#content').innerHTML = marked(`{{ project.text|safe|transformText }}`)
       $('#start_code_btn').on('click',function(){
-          window.open({{ url_for('show_project_workstation',test_file = project.test) }})
+          window.open('{{ url_for('show_project_workstation',test_file = project.test) }}')
       })
 
     </script>

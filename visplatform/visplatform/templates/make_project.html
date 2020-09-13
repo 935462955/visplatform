@@ -92,15 +92,15 @@
 
   <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" href="{{ url_for('show_category') }}">课程</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-      <a class="nav-item nav-link" href="#">Features</a>
-      <a class="nav-item nav-link" href="#">Pricing</a>
+      <a class="nav-item nav-link" href="#">项目说明</a>
+      <a class="nav-item nav-link active" href="#">工作空间<span class="sr-only">(current)</span></a>
+
     </div>
   </div>
   <form class="form-inline">
@@ -112,8 +112,8 @@
   <circle cx="8" cy="4.5" r="1"/>
 </svg>
 </button>
-    <button class="btn btn-outline-success" id="save_btn" type="button">保存</button>
-    <button class="btn btn-outline-secondary" id="run_test_btn" type="button">测试</button>
+    <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
+    <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
   </form>
 </nav>
 
@@ -122,7 +122,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">知识点小提示</h5>
+        <h5 class="modal-title">知识小提示</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -296,7 +296,7 @@
           "<script type='text/javascript' src='https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js'><\/script>"+
           "<script src='../js/project_iframe.js'><\/script>"+
           "<script src='../js/test-project-util.js'><\/script>"+
-          "<script src='../js/test4project/project01.js'><\/script>"+
+          "<script src='../js/test4project/{{ filename }}'><\/script>"+
           "</body>" +
           "</html>";
         $("#iframe").attr("srcdoc", doc);
