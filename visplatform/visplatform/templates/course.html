@@ -181,6 +181,10 @@
     </div>
 </div>
 
+<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+  <p>代码保存成功！</p>
+</div>
+
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../node_modules/ace-builds/src/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -210,6 +214,7 @@
         xhtml: false,
     });
 
+    //点击保存课程代码
     function saveCode() {
         var formdata = {
             "username": "{{current_user.username}}",
@@ -223,13 +228,20 @@
             dataType: "text",
             contentType: "application/json",
             success: function (data) {
-
+                if(data == "OK"){
+                    document.getElementById("alert alert-success").style.display="block";
+                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                }
+                return false;
             },
             error: function (e) {
             }
         })
         return false;
     }
+
+    //定时保存代码(1分钟)
+    window.setInterval(saveCode,60000);
 
     var editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
@@ -269,7 +281,7 @@
     toIframe();
     //提交按钮点击事件
     preview.onload = function () {
-        saveCode()
+        //saveCode()
         const submit = document.querySelector("#submit")
         submit.addEventListener("click", preview.contentWindow.runtest.bind(this, goal))
     };
@@ -317,7 +329,7 @@
     preview.addEventListener("mouseover", showButton.bind(this, fullscreen2));
     preview.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen2));
     editor3.addEventListener("keyup", function (e) {
-        toIframe()
+       toIframe()
     })
 
 </script>
