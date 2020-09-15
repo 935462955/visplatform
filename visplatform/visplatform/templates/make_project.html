@@ -192,6 +192,9 @@
 </div>
 <!-- 事件遮罩层-->
 <div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
+<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+  <p>代码保存成功！</p>
+</div>
 
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src='../node_modules/bootstrap/dist/js/bootstrap.js'></script>
@@ -352,8 +355,31 @@
     });
 
     function saveCode() {
-
+        var formdata = {
+            "username": "{{current_user.username}}",
+            "html_code": html_editor.getValue(),
+            "css_code": css_editor.getValue(),
+            "js_code": js_editor.getValue(),
+            "project_id": "{{project_id}}"
+        }
+        $.ajax({
+            url: "{{ url_for('save_project_code') }}",
+            type: "POST",
+            data: JSON.stringify(formdata),
+            dataType: "text",
+            contentType: "application/json",
+            success: function (data) {
+                if(data == "OK"){
+                    document.getElementById("alert alert-success").style.display="block";
+                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                }
+            },
+            error: function (e) {
+            }
+        })
     }
+
+    window.setInterval(saveCode,300000);
 </script>
 
 <script>

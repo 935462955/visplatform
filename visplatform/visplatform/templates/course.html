@@ -181,9 +181,6 @@
     </div>
 </div>
 
-<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
-  <p>代码保存成功！</p>
-</div>
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
@@ -241,7 +238,7 @@
     }
 
     //定时保存代码(1分钟)
-    window.setInterval(saveCode,60000);
+    window.setInterval(saveCode,300000);
 
     var editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
