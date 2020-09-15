@@ -95,6 +95,7 @@ def show_project_workstation():
                            css_code = css_code, js_code = js_code)
 
 @app.route('/category_set_cookie',methods=['POST'])
+@login_required
 def category_set_cookie():#读取列表的展开状态，fold表示展开 unfold表示折叠
     data = json.loads(request.data)
     resp = make_response("success")  # 设置响应体
@@ -102,6 +103,7 @@ def category_set_cookie():#读取列表的展开状态，fold表示展开 unfold
     return resp
 
 @app.route('/category')
+@login_required
 def show_category():
     category = CategoryModel.objects.first_or_404()
     modules = category.modules
@@ -515,6 +517,7 @@ def login():
 
 #保存用户课程代码
 @app.route('/course/savecode',methods=['POST'])
+@login_required
 def save_code():
     if request.method == 'POST':
         param = json.loads(request.data.decode("utf-8"))
@@ -543,6 +546,7 @@ def save_code():
 
 #保存用户项目挑战代码
 @app.route('/project/savecode',methods=['POST'])
+@login_required
 def save_project_code():
     if request.method == 'POST':
         param = json.loads(request.data.decode("utf-8"))
