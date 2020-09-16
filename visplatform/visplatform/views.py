@@ -39,6 +39,7 @@ def show_course(_id):
     try : #获取id为_id的课程
         if type == 'code_page':
             course = CourseModel.objects.get_or_404(_id=_id)
+            original_code = course.code
             try:  # 处理非法goal
                 goal = json.loads(course.goal)
             except:
@@ -52,7 +53,7 @@ def show_course(_id):
                     course.code = user_course_code.code
                     break
             response = make_response(
-                render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order))
+                render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order, original_code = original_code))
         elif type == 'project_page':
             project = ProjectModel.objects.get_or_404(_id = _id)
             response = make_response(render_template('project_description.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))

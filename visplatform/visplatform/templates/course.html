@@ -180,6 +180,9 @@
         </div>
     </div>
 </div>
+<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+  <p>代码保存成功！</p>
+</div>
 
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
@@ -255,13 +258,19 @@
     var frame_foot = `{{ course.frame_foot|safe|transformText }}`
     var goal = {{ goal|safe }}
     var preview = document.querySelector("#preview")
-    const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>  \n`
+    const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>
+          <a class="submit-btn" id="code-restore" onclick="codeRestore()" style="margin-left: 30px;color: red!important;">代码还原<\/a>  \n`
     const mark_todo = '- [ ] '
     const mark_finish = '- [x] '
     /*var init_test_part = ``
     goal.map((test)=>{
          init_test_part = init_test_part + mark_todo +test['text'] + '  '
     })*/
+    function codeRestore(){
+        var originalCode = `{{ original_code|safe|transformText }}`
+        editor.setValue(originalCode);
+    }
+
     document.querySelector(
         "#text1"
     ).innerHTML = marked(title + description + submit_part)
