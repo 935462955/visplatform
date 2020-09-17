@@ -99,6 +99,18 @@
             border: none;
             background-color: transparent;
         }
+        #searchUl{
+            overflow:auto;
+            height: 500px;
+            width: 100%;
+        }
+        #searchUl li{
+            cursor:pointer;
+        }
+        .list-group-item:hover{
+            background: #17a2b8;
+            color: white;
+        }
     </style>
 </head>
 
@@ -127,7 +139,10 @@
                 <circle cx="8" cy="4.5" r="1"/>
             </svg>
         </button>
-        <button class="btn btn-outline-success" id="save_btn" type="button" >保存 & 提交</button>
+        <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs"
+                onclick="restore()">引入js库
+        </button>
+        <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
         <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
     </form>
 </nav>
@@ -152,6 +167,31 @@
         </div>
     </div>
 </div>
+
+<!--搜索js-->
+<div class="modal fade" id="addJs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4" id="exampleModalLgLabel">搜索你需要的js库</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <input type="text" class="form-control" id="searchJs" oninput="showJs()">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <ul id="searchUl" class="list-group">
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="container">
     <div id="box1">
         <div class="toolbar">
@@ -164,7 +204,7 @@
         <div class="toolbar">
             <div>CSS</div>
         </div>
-        <textarea id="css-textarea" name="css-textarea" ></textarea>
+        <textarea id="css-textarea" name="css-textarea"></textarea>
     </div>
     <div id="resizer2"></div>
     <div id="box3">
@@ -192,8 +232,9 @@
 </div>
 <!-- 事件遮罩层-->
 <div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
-<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
-  <p>代码保存成功！</p>
+<div id="alert alert-success" class="alert alert-success" role="alert"
+     style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+    <p>代码保存成功！</p>
 </div>
 
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -369,9 +410,11 @@
             dataType: "text",
             contentType: "application/json",
             success: function (data) {
-                if(data == "OK"){
-                    document.getElementById("alert alert-success").style.display="block";
-                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                if (data == "OK") {
+                    document.getElementById("alert alert-success").style.display = "block";
+                    setTimeout(function () {
+                        document.getElementById("alert alert-success").style.display = "none";
+                    }, 1000);
                 }
             },
             error: function (e) {
@@ -379,7 +422,45 @@
         })
     }
 
-    window.setInterval(saveCode,300000);
+    //代码定时保存
+    window.setInterval(saveCode, 300000);
+
+    var search = document.getElementById('searchJs');
+
+    function restore() {
+        search.value = '';
+    }
+
+    //显示搜索到的js库
+    function showJs() {
+        console.log(search.value);
+        searchJsJson(search.value)
+
+    }
+
+    //通过接口搜索js库
+    function searchJsJson(need) {
+        var formdata = {"search": need,"limit": 20}
+        $.ajax({
+            url: 'https://api.cdnjs.com/libraries',
+            type: 'GET',
+            data: formdata,
+            dataType: 'json',
+            success: function (data) {
+                console.log(this.url)
+                $("#searchUl").children().filter('li').remove();
+                var results = data.results;
+                console.log(results);
+                $.each(results,function(index, result){
+                   $("#searchUl").append("<li class='list-group-item'><div style='margin-bottom: 10px;color: #bc4c24;font-size: 22px;'>" +
+                       "<a>" + result.name + "</a></div>" + "<div class='link'>" +  result.latest +"</div>"+ "</li>");
+                });
+            },
+            error: function (e) {
+                console.log("error")
+            }
+        })
+    }
 </script>
 
 <script>

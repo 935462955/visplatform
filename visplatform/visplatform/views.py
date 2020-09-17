@@ -84,9 +84,6 @@ def show_project_workstation():
             html_code = user_project_code.html_code
             css_code = user_project_code.css_code
             js_code = user_project_code.js_code
-            print(html_code)
-            print(css_code)
-            print(js_code)
             break
 
     if not os.path.exists(file_path):
@@ -578,3 +575,5 @@ def save_project_code():
         user.save()
 
     return "OK"
+
+

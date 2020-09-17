@@ -237,7 +237,6 @@
             error: function (e) {
             }
         })
-        return false;
     }
 
     //定时保存代码(1分钟)
@@ -266,6 +265,7 @@
     goal.map((test)=>{
          init_test_part = init_test_part + mark_todo +test['text'] + '  '
     })*/
+    //代码还原
     function codeRestore(){
         var originalCode = `{{ original_code|safe|transformText }}`
         editor.setValue(originalCode);
