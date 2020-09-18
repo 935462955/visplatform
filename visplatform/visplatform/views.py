@@ -84,13 +84,14 @@ def show_project_workstation():
             html_code = user_project_code.html_code
             css_code = user_project_code.css_code
             js_code = user_project_code.js_code
+            add_js = user_project_code.add_js
             break
 
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)
         return redirect(url_for('show_404'))
     return render_template('make_project.html',filename = filename, project_id = project_id, html_code = html_code,
-                           css_code = css_code, js_code = js_code)
+                           css_code = css_code, js_code = js_code, add_js = add_js)
 
 @app.route('/category_set_cookie',methods=['POST'])
 @login_required
@@ -553,6 +554,7 @@ def save_project_code():
         html_code = param.get("html_code", "")
         css_code = param.get("css_code", "")
         js_code = param.get("js_code", "")
+        add_js = param.get("add_js", "")
 
         flag = True
         user = User.objects(username = username).first()
@@ -563,12 +565,13 @@ def save_project_code():
                 user_project_code.html_code = html_code
                 user_project_code.css_code = css_code
                 user_project_code.js_code = js_code
+                user_project_code.add_js = add_js
                 flag = False
                 break
 
         if flag:
             user_project_code = UserProjectCode(project_id=project_id, html_code=html_code, css_code=css_code,
-                                                js_code=js_code)
+                                                js_code=js_code, add_js=add_js)
             user_project_code_list.append(user_project_code)
 
         user.user_project_code = user_project_code_list

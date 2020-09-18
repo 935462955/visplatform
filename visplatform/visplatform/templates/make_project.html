@@ -99,17 +99,26 @@
             border: none;
             background-color: transparent;
         }
-        #searchUl{
-            overflow:auto;
+
+        #searchUl {
+            overflow: auto;
             height: 500px;
             width: 100%;
         }
-        #searchUl li{
-            cursor:pointer;
+
+        #searchUl li {
+            cursor: pointer;
         }
-        .list-group-item:hover{
+
+        .list-group-item:hover {
             background: #17a2b8;
             color: white;
+        }
+
+        .list-group-name {
+            margin-bottom: 10px;
+            color: #bc4c24;
+            font-size: 22px;
         }
     </style>
 </head>
@@ -251,6 +260,18 @@
 <script src="../node_modules/codemirror/addon/hint/css-hint.js"></script>
 <script src="../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
 <script>
+    var addjs = `{{ add_js|safe|transformText }}`;
+    addjs = addjs.substr(1);
+    addjs = addjs.substr(0, addjs.length - 1)
+    var temp  = addjs.split(',')
+    var addJs = new Array();
+    temp.forEach(function (item, index, items) {
+        item = item.trim();
+        item = item.substr(1);
+        item = item.substr(0, item.length - 1)
+        if(item.length > 0)
+            addJs.push(item)
+    })
     var htmlvalue = `{{ html_code|safe|transformText }}`
     var cssvalue = `{{ css_code|safe|transformText }}`
     var jsvalue = `{{ js_code|safe|transformText }}`
@@ -318,15 +339,20 @@
     })
     // 保存代码并显示到iframe
     //保存功能还没实现
+    var addJsS = '';
     $("#save_btn").on("click", function () {
-        let html = $("#html-textarea").val();
+        let html = html_editor.getValue();
         html = html.replace(
             /<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/g,
             ""
         );
-        let css = $("#css-textarea").val();
+        let css = css_editor.getValue();
         css = css.replace(/<style>|<\/style>/g, "");
-        let js = $("#js-textarea").val();
+        let js = js_editor.getValue();
+        addJs.forEach(function (item, index, items) {
+            addJsS += "<script src='" + item + "'><\/script>";
+        })
+
         doc =
             "<html lang='en'>" +
             "<head>" +
@@ -357,6 +383,7 @@
            </div>
            </div>
            </div>` +
+            addJsS +
             "<script id='user_js'>" +
             js +
             "<\/script>" +
@@ -371,28 +398,10 @@
             "<script src='../js/test4project/{{ filename }}'><\/script>" +
             "</body>" +
             "</html>";
+        console.log(doc)
         $("#iframe").attr("srcdoc", doc);
 
-        var formdata = {
-            "username": "{{current_user.username}}",
-            "html_code": html_editor.getValue(),
-            "css_code": css_editor.getValue(),
-            "js_code": js_editor.getValue(),
-            "project_id": "{{project_id}}"
-        }
-        $.ajax({
-            url: "{{ url_for('save_project_code') }}",
-            type: "POST",
-            data: JSON.stringify(formdata),
-            dataType: "text",
-            contentType: "application/json",
-            success: function (data) {
-
-            },
-            error: function (e) {
-            }
-        })
-        return false;
+        saveCode();
     });
 
     function saveCode() {
@@ -401,6 +410,7 @@
             "html_code": html_editor.getValue(),
             "css_code": css_editor.getValue(),
             "js_code": js_editor.getValue(),
+            "add_js": addJs,
             "project_id": "{{project_id}}"
         }
         $.ajax({
@@ -433,27 +443,24 @@
 
     //显示搜索到的js库
     function showJs() {
-        console.log(search.value);
         searchJsJson(search.value)
 
     }
 
     //通过接口搜索js库
     function searchJsJson(need) {
-        var formdata = {"search": need,"limit": 20}
+        var formdata = {"search": need, "limit": 20}
         $.ajax({
             url: 'https://api.cdnjs.com/libraries',
             type: 'GET',
             data: formdata,
             dataType: 'json',
             success: function (data) {
-                console.log(this.url)
                 $("#searchUl").children().filter('li').remove();
                 var results = data.results;
-                console.log(results);
-                $.each(results,function(index, result){
-                   $("#searchUl").append("<li class='list-group-item'><div style='margin-bottom: 10px;color: #bc4c24;font-size: 22px;'>" +
-                       "<a>" + result.name + "</a></div>" + "<div class='link'>" +  result.latest +"</div>"+ "</li>");
+                $.each(results, function (index, result) {
+                    $("#searchUl").append("<li class='list-group-item result-li'><div class='list-group-name'><a>" +
+                        result.name + "</a></div><div class='link'>" + result.latest + "</div></li>");
                 });
             },
             error: function (e) {
@@ -461,6 +468,24 @@
             }
         })
     }
+
+    $(document).on('click', '.result-li', function () {
+        let link = this.querySelectorAll('div')[1].innerHTML;
+        let flag = true;
+        try {
+            addJs.forEach(function (item, index, items) {
+                if (item == link) {
+                    flag = false;
+                    throw new Error("ending");
+                }
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+        if (flag)
+            addJs.push(link);
+    })
+
 </script>
 
 <script>
