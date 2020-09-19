@@ -102,12 +102,19 @@
 
         #searchUl {
             overflow: auto;
-            height: 500px;
+            height: 400px;
             width: 100%;
         }
 
         #searchUl li {
             cursor: pointer;
+        }
+
+        #showUl {
+            overflow: auto;
+            height: 200px;
+            width: 100%;
+            padding-left: 0px;
         }
 
         .list-group-item:hover {
@@ -120,6 +127,12 @@
             color: #bc4c24;
             font-size: 22px;
         }
+
+        #exampleModalLgLabel2 {
+            width: 100%;
+        }
+
+
     </style>
 </head>
 
@@ -148,8 +161,8 @@
                 <circle cx="8" cy="4.5" r="1"/>
             </svg>
         </button>
-        <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs"
-                onclick="restore()">引入js库
+        <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs">
+            引入js库
         </button>
         <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
         <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
@@ -194,7 +207,11 @@
             </div>
             <div class="modal-footer">
                 <ul id="searchUl" class="list-group">
-
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <h6 id="exampleModalLgLabel2">已添加的js库</h6>
+                <ul id="showUl">
                 </ul>
             </div>
         </div>
@@ -229,7 +246,7 @@
                 </svg>
             </button>
         </div>
-        <textarea id="js-textarea" name="js-textarea"></textarea>
+        <textarea id="js-textarea" name="jFs-textarea"></textarea>
     </div>
 </div>
 <div id="horizon-resizer">
@@ -263,13 +280,13 @@
     var addjs = `{{ add_js|safe|transformText }}`;
     addjs = addjs.substr(1);
     addjs = addjs.substr(0, addjs.length - 1)
-    var temp  = addjs.split(',')
+    var temp = addjs.split(',')
     var addJs = new Array();
     temp.forEach(function (item, index, items) {
         item = item.trim();
         item = item.substr(1);
         item = item.substr(0, item.length - 1)
-        if(item.length > 0)
+        if (item.length > 0)
             addJs.push(item)
     })
     var htmlvalue = `{{ html_code|safe|transformText }}`
@@ -338,7 +355,7 @@
         //doc.querySelector('#')
     })
     // 保存代码并显示到iframe
-    //保存功能还没实现
+    // 保存功能还没实现
     var addJsS = '';
     $("#save_btn").on("click", function () {
         let html = html_editor.getValue();
@@ -402,8 +419,10 @@
         $("#iframe").attr("srcdoc", doc);
 
         saveCode();
+
     });
 
+    //保存代码和js库
     function saveCode() {
         var formdata = {
             "username": "{{current_user.username}}",
@@ -435,21 +454,33 @@
     //代码定时保存
     window.setInterval(saveCode, 300000);
 
-    var search = document.getElementById('searchJs');
-
-    function restore() {
+    //加载已经加入的js库
+    $(document).on('click', '#add_js', function () {
+        let search = document.getElementById('searchJs');
         search.value = '';
-    }
+        //加载已经加入的js库
+        $("#showUl").children().filter('li').remove();
+        $.each(addJs, function (index, result) {
+            $("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+                + result + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+                "</svg></div></li>");
+        });
+    })
 
     //显示搜索到的js库
     function showJs() {
+        let search = document.getElementById('searchJs');
         searchJsJson(search.value)
-
     }
 
     //通过接口搜索js库
     function searchJsJson(need) {
-        var formdata = {"search": need, "limit": 20}
+        if (typeof (need) == "undefined")
+            var formdata = {"search": need}
+        else
+            var formdata = {"search": need, "limit": 40}
         $.ajax({
             url: 'https://api.cdnjs.com/libraries',
             type: 'GET',
@@ -469,6 +500,19 @@
         })
     }
 
+    //点击后删除js库
+    $(document).on('click', '.added-li div svg', function () {
+        this.parentNode.parentNode.remove()
+        let link = this.parentNode.innerHTML.split("<svg")[0];
+        console.log(link)
+
+        addJs.forEach(function (item, index, items) {
+            if (item == link) {
+                addJs.splice(index, 1);
+            }
+        })
+    })
+    //点击后进行添加js库
     $(document).on('click', '.result-li', function () {
         let link = this.querySelectorAll('div')[1].innerHTML;
         let flag = true;
@@ -482,10 +526,17 @@
         } catch (e) {
             console.log(e.message);
         }
-        if (flag)
+        if (flag) {
             addJs.push(link);
+            $("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+                + link + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+                "</svg></div></li>");
+        }
     })
 
+    window.onload = searchJsJson();
 </script>
 
 <script>

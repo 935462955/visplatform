@@ -76,6 +76,7 @@ def show_project_workstation():
     html_code = ""
     css_code = ""
     js_code = "function myScript(){return 100;}\n"
+    add_js = ""
     user = User.objects(username=current_user.username).first()
     user_project_code_list = user.user_project_code
     for user_project_code in user_project_code_list:
