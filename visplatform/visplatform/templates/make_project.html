@@ -102,7 +102,7 @@
 
         #searchUl {
             overflow: auto;
-            height: 400px;
+            height: 100%;
             width: 100%;
         }
 
@@ -112,8 +112,8 @@
 
         #showUl {
             overflow: auto;
-            height: 200px;
             width: 100%;
+            height: 240%;
             padding-left: 0px;
         }
 
@@ -132,7 +132,31 @@
             width: 100%;
         }
 
+        #biggest {
+            height: 85%;
+        }
 
+        #footheight {
+            height: 50%;
+            display: none;
+        }
+
+        #footheight2 {
+            height: 33%;
+        }
+
+        #bodyheight {
+            flex: 0 !important;
+            padding: 10px 16px !important;
+        }
+
+        #headerp {
+            padding: 10px 16px !important;
+        }
+
+        .btn-info {
+            margin: 10px 0px;
+        }
     </style>
 </head>
 
@@ -193,23 +217,23 @@
 <!--搜索js-->
 <div class="modal fade" id="addJs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
+        <div class="modal-content" id="biggest">
+            <div class="modal-header" id="headerp">
                 <h5 class="modal-title h4" id="exampleModalLgLabel">搜索你需要的js库</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="bodyheight">
                 <div>
                     <input type="text" class="form-control" id="searchJs" oninput="showJs()">
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="footheight">
                 <ul id="searchUl" class="list-group">
                 </ul>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" id="footheight2">
                 <h6 id="exampleModalLgLabel2">已添加的js库</h6>
                 <ul id="showUl">
                 </ul>
@@ -454,8 +478,7 @@
     //代码定时保存
     window.setInterval(saveCode, 300000);
 
-    //加载已经加入的js库
-    $(document).on('click', '#add_js', function () {
+    function addJsF() {
         let search = document.getElementById('searchJs');
         search.value = '';
         //加载已经加入的js库
@@ -467,13 +490,38 @@
                 "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
                 "</svg></div></li>");
         });
+        $("#showUl").append("<li> <button class=\"btn btn-info\" id=\"addcustomjs\">+ 添加一个自定义的js库 </button></li>");
+    }
+
+    //加载已经加入的js库
+    $(document).on('click', '#add_js', addJsF)
+
+    //添加一个自定义的js库
+    $(document).on('click', '#addcustomjs', function () {
+        $("#showUl").append("<li><div class=\"input-group mb-3\">\n" +
+            "  <input type=\"text\" id=\"jsvalue\"class=\"form-control\" placeholder=\"请输入Js库的地址\" aria-label=\"Recipient's username\" aria-describedby=\"button-addon2\">\n" +
+            "  <div class=\"input-group-append\">\n" +
+            "    <button class=\"btn btn-outline-secondary\" type=\"button\" id=\"button-addon2\">确定</button>\n" +
+            "  </div>\n" +
+            "</div></li>");
+    })
+
+    $(document).on('click', '#button-addon2', function () {
+        let link = $('#jsvalue').val();
+        console.log(link)
+        addJs.push(link);
+        addJsF();
     })
 
     //显示搜索到的js库
     function showJs() {
         let search = document.getElementById('searchJs');
         searchJsJson(search.value)
+        $("#footheight").css('display', 'block');
+        $("#showUl").css('height', '70%');
     }
+
+    $(document).on('click', '#searchJs', showJs)
 
     //通过接口搜索js库
     function searchJsJson(need) {
@@ -502,15 +550,16 @@
 
     //点击后删除js库
     $(document).on('click', '.added-li div svg', function () {
-        this.parentNode.parentNode.remove()
+        //this.parentNode.parentNode.remove()
         let link = this.parentNode.innerHTML.split("<svg")[0];
-        console.log(link)
+        //console.log(link)
 
         addJs.forEach(function (item, index, items) {
             if (item == link) {
                 addJs.splice(index, 1);
             }
         })
+        addJsF();
     })
     //点击后进行添加js库
     $(document).on('click', '.result-li', function () {
@@ -528,12 +577,16 @@
         }
         if (flag) {
             addJs.push(link);
-            $("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
-                + link + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
-                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
-                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
-                "</svg></div></li>");
+            addJsF();
+            //$("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+            //    + link + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+            //    "</svg></div></li>");
+            $("#footheight").css('display', 'none');
+            $("#showUl").css('height', '240%');
         }
+
     })
 
     window.onload = searchJsJson();
