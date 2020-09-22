@@ -54,7 +54,7 @@
 <div class="container">
     <div id="user">
         <p>&nbsp;&nbsp;用户 : {{ current_user.nickname }}</p>
-        <button onclick="window.location.href = 'logout'">退出登录</button>
+        <button id='logout'>退出登录</button>
     </div>
     <div class="row" style="width: 50% ; margin-left:25%; margin-top:5vh">
         <div class="col-12">
@@ -102,6 +102,9 @@
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script>
+    $(document).on('click', '#logout', function (){
+        window.location.href = 'logout';
+    })
     $(document).on('show.bs.collapse', '.list-group', function () { //折叠箭头
         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
         if (path.attr("data-state") == "right") {

@@ -72,7 +72,6 @@ class CategoryModel(db.Document):
         "strict": "False",
     }
 
-
 # 用户代码
 class UserCourseCode(db.EmbeddedDocument):
     course_id = db.StringField()
@@ -84,6 +83,7 @@ class UserProjectCode(db.EmbeddedDocument):
     html_code = db.StringField()
     css_code = db.StringField()
     js_code = db.StringField()
+    add_js = db.SortedListField(db.StringField())
 
 # 用户表
 class User(db.Document, UserMixin):

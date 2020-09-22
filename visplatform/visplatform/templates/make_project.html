@@ -99,6 +99,64 @@
             border: none;
             background-color: transparent;
         }
+
+        #searchUl {
+            overflow: auto;
+            height: 100%;
+            width: 100%;
+        }
+
+        #searchUl li {
+            cursor: pointer;
+        }
+
+        #showUl {
+            overflow: auto;
+            width: 100%;
+            height: 240%;
+            padding-left: 0px;
+        }
+
+        .list-group-item:hover {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .list-group-name {
+            margin-bottom: 10px;
+            color: #bc4c24;
+            font-size: 22px;
+        }
+
+        #exampleModalLgLabel2 {
+            width: 100%;
+        }
+
+        #biggest {
+            height: 85%;
+        }
+
+        #footheight {
+            height: 50%;
+            display: none;
+        }
+
+        #footheight2 {
+            height: 33%;
+        }
+
+        #bodyheight {
+            flex: 0 !important;
+            padding: 10px 16px !important;
+        }
+
+        #headerp {
+            padding: 10px 16px !important;
+        }
+
+        .btn-info {
+            margin: 10px 0px;
+        }
     </style>
 </head>
 
@@ -127,7 +185,10 @@
                 <circle cx="8" cy="4.5" r="1"/>
             </svg>
         </button>
-        <button class="btn btn-outline-success" id="save_btn" type="button" >保存 & 提交</button>
+        <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs">
+            引入js库
+        </button>
+        <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
         <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
     </form>
 </nav>
@@ -152,6 +213,35 @@
         </div>
     </div>
 </div>
+
+<!--搜索js-->
+<div class="modal fade" id="addJs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="biggest">
+            <div class="modal-header" id="headerp">
+                <h5 class="modal-title h4" id="exampleModalLgLabel">搜索你需要的js库</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="bodyheight">
+                <div>
+                    <input type="text" class="form-control" id="searchJs" oninput="showJs()">
+                </div>
+            </div>
+            <div class="modal-footer" id="footheight">
+                <ul id="searchUl" class="list-group">
+                </ul>
+            </div>
+            <div class="modal-footer" id="footheight2">
+                <h6 id="exampleModalLgLabel2">已添加的js库</h6>
+                <ul id="showUl">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div id="container">
     <div id="box1">
         <div class="toolbar">
@@ -164,7 +254,7 @@
         <div class="toolbar">
             <div>CSS</div>
         </div>
-        <textarea id="css-textarea" name="css-textarea" ></textarea>
+        <textarea id="css-textarea" name="css-textarea"></textarea>
     </div>
     <div id="resizer2"></div>
     <div id="box3">
@@ -180,7 +270,7 @@
                 </svg>
             </button>
         </div>
-        <textarea id="js-textarea" name="js-textarea"></textarea>
+        <textarea id="js-textarea" name="jFs-textarea"></textarea>
     </div>
 </div>
 <div id="horizon-resizer">
@@ -192,8 +282,9 @@
 </div>
 <!-- 事件遮罩层-->
 <div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
-<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
-  <p>代码保存成功！</p>
+<div id="alert alert-success" class="alert alert-success" role="alert"
+     style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+    <p>代码保存成功！</p>
 </div>
 
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -210,6 +301,18 @@
 <script src="../node_modules/codemirror/addon/hint/css-hint.js"></script>
 <script src="../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
 <script>
+    var addjs = `{{ add_js|safe|transformText }}`;
+    addjs = addjs.substr(1);
+    addjs = addjs.substr(0, addjs.length - 1)
+    var temp = addjs.split(',')
+    var addJs = new Array();
+    temp.forEach(function (item, index, items) {
+        item = item.trim();
+        item = item.substr(1);
+        item = item.substr(0, item.length - 1)
+        if (item.length > 0)
+            addJs.push(item)
+    })
     var htmlvalue = `{{ html_code|safe|transformText }}`
     var cssvalue = `{{ css_code|safe|transformText }}`
     var jsvalue = `{{ js_code|safe|transformText }}`
@@ -276,16 +379,21 @@
         //doc.querySelector('#')
     })
     // 保存代码并显示到iframe
-    //保存功能还没实现
+    // 保存功能还没实现
+    var addJsS = '';
     $("#save_btn").on("click", function () {
-        let html = $("#html-textarea").val();
+        let html = html_editor.getValue();
         html = html.replace(
             /<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/g,
             ""
         );
-        let css = $("#css-textarea").val();
+        let css = css_editor.getValue();
         css = css.replace(/<style>|<\/style>/g, "");
-        let js = $("#js-textarea").val();
+        let js = js_editor.getValue();
+        addJs.forEach(function (item, index, items) {
+            addJsS += "<script src='" + item + "'><\/script>";
+        })
+
         doc =
             "<html lang='en'>" +
             "<head>" +
@@ -316,6 +424,7 @@
            </div>
            </div>
            </div>` +
+            addJsS +
             "<script id='user_js'>" +
             js +
             "<\/script>" +
@@ -330,36 +439,21 @@
             "<script src='../js/test4project/{{ filename }}'><\/script>" +
             "</body>" +
             "</html>";
+        console.log(doc)
         $("#iframe").attr("srcdoc", doc);
 
-        var formdata = {
-            "username": "{{current_user.username}}",
-            "html_code": html_editor.getValue(),
-            "css_code": css_editor.getValue(),
-            "js_code": js_editor.getValue(),
-            "project_id": "{{project_id}}"
-        }
-        $.ajax({
-            url: "{{ url_for('save_project_code') }}",
-            type: "POST",
-            data: JSON.stringify(formdata),
-            dataType: "text",
-            contentType: "application/json",
-            success: function (data) {
+        saveCode();
 
-            },
-            error: function (e) {
-            }
-        })
-        return false;
     });
 
+    //保存代码和js库
     function saveCode() {
         var formdata = {
             "username": "{{current_user.username}}",
             "html_code": html_editor.getValue(),
             "css_code": css_editor.getValue(),
             "js_code": js_editor.getValue(),
+            "add_js": addJs,
             "project_id": "{{project_id}}"
         }
         $.ajax({
@@ -369,9 +463,11 @@
             dataType: "text",
             contentType: "application/json",
             success: function (data) {
-                if(data == "OK"){
-                    document.getElementById("alert alert-success").style.display="block";
-                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                if (data == "OK") {
+                    document.getElementById("alert alert-success").style.display = "block";
+                    setTimeout(function () {
+                        document.getElementById("alert alert-success").style.display = "none";
+                    }, 1000);
                 }
             },
             error: function (e) {
@@ -379,7 +475,121 @@
         })
     }
 
-    window.setInterval(saveCode,300000);
+    //代码定时保存
+    window.setInterval(saveCode, 300000);
+
+    function addJsF() {
+        let search = document.getElementById('searchJs');
+        search.value = '';
+        //加载已经加入的js库
+        $("#showUl").children().filter('li').remove();
+        $.each(addJs, function (index, result) {
+            $("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+                + result + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+                "</svg></div></li>");
+        });
+        $("#showUl").append("<li> <button class=\"btn btn-info\" id=\"addcustomjs\">+ 添加一个自定义的js库 </button></li>");
+    }
+
+    //加载已经加入的js库
+    $(document).on('click', '#add_js', addJsF)
+
+    //添加一个自定义的js库
+    $(document).on('click', '#addcustomjs', function () {
+        $("#showUl").append("<li><div class=\"input-group mb-3\">\n" +
+            "  <input type=\"text\" id=\"jsvalue\"class=\"form-control\" placeholder=\"请输入Js库的地址\" aria-label=\"Recipient's username\" aria-describedby=\"button-addon2\">\n" +
+            "  <div class=\"input-group-append\">\n" +
+            "    <button class=\"btn btn-outline-secondary\" type=\"button\" id=\"button-addon2\">确定</button>\n" +
+            "  </div>\n" +
+            "</div></li>");
+    })
+
+    $(document).on('click', '#button-addon2', function () {
+        let link = $('#jsvalue').val();
+        console.log(link)
+        addJs.push(link);
+        addJsF();
+    })
+
+    //显示搜索到的js库
+    function showJs() {
+        let search = document.getElementById('searchJs');
+        searchJsJson(search.value)
+        $("#footheight").css('display', 'block');
+        $("#showUl").css('height', '70%');
+    }
+
+    $(document).on('click', '#searchJs', showJs)
+
+    //通过接口搜索js库
+    function searchJsJson(need) {
+        if (typeof (need) == "undefined")
+            var formdata = {"search": need}
+        else
+            var formdata = {"search": need, "limit": 40}
+        $.ajax({
+            url: 'https://api.cdnjs.com/libraries',
+            type: 'GET',
+            data: formdata,
+            dataType: 'json',
+            success: function (data) {
+                $("#searchUl").children().filter('li').remove();
+                var results = data.results;
+                $.each(results, function (index, result) {
+                    $("#searchUl").append("<li class='list-group-item result-li'><div class='list-group-name'><a>" +
+                        result.name + "</a></div><div class='link'>" + result.latest + "</div></li>");
+                });
+            },
+            error: function (e) {
+                console.log("error")
+            }
+        })
+    }
+
+    //点击后删除js库
+    $(document).on('click', '.added-li div svg', function () {
+        //this.parentNode.parentNode.remove()
+        let link = this.parentNode.innerHTML.split("<svg")[0];
+        //console.log(link)
+
+        addJs.forEach(function (item, index, items) {
+            if (item == link) {
+                addJs.splice(index, 1);
+            }
+        })
+        addJsF();
+    })
+    //点击后进行添加js库
+    $(document).on('click', '.result-li', function () {
+        let link = this.querySelectorAll('div')[1].innerHTML;
+        let flag = true;
+        try {
+            addJs.forEach(function (item, index, items) {
+                if (item == link) {
+                    flag = false;
+                    throw new Error("ending");
+                }
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+        if (flag) {
+            addJs.push(link);
+            addJsF();
+            //$("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+            //    + link + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+            //    "</svg></div></li>");
+            $("#footheight").css('display', 'none');
+            $("#showUl").css('height', '240%');
+        }
+
+    })
+
+    window.onload = searchJsJson();
 </script>
 
 <script>

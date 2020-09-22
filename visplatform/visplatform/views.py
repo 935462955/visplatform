@@ -39,6 +39,7 @@ def show_course(_id):
     try : #获取id为_id的课程
         if type == 'code_page':
             course = CourseModel.objects.get_or_404(_id=_id)
+            original_code = course.code
             try:  # 处理非法goal
                 goal = json.loads(course.goal)
             except:
@@ -52,7 +53,7 @@ def show_course(_id):
                     course.code = user_course_code.code
                     break
             response = make_response(
-                render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order))
+                render_template('course.html', course=course, goal=goal, next_id=next_id, next_type=next_type,next_order=next_order, original_code = original_code))
         elif type == 'project_page':
             project = ProjectModel.objects.get_or_404(_id = _id)
             response = make_response(render_template('project_description.html',project = project, next_id=next_id, next_type = next_type,next_order = next_order))
@@ -75,6 +76,7 @@ def show_project_workstation():
     html_code = ""
     css_code = ""
     js_code = "function myScript(){return 100;}\n"
+    add_js = ""
     user = User.objects(username=current_user.username).first()
     user_project_code_list = user.user_project_code
     for user_project_code in user_project_code_list:
@@ -83,16 +85,14 @@ def show_project_workstation():
             html_code = user_project_code.html_code
             css_code = user_project_code.css_code
             js_code = user_project_code.js_code
-            print(html_code)
-            print(css_code)
-            print(js_code)
+            add_js = user_project_code.add_js
             break
 
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)
         return redirect(url_for('show_404'))
     return render_template('make_project.html',filename = filename, project_id = project_id, html_code = html_code,
-                           css_code = css_code, js_code = js_code)
+                           css_code = css_code, js_code = js_code, add_js = add_js)
 
 @app.route('/category_set_cookie',methods=['POST'])
 @login_required
@@ -555,6 +555,7 @@ def save_project_code():
         html_code = param.get("html_code", "")
         css_code = param.get("css_code", "")
         js_code = param.get("js_code", "")
+        add_js = param.get("add_js", "")
 
         flag = True
         user = User.objects(username = username).first()
@@ -565,15 +566,18 @@ def save_project_code():
                 user_project_code.html_code = html_code
                 user_project_code.css_code = css_code
                 user_project_code.js_code = js_code
+                user_project_code.add_js = add_js
                 flag = False
                 break
 
         if flag:
             user_project_code = UserProjectCode(project_id=project_id, html_code=html_code, css_code=css_code,
-                                                js_code=js_code)
+                                                js_code=js_code, add_js=add_js)
             user_project_code_list.append(user_project_code)
 
         user.user_project_code = user_project_code_list
         user.save()
 
     return "OK"
+
+
