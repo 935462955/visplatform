@@ -77,7 +77,7 @@ var assert = chai.assert
             done(e)
           }
         })
-      })
+      }).timeout(10000)
 
        it(`柱状图的每一个元素中的"data-gdp"属性的值应该按照数据原始的顺序和数据值一一对应`, function (done) {
    

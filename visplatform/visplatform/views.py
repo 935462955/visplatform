@@ -67,6 +67,7 @@ def show_course(_id):
     return response
 
 @app.route('/project/workstation')
+@login_required
 def show_project_workstation():
     filename = request.args.get('test_file',' ')
     file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)

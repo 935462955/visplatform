@@ -185,6 +185,7 @@
                 <circle cx="8" cy="4.5" r="1"/>
             </svg>
         </button>
+        <button class="btn btn-outline-warning"  type="button" id="test">测试</button>
         <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs">
             引入js库
         </button>
@@ -590,6 +591,82 @@
     })
 
     window.onload = searchJsJson();
+
+    $(document).on('click', '#test', function () {
+        let htmltest = "<div class=\"container\">\n" +
+            "   <div id=\"title\"></div>\n" +
+            "</div>";
+        let csstest = ".container {\n" +
+            "\tmargin: 0 25%;\n" +
+            "}\n" +
+            "a.replay{\n" +
+            "\tdisplay:none!important;\n" +
+            "}";
+        let jstest = "const width = 800,\n" +
+            "height = 400,\n" +
+            "padding = 40,\n" +
+            "barWidth = width/275\n" +
+            "\n" +
+            "const svg = d3\n" +
+            "  .select(\".container\")\n" +
+            "  .append(\"svg\")\n" +
+            "  .attr(\"height\",height+padding)\n" +
+            "  .attr(\"width\",width+padding)\n" +
+            " \n" +
+            "const parseTime = d3.timeParse(\"%Y-%m-%d\");\n\n" +
+            "d3.json(\n" +
+            "  \"https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json\",\n" +
+            "  d3.autoType\n" +
+            ").then(function (data) {\n" +
+            "data1 = data[\"data\"];\n" +
+            "d3.select(\".container\").append(\"g\");\n" +
+            "const xScale = d3.scaleTime()\n" +
+            "\t.domain(d3.extent(data1, d => parseTime(d[0])))\n" +
+            "\t.range([0+padding/2,width+padding/2])\n" +
+            "console.log(xScale(parseTime(\"1947-01-01\")))\n" +
+            "const yScale = d3.scaleLinear()\n" +
+            "\t.domain([0,d3.max(data1,d=>d[1])])\n" +
+            "\t.range([height,0])\n" +
+            "const tooltip = svg.append(\"text\")\n" +
+            "\t.attr(\"id\",\"tooltip\")\n" +
+            "const rects = svg.append(\"g\")\n" +
+            "rects.selectAll(\"rect\")\n" +
+            "\t.data(data1)\n" +
+            "\t.join(\"rect\")\n" +
+            "\t.attr(\"data-date\",d=>d[0])\n" +
+            "\t.attr(\"data-gdp\",d=>d[1])\n" +
+            "\t.attr(\"class\",\"bar\")\n" +
+            "\t.attr(\"x\",d=>xScale(parseTime(d[0])))\n" +
+            "\t.attr(\"y\",d=>yScale(d[1]))\n" +
+            "\t.attr(\"height\",d=>height - yScale(d[1]))\n" +
+            "\t.attr(\"width\",barWidth)\n" +
+            "\t.attr(\"fill\",\"blue\")\n" +
+            "\t.on(\"mouseover\",function(d){\n" +
+            "\t\ttooltip.text(d[0])\n" +
+            "\t\t.attr(\"visibility\",\"visible\")\n" +
+            "\t\t\t.attr(\"data-date\",d[0])\n" +
+            "\t})\n" +
+            "\t.on(\"mouseout\",function(d){\n" +
+            "\t\ttooltip\n" +
+            "\t\t\t.attr(\"visibility\",\"hidden\")\n" +
+            "\t})\n" +
+            "\n" +
+            "const xAxis = d3.axisBottom(xScale)\n" +
+            "svg.append(\"g\")\n" +
+            "\t.attr(\"id\",\"x-axis\")\n" +
+            "\t.attr(\"transform\",`translate(0,${height})`)\n" +
+            "\t.call(xAxis)\n" +
+            "const yAxis = d3.axisLeft(yScale)\n" +
+            "svg.append(\"g\")\n" +
+            "\t.attr(\"id\",\"y-axis\")\n" +
+            "\t.attr(\"transform\",`translate(${padding/2+20},0)`)\n" +
+            "\t.call(yAxis)\n" +
+            "});";
+
+        html_editor.setValue(htmltest)
+        css_editor.setValue(csstest)
+        js_editor.setValue(jstest)
+    })
 </script>
 
 <script>

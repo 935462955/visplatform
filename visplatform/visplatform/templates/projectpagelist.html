@@ -67,10 +67,10 @@
                     </div>
                 </div>
             {% endfor %}
-            <ul>
+            <ul class="list-group">
                 项目数：{{ projects|length }}
                 {% for project in projects %}
-                    <li>
+                    <li class="list-group-item">
                         <a href="{{ url_for('edit_project',_id = project._id) }}">{{ project.project_id }}.{{ project.title }}</a>
 
                     </li>
