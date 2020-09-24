@@ -9,7 +9,6 @@ from flask_mongoengine.wtf import model_form
 from visplatform import tools
 import json, os, random
 
-
 # 主页
 from visplatform.tools import create_relationship
 
@@ -663,4 +662,12 @@ def save_project_code():
 
     return "OK"
 
+#处理http404错误
+@app.errorhandler(404)
+def miss(e):
+    return render_template('404.html'), 404
 
+#处理http500错误
+@app.errorhandler(500)
+def error(e):
+    return render_template('500.html'), 500
