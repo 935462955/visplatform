@@ -11,6 +11,9 @@ import json, os, random
 
 
 # 主页
+from visplatform.tools import create_relationship
+
+
 @app.route('/')
 @login_required
 def index():
@@ -126,7 +129,10 @@ def show_category():
             sub.order = order
             order += 1
 
-    return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state)
+    relationship_list = create_relationship()
+
+    return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
+                           relationship_list=relationship_list)
 
 
 @app.route('/Admin')
@@ -480,7 +486,7 @@ def upgrade_project_id():
 
 @app.route('/Admin/codepage')
 def show_codepages():
-    courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, tag=1, _id=1, concept=1)[1:]
+    courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, tag=1, _id=1, concept=1)
     # course = CourseModel.objects(course_id = 1).first()
     #
     # for temp in course.concept:
@@ -656,3 +662,5 @@ def save_project_code():
         user.save()
 
     return "OK"
+
+

@@ -118,3 +118,5 @@ class User(db.Document, UserMixin):
     # 密码验证
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
