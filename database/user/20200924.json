@@ -1,0 +1,117 @@
+[{
+  "_id": {
+    "$oid": "5f4a4759bbd12c4a279a2e6c"
+  },
+  "username": "123456",
+  "password_hash": "pbkdf2:sha256:150000$FuIEmYZN$5cf6590a7d4d20f78a92525f308a8b8ef79dc3672d057623d5e8834f1b8ca452",
+  "nickname": "发抖的dog",
+  "superuser": false,
+  "user_project_code": [
+    {
+      "project_id": "5f4d6003312f99f73a3944ae",
+      "html_code": "gggggggggggg\nssdsdsdsdsd",
+      "css_code": "tttt\n\n\n\nzzzzzzzz\n\n\n\n\n\n888888888899999",
+      "js_code": "function myScript(){return 100;}\n"
+    }
+  ],
+  "user_course_code": [
+    {
+      "course_id": "5eeb09b05ee28411388f1da0",
+      "code": "<body>\n  <script>\n    // Add your code below this line\n\n    StopIteration\n    ggg\n    \n    \n    \n    zzz\n\n    // Add your code above this line\n  </script>\n</body>\n"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f5db493313c5da3c0e5afc6"
+  },
+  "username": "888888",
+  "password_hash": "pbkdf2:sha256:150000$AjsFJ5Il$6546f67bcb54cac4d1bca7628357ec6e18ed8f42424dd09b145eb5a878062dc4",
+  "nickname": "发抖的dog",
+  "user_course_code": [],
+  "superuser": false,
+  "user_project_code": [
+    {
+      "project_id": "5f4d6003312f99f73a3944ae",
+      "html_code": "1230000",
+      "css_code": "4 5\n6",
+      "js_code": "function myScript(){return 100;}\n789"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f601e1f7c6be56efb308691"
+  },
+  "username": "7890",
+  "password_hash": "pbkdf2:sha256:150000$nM24ERCt$db92764f72fd584c0f6a502271e39f7f832977d81c29045f48dbaca52ce9d46f",
+  "nickname": "发抖的dog",
+  "user_course_code": [
+    {
+      "course_id": "5eeb09b05ee28411388f1da0",
+      "code": "<body>\n  <script>\n    // Add your code below this line\n\n    zzzz\n\n    // Add your code above this line\n  </script>\n</body>\n"
+    },
+    {
+      "course_id": "5eeb238752baf26e943af501",
+      "code": "<body>\n  <ul>\n    <li>Example</li>\n    <li>Example</li>\n    <li>Example</li>\n  </ul>\n  <script>\n    // 在下面添加你的代码\n    \n    ttttt\n    \n    // 在上面添加你的代码\n  </script>\n</body>"
+    },
+    {
+      "course_id": "5eeb3c1d52baf26e943af503",
+      "code": "<body>\n  <script>\n    const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];\n    \n    d3.select(\"body\").selectAll(\"h2\")\n      .data(dataset)\n      .enter()\n      .append(\"h2\")\n      // 在下面添加你的代码\n      \n      .text(\"New Title\");\n      \n      // 在上面添加你的代码\n  </script>\n</body>"
+    }
+  ],
+  "user_project_code": [
+    {
+      "project_id": "5f4d6003312f99f73a3944ae",
+      "html_code": "",
+      "css_code": "",
+      "js_code": "console.log(d3)\n",
+      "add_js": [
+        "https://cdnjs.cloudflare.com/ajax/libs/quasar-framework/0.17.20/quasar.mat.umd.min.js"
+      ]
+    }
+  ],
+  "superuser": false
+},{
+  "_id": {
+    "$oid": "5f65ccf8641a14323ca61e24"
+  },
+  "username": "000",
+  "password_hash": "pbkdf2:sha256:150000$9aytFvPd$f12b9ecc38d20053cc964771c6b395f90b623a841a1521a89b6a9d690e48ebe6",
+  "nickname": "123",
+  "user_course_code": [
+    {
+      "course_id": "5eeb09b05ee28411388f1da0",
+      "code": "<body>\n  <script>\n    // Add your code below this line\n\n\n\n    // Add your code above this line\n  </script>\n</body>\n"
+    }
+  ],
+  "user_project_code": [
+    {
+      "project_id": " ",
+      "html_code": "<div class=\"container\">\n   <div id=\"title\"></div>\n</div>",
+      "css_code": ".container {\n\tmargin: 0 25%;\n}\na.replay{\n\tdisplay:none!important;\n}",
+      "js_code": "const width = 800,\nheight = 400,\npadding = 40,\nbarWidth = width/275\n\nconst svg = d3\n  .select(\".container\")\n  .append(\"svg\")\n  .attr(\"height\",height+padding)\n  .attr(\"width\",width+padding)\n \nd3.json(\n  \"https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json\",\n  d3.autoType\n).then(function (data) {\ndata1 = data[\"data\"];\nd3.select(\".container\").append(\"g\");\nconst xScale = d3.scaleTime()\n\t.domain(d3.extent(data1, d => parseTime(d[0])))\n\t.range([0+padding/2,width+padding/2])\nconsole.log(xScale(parseTime(\"1947-01-01\")))\nconst yScale = d3.scaleLinear()\n\t.domain([0,d3.max(data1,d=>d[1])])\n\t.range([height,0])\nconst tooltip = svg.append(\"text\")\n\t.attr(\"id\",\"tooltip\")\nconst rects = svg.append(\"g\")\nrects.selectAll(\"rect\")\n\t.data(data1)\n\t.join(\"rect\")\n\t.attr(\"data-date\",d=>d[0])\n\t.attr(\"data-gdp\",d=>d[1])\n\t.attr(\"class\",\"bar\")\n\t.attr(\"x\",d=>xScale(parseTime(d[0])))\n\t.attr(\"y\",d=>yScale(d[1]))\n\t.attr(\"height\",d=>height - yScale(d[1]))\n\t.attr(\"width\",barWidth)\n\t.attr(\"fill\",\"blue\")\n\t.on(\"mouseover\",function(d){\n\t\ttooltip.text(d[0])\n\t\t.attr(\"visibility\",\"visible\")\n\t\t\t.attr(\"data-date\",d[0])\n\t})\n\t.on(\"mouseout\",function(d){\n\t\ttooltip\n\t\t\t.attr(\"visibility\",\"hidden\")\n\t})\n\nconst xAxis = d3.axisBottom(xScale)\nsvg.append(\"g\")\n\t.attr(\"id\",\"x-axis\")\n\t.attr(\"transform\",`translate(0,${height})`)\n\t.call(xAxis)\nconst yAxis = d3.axisLeft(yScale)\nsvg.append(\"g\")\n\t.attr(\"id\",\"y-axis\")\n\t.attr(\"transform\",`translate(${padding/2+20},0)`)\n\t.call(yAxis)\n});",
+      "add_js": [
+        "https://cdnjs.cloudflare.com/ajax/libs/d3/5.16.0/d3.min.js"
+      ]
+    },
+    {
+      "project_id": "5f4d6003312f99f73a3944ae",
+      "html_code": "<div class=\"container\">\n   <div id=\"title\"></div>\n</div>",
+      "css_code": ".container {\n\tmargin: 0 25%;\n}\na.replay{\n\tdisplay:none!important;\n}",
+      "js_code": "const width = 800,\nheight = 400,\npadding = 40,\nbarWidth = width/275\n\nconst svg = d3\n  .select(\".container\")\n  .append(\"svg\")\n  .attr(\"height\",height+padding)\n  .attr(\"width\",width+padding)\n \nconst parseTime = d3.timeParse(\"%Y-%m-%d\");\n\nd3.json(\n  \"https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json\",\n  d3.autoType\n).then(function (data) {\ndata1 = data[\"data\"];\nd3.select(\".container\").append(\"g\");\nconst xScale = d3.scaleTime()\n\t.domain(d3.extent(data1, d => parseTime(d[0])))\n\t.range([0+padding/2,width+padding/2])\nconsole.log(xScale(parseTime(\"1947-01-01\")))\nconst yScale = d3.scaleLinear()\n\t.domain([0,d3.max(data1,d=>d[1])])\n\t.range([height,0])\nconst tooltip = svg.append(\"text\")\n\t.attr(\"id\",\"tooltip\")\nconst rects = svg.append(\"g\")\nrects.selectAll(\"rect\")\n\t.data(data1)\n\t.join(\"rect\")\n\t.attr(\"data-date\",d=>d[0])\n\t.attr(\"data-gdp\",d=>d[1])\n\t.attr(\"class\",\"bar\")\n\t.attr(\"x\",d=>xScale(parseTime(d[0])))\n\t.attr(\"y\",d=>yScale(d[1]))\n\t.attr(\"height\",d=>height - yScale(d[1]))\n\t.attr(\"width\",barWidth)\n\t.attr(\"fill\",\"blue\")\n\t.on(\"mouseover\",function(d){\n\t\ttooltip.text(d[0])\n\t\t.attr(\"visibility\",\"visible\")\n\t\t\t.attr(\"data-date\",d[0])\n\t})\n\t.on(\"mouseout\",function(d){\n\t\ttooltip\n\t\t\t.attr(\"visibility\",\"hidden\")\n\t})\n\nconst xAxis = d3.axisBottom(xScale)\nsvg.append(\"g\")\n\t.attr(\"id\",\"x-axis\")\n\t.attr(\"transform\",`translate(0,${height})`)\n\t.call(xAxis)\nconst yAxis = d3.axisLeft(yScale)\nsvg.append(\"g\")\n\t.attr(\"id\",\"y-axis\")\n\t.attr(\"transform\",`translate(${padding/2+20},0)`)\n\t.call(yAxis)\n});",
+      "add_js": [
+        "https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js"
+      ]
+    }
+  ],
+  "superuser": false
+},{
+  "_id": {
+    "$oid": "5f6c7c3c06421c9f61b240c1"
+  },
+  "username": "123",
+  "password_hash": "pbkdf2:sha256:150000$qVnTt1RR$6a90338859a3bfe1ef1315ed813671a793412a200c3d65ad901383672cf7dd76",
+  "nickname": "123",
+  "user_course_code": [],
+  "user_project_code": [],
+  "superuser": false
+}]
