@@ -4,6 +4,12 @@ from flask_login import UserMixin  # flask-login的UserMixin表
 from werkzeug.security import generate_password_hash, check_password_hash  # flask的两个依赖之一werkzeug（密码加密和密码验证）
 
 
+# 知识点
+class Concept(db.Document):
+    _id = db.ObjectIdField()
+    name = db.StringField(unique=True)
+
+
 class CourseModel(db.Document):
     _id = db.ObjectIdField()
     course_id = db.IntField()
@@ -14,6 +20,7 @@ class CourseModel(db.Document):
     frame_foot = db.StringField()
     code = db.StringField()
     tag = db.StringField()
+    concept = db.SortedListField(db.ReferenceField(Concept, reverse_delete_rule=PULL))
     meta = {
         "collection": "course",
         "strict": "False"
@@ -72,10 +79,12 @@ class CategoryModel(db.Document):
         "strict": "False",
     }
 
+
 # 用户代码
 class UserCourseCode(db.EmbeddedDocument):
     course_id = db.StringField()
     code = db.StringField()
+
 
 # 项目挑战代码
 class UserProjectCode(db.EmbeddedDocument):
@@ -84,6 +93,7 @@ class UserProjectCode(db.EmbeddedDocument):
     css_code = db.StringField()
     js_code = db.StringField()
     add_js = db.SortedListField(db.StringField())
+
 
 # 用户表
 class User(db.Document, UserMixin):
@@ -96,7 +106,8 @@ class User(db.Document, UserMixin):
     password_hash = db.StringField()  # 密码
     nickname = db.StringField()  # 用户名
     user_course_code = db.SortedListField(db.EmbeddedDocumentField(UserCourseCode), ordering="course_id", reverse=False)
-    user_project_code = db.SortedListField(db.EmbeddedDocumentField(UserProjectCode), ordering="project_id", reverse=False)
+    user_project_code = db.SortedListField(db.EmbeddedDocumentField(UserProjectCode), ordering="project_id",
+                                           reverse=False)
     superuser = db.BooleanField(default=False)  # 是否为管理员，后续可以用来进入后台（未实现）
 
     # 密码加密
@@ -107,3 +118,5 @@ class User(db.Document, UserMixin):
     # 密码验证
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
