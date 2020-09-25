@@ -10,7 +10,7 @@ from visplatform import tools
 import json, os, random
 
 # 主页
-from visplatform.tools import create_relationship
+from visplatform.tools import create_relationship, generate_drawable_data
 
 
 @app.route('/')
@@ -129,7 +129,9 @@ def show_category():
             order += 1
 
     relationship_list = create_relationship()
-
+    generate_drawable_data(relationship_list)
+    # return render_template('category_vis.html', modules=modules, dics=dics, collapse_state=collapse_state,
+    #                   relationship_list=relationship_list)
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
                            relationship_list=relationship_list)
 

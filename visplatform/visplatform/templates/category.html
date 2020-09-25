@@ -121,16 +121,9 @@
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script>
-    {#var l =  []#}
-    {#var dd = {}#}
-    {#{% for module in modules %}#}
-    {#    {% for sub in module.sub_modules %}#}
-    {#        dd['{{ sub.sub_id }}'] = {{ sub.order }}#}
-    {#    {% endfor %}#}
-    {#    l.push("{{ module.module_name }}")#}
-    {#{% endfor %}#}
-    {#console.log(dd)#}
-    console.log({{ relationship_list|safe }})
+    var l = {{  relationship_list|safe}}
+        console.log(l)
+
     $(document).on('click', '#logout', function () {
         window.location.href = 'logout';
     })
