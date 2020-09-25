@@ -102,6 +102,15 @@
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script>
+    {#var l =  []#}
+    {#var dd = {}#}
+    {#{% for module in modules %}#}
+    {#    {% for sub in module.sub_modules %}#}
+    {#        dd['{{ sub.sub_id }}'] = {{ sub.order }}#}
+    {#    {% endfor %}#}
+    {#    l.push("{{ module.module_name }}")#}
+    {#{% endfor %}#}
+    {#console.log(dd)#}
     $(document).on('show.bs.collapse', '.list-group', function () { //折叠箭头
         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
         if (path.attr("data-state") == "right") {

@@ -69,6 +69,7 @@ def show_project_workstation():
     filename = request.args.get('test_file',' ')
     file_path = os.path.join(app.config['PROJECT_UPLOAD_FOLDER'], filename)
     ## code = user.code
+    print(file_path)
     if not os.path.exists(file_path):
         print('测试文件不存在',file_path)
         return redirect(url_for('show_404'))
@@ -94,7 +95,7 @@ def show_category():
         for sub in module.sub_modules: #统计所有课程的顺序
             sub.order = order
             order +=1
-
+    print(modules)
     return render_template('category.html',modules=modules,dics=dics,collapse_state = collapse_state)
 
 @app.route('/Admin')
