@@ -180,6 +180,10 @@
         </div>
     </div>
 </div>
+<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+  <p>代码保存成功！</p>
+</div>
+
 
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
@@ -210,6 +214,7 @@
         xhtml: false,
     });
 
+    //点击保存课程代码
     function saveCode() {
         var formdata = {
             "username": "{{current_user.username}}",
@@ -223,13 +228,19 @@
             dataType: "text",
             contentType: "application/json",
             success: function (data) {
-
+                if(data == "OK"){
+                    document.getElementById("alert alert-success").style.display="block";
+                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                }
+                return false;
             },
             error: function (e) {
             }
         })
-        return false;
     }
+
+    //定时保存代码(1分钟)
+    window.setInterval(saveCode,300000);
 
     var editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
@@ -246,13 +257,20 @@
     var frame_foot = `{{ course.frame_foot|safe|transformText }}`
     var goal = {{ goal|safe }}
     var preview = document.querySelector("#preview")
-    const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>  \n`
+    const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>
+          <a class="submit-btn" id="code-restore" onclick="codeRestore()" style="margin-left: 30px;color: red!important;">代码还原<\/a>  \n`
     const mark_todo = '- [ ] '
     const mark_finish = '- [x] '
     /*var init_test_part = ``
     goal.map((test)=>{
          init_test_part = init_test_part + mark_todo +test['text'] + '  '
     })*/
+    //代码还原
+    function codeRestore(){
+        var originalCode = `{{ original_code|safe|transformText }}`
+        editor.setValue(originalCode);
+    }
+
     document.querySelector(
         "#text1"
     ).innerHTML = marked(title + description + submit_part)
@@ -269,7 +287,7 @@
     toIframe();
     //提交按钮点击事件
     preview.onload = function () {
-        saveCode()
+        //saveCode()
         const submit = document.querySelector("#submit")
         submit.addEventListener("click", preview.contentWindow.runtest.bind(this, goal))
     };
@@ -317,7 +335,7 @@
     preview.addEventListener("mouseover", showButton.bind(this, fullscreen2));
     preview.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen2));
     editor3.addEventListener("keyup", function (e) {
-        toIframe()
+       toIframe()
     })
 
 </script>

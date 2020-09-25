@@ -31,10 +31,12 @@
             left: 75%;
             color: #007bff;
         }
-        #user button:hover{
+
+        #user button:hover {
             background: #2ecc71;
         }
-        #user button{
+
+        #logout {
             border: 0;
             background: none;
             display: block;
@@ -48,13 +50,30 @@
             cursor: pointer;
             color: #007bff;
         }
+
+        #in{
+            border: 0;
+            background: none;
+            display: none;
+            text-align: center;
+            border: 2px solid #2ecc71;
+            padding: 14px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+            color: #007bff;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div id="user">
         <p>&nbsp;&nbsp;用户 : {{ current_user.nickname }}</p>
-        <button onclick="window.location.href = 'logout'">退出登录</button>
+        <button id='logout'>退出登录</button>
+        <button id='in'>进入后台</button>
     </div>
     <div class="row" style="width: 50% ; margin-left:25%; margin-top:5vh">
         <div class="col-12">
@@ -111,6 +130,10 @@
     {#    l.push("{{ module.module_name }}")#}
     {#{% endfor %}#}
     {#console.log(dd)#}
+    console.log({{ relationship_list|safe }})
+    $(document).on('click', '#logout', function () {
+        window.location.href = 'logout';
+    })
     $(document).on('show.bs.collapse', '.list-group', function () { //折叠箭头
         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
         if (path.attr("data-state") == "right") {
@@ -161,6 +184,15 @@
             })
         }
     })
+
+    if('{{ current_user.username }}' == 'admin')
+        $('#in').css('display','block');
+
+    $(document).on('click','#in',function (){
+        if('{{ current_user.username }}' == 'admin')
+            window.location.href = 'Admin'
+    })
+
 </script>
 </body>
 </html>

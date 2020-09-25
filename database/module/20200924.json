@@ -1,0 +1,513 @@
+[{
+  "_id": {
+    "$oid": "5f48b4d285ea7714215e1626"
+  },
+  "module_name": "基础部分",
+  "order": 1,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5eeb09b05ee28411388f1da0"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb238752baf26e943af501"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb35a452baf26e943af502"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb3c1d52baf26e943af503"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb3d6b52baf26e943af504"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb3f6152baf26e943af505"
+      },
+      "sub_order": 6,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb41c352baf26e943af506"
+      },
+      "sub_order": 7,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb443d52baf26e943af507"
+      },
+      "sub_order": 8,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb469f52baf26e943af508"
+      },
+      "sub_order": 9,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb482d52baf26e943af509"
+      },
+      "sub_order": 10,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb548852baf26e943af50a"
+      },
+      "sub_order": 11,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb562052baf26e943af50b"
+      },
+      "sub_order": 12,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb579652baf26e943af50c"
+      },
+      "sub_order": 13,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb58ac52baf26e943af50d"
+      },
+      "sub_order": 14,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb59f552baf26e943af50e"
+      },
+      "sub_order": 15,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeba25152baf26e943af515"
+      },
+      "sub_order": 16,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb9e7852baf26e943af513"
+      },
+      "sub_order": 17,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeba75252baf26e943af519"
+      },
+      "sub_order": 18,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb6aeb52baf26e943af50f"
+      },
+      "sub_order": 19,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb703e52baf26e943af510"
+      },
+      "sub_order": 20,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5ef1b3dd44e193dba1e93c61"
+      },
+      "sub_order": 21,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b51b85ea7714215e1627"
+  },
+  "module_name": "散点图",
+  "order": 2,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5eeba4a652baf26e943af517"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb712952baf26e943af511"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeba1b752baf26e943af514"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeba40152baf26e943af516"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeba63a52baf26e943af518"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eebb3d952baf26e943af51c"
+      },
+      "sub_order": 6,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eebb26952baf26e943af51b"
+      },
+      "sub_order": 7,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eebb18a52baf26e943af51a"
+      },
+      "sub_order": 8,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eeb9b7352baf26e943af512"
+      },
+      "sub_order": 9,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b53b85ea7714215e1628"
+  },
+  "module_name": "饼图",
+  "order": 3,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5ef36d1f44e193dba1e93c62"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f20dd796a62dbaaee2dc692"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f1824ed8031ac071e1d9f4f"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f1850c78031ac071e1d9f50"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f2425bd6a62dbaaee2dc695"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f297f0bc7a38b281067cb3e"
+      },
+      "sub_order": 6,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f3899d1d2b0d13ce1b312cd"
+      },
+      "sub_order": 7,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f18129e8031ac071e1d9f4e"
+      },
+      "sub_order": 8,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b55085ea7714215e1629"
+  },
+  "module_name": "堆叠面积图",
+  "order": 4,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5ef496a6af46d8f770865697"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5efafec425c55250a7981a2b"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5efb0ad84b260f8b46a87b99"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5efb3b4428217464022f9ae7"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b56c85ea7714215e162a"
+  },
+  "module_name": "弦图",
+  "order": 6,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5efef9cb60df4cd4c418326b"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eff41e8984f6cc210ab22e4"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5effecb06321bbe296777f8f"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f004b106321bbe296777f90"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f0164ff6321bbe296777f91"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b57885ea7714215e162b"
+  },
+  "module_name": "力导向图",
+  "order": 7,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5eff31e7984f6cc210ab22e3"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f0f1fe712b5e905b0c05b47"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f0f1ff912b5e905b0c05b48"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eff965c6321bbe296777f8d"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eff96786321bbe296777f8e"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5eff942e6321bbe296777f8c"
+      },
+      "sub_order": 6,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f21e0756a62dbaaee2dc693"
+      },
+      "sub_order": 7,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f48b58785ea7714215e162c"
+  },
+  "module_name": "矩形树图",
+  "order": 8,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5f080ff40bc4b87ac34bc7b9"
+      },
+      "sub_order": 1,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f119011e69daf8d2215b607"
+      },
+      "sub_order": 2,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f119602e69daf8d2215b608"
+      },
+      "sub_order": 3,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f11a67fe69daf8d2215b60a"
+      },
+      "sub_order": 4,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f12714dbcc7512a0b05140c"
+      },
+      "sub_order": 5,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f1273f1bcc7512a0b05140d"
+      },
+      "sub_order": 6,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f12c73fbcc7512a0b05140f"
+      },
+      "sub_order": 7,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f2d0a0bf97310b6fbc9f9f1"
+      },
+      "sub_order": 8,
+      "type": "code_page"
+    },
+    {
+      "sub_id": {
+        "$oid": "5f12e6c9bcc7512a0b051410"
+      },
+      "sub_order": 9,
+      "type": "code_page"
+    }
+  ]
+},{
+  "_id": {
+    "$oid": "5f5db50f313c5da3c0e5afc7"
+  },
+  "module_name": "项目挑战",
+  "order": 5,
+  "sub_modules": [
+    {
+      "sub_id": {
+        "$oid": "5f4d6003312f99f73a3944ae"
+      },
+      "sub_order": 1,
+      "type": "project_page"
+    }
+  ]
+}]

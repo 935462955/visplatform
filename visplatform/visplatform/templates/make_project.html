@@ -1,272 +1,412 @@
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
+<head>
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>visplatform</title>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="../node_modules/mocha/mocha.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css" />
-    <link rel="stylesheet" href="../node_modules/codemirror/theme/monokai.css" />
+    <link href="../node_modules/mocha/mocha.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../node_modules/codemirror/lib/codemirror.css"/>
+    <link rel="stylesheet" href="../node_modules/codemirror/theme/monokai.css"/>
     <link href='../node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>
     <link
-      rel="stylesheet"
-      href="../node_modules/codemirror/addon/scroll/simplescrollbars.css"
+            rel="stylesheet"
+            href="../node_modules/codemirror/addon/scroll/simplescrollbars.css"
     />
     <link
-      rel="stylesheet"
-      href="../node_modules/codemirror/addon/hint/show-hint.css"
+            rel="stylesheet"
+            href="../node_modules/codemirror/addon/hint/show-hint.css"
     />
     <style>
 
-      a.replay {
-        display: none !important;
-      }
-      #box1 {
-        background-color: #272822;
-        width: 32%;
-        min-height: 100px;
-      }
-      #resizer1 {
-        background-color: #333642;
-        width: 2%;
-        min-height: 100px;
-        cursor:ew-resize
-        
-      }
-      #container {
-        width: 100%;
-        display: flex;
-        
-      }
-      #box2 {
-        background-color: #272822;
-        width: 32%;
-        min-height: 100px;
-      }
-      #resizer2 {
-        background-color: #333642;
-        width: 2%;
-        min-height: 100px;
-        cursor:ew-resize
-      }
-      #box3 {
-        background-color: #272822;
-        width: 32%;
-        min-height: 100px;
-      }
-      .toolbar {
-        display: flex;
-        justify-content:space-between;
-        width: 100%;
-        height: 30px;
-        background-color: #1a1a1a;
-        border-bottom: solid 1px#5E5E5E;
-        font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif;
-        color:#aaaebc;
-        padding-top: 5px;
-        padding-left: 5px;
-      }
-      .toolbar *{
-        vertical-align:middle
-      }
-      #iframe {
-        width: 100%;
-        min-height: 1024px;
-      }
-      #horizon-resizer{
-        width:100%;
-        height:20px;
-        background-color:#333642;
-        cursor:ns-resize
-      }
-      .CodeMirror{
-        height:500px;
-      }
-      .setting-btn{
-        margin-right:10px;
-        border:none;
-        background-color: transparent;
-      }
+        a.replay {
+            display: none !important;
+        }
+
+        #box1 {
+            background-color: #272822;
+            width: 32%;
+            min-height: 100px;
+        }
+
+        #resizer1 {
+            background-color: #333642;
+            width: 2%;
+            min-height: 100px;
+            cursor: ew-resize
+
+        }
+
+        #container {
+            width: 100%;
+            display: flex;
+
+        }
+
+        #box2 {
+            background-color: #272822;
+            width: 32%;
+            min-height: 100px;
+        }
+
+        #resizer2 {
+            background-color: #333642;
+            width: 2%;
+            min-height: 100px;
+            cursor: ew-resize
+        }
+
+        #box3 {
+            background-color: #272822;
+            width: 32%;
+            min-height: 100px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 30px;
+            background-color: #1a1a1a;
+            border-bottom: solid 1px #5E5E5E;
+            font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, Sans-Serif;
+            color: #aaaebc;
+            padding-top: 5px;
+            padding-left: 5px;
+        }
+
+        .toolbar * {
+            vertical-align: middle
+        }
+
+        #iframe {
+            width: 100%;
+            min-height: 1024px;
+        }
+
+        #horizon-resizer {
+            width: 100%;
+            height: 20px;
+            background-color: #333642;
+            cursor: ns-resize
+        }
+
+        .CodeMirror {
+            height: 500px;
+        }
+
+        .setting-btn {
+            margin-right: 10px;
+            border: none;
+            background-color: transparent;
+        }
+
+        #searchUl {
+            overflow: auto;
+            height: 100%;
+            width: 100%;
+        }
+
+        #searchUl li {
+            cursor: pointer;
+        }
+
+        #showUl {
+            overflow: auto;
+            width: 100%;
+            height: 240%;
+            padding-left: 0px;
+        }
+
+        .list-group-item:hover {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .list-group-name {
+            margin-bottom: 10px;
+            color: #bc4c24;
+            font-size: 22px;
+        }
+
+        #exampleModalLgLabel2 {
+            width: 100%;
+        }
+
+        #biggest {
+            height: 85%;
+        }
+
+        #footheight {
+            height: 50%;
+            display: none;
+        }
+
+        #footheight2 {
+            height: 33%;
+        }
+
+        #bodyheight {
+            flex: 0 !important;
+            padding: 10px 16px !important;
+        }
+
+        #headerp {
+            padding: 10px 16px !important;
+        }
+
+        .btn-info {
+            margin: 10px 0px;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{{ url_for('show_category') }}">课程</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">项目说明</a>
-      <a class="nav-item nav-link active" href="#">工作空间<span class="sr-only">(current)</span></a>
+    <a class="navbar-brand" href="{{ url_for('show_category') }}">课程</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#">项目说明</a>
+            <a class="nav-item nav-link active" href="#">工作空间<span class="sr-only">(current)</span></a>
 
+        </div>
     </div>
-  </div>
-  <form class="form-inline">
-    <!-- Button trigger modal -->
-  <button class="btn btn-outline-secondary"  type="button" style="border:none"  data-toggle="modal" data-target="#tips">
-  <svg class="bi bi-info-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-  <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
-  <circle cx="8" cy="4.5" r="1"/>
-</svg>
-</button>
-    <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
-    <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
-  </form>
+    <form class="form-inline">
+        <!-- Button trigger modal -->
+        <button class="btn btn-outline-secondary" type="button" style="border:none" data-toggle="modal"
+                data-target="#tips">
+            <svg class="bi bi-info-circle" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z"/>
+                <circle cx="8" cy="4.5" r="1"/>
+            </svg>
+        </button>
+        <button class="btn btn-outline-warning"  type="button" id="test">测试</button>
+        <button class="btn btn-outline-info" id="add_js" type="button" data-toggle="modal" data-target="#addJs">
+            引入js库
+        </button>
+        <button class="btn btn-outline-success" id="save_btn" type="button">保存 & 提交</button>
+        <button class="btn btn-outline-secondary" id="run_test_btn" type="button">运行测试</button>
+    </form>
 </nav>
 
 <!-- Modal -->
 <div class="modal fade" id="tips" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">知识小提示</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-body">
-      提示具体内容
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">知识小提示</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                提示具体内容
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-    <div id="container">
-      <div id="box1">
-        <div class="toolbar"><div>HTML</div></div>
-        <textarea id="html-textarea" name="html-textarea"></textarea>
-      </div>
-      <div id="resizer1"></div>
-      <div id="box2">
-        <div class="toolbar"><div>CSS</div></div>
-        <textarea id="css-textarea" name="css-textarea"></textarea>
-      </div>
-      <div id="resizer2"></div>
-      <div id="box3">
+
+<!--搜索js-->
+<div class="modal fade" id="addJs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" id="biggest">
+            <div class="modal-header" id="headerp">
+                <h5 class="modal-title h4" id="exampleModalLgLabel">搜索你需要的js库</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="bodyheight">
+                <div>
+                    <input type="text" class="form-control" id="searchJs" oninput="showJs()">
+                </div>
+            </div>
+            <div class="modal-footer" id="footheight">
+                <ul id="searchUl" class="list-group">
+                </ul>
+            </div>
+            <div class="modal-footer" id="footheight2">
+                <h6 id="exampleModalLgLabel2">已添加的js库</h6>
+                <ul id="showUl">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="container">
+    <div id="box1">
         <div class="toolbar">
-        <div style="float:left">JS</div>
-        <button class="setting-btn" >
-        <svg class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
-  <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
-</svg></button></div>
-        <textarea id="js-textarea" name="js-textarea"></textarea>
-      </div>
+            <div>HTML</div>
+        </div>
+        <textarea id="html-textarea" name="html-textarea"></textarea>
     </div>
-    <div id="horizon-resizer">
-        
+    <div id="resizer1"></div>
+    <div id="box2">
+        <div class="toolbar">
+            <div>CSS</div>
+        </div>
+        <textarea id="css-textarea" name="css-textarea"></textarea>
     </div>
-   
-    <div>
-      <iframe id="iframe"  frameborder=1></iframe>
+    <div id="resizer2"></div>
+    <div id="box3">
+        <div class="toolbar">
+            <div style="float:left">JS</div>
+            <button class="setting-btn">
+                <svg class="bi bi-gear" width="1em" height="1em" viewBox="0 0 16 16" fill="white"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                          d="M8.837 1.626c-.246-.835-1.428-.835-1.674 0l-.094.319A1.873 1.873 0 0 1 4.377 3.06l-.292-.16c-.764-.415-1.6.42-1.184 1.185l.159.292a1.873 1.873 0 0 1-1.115 2.692l-.319.094c-.835.246-.835 1.428 0 1.674l.319.094a1.873 1.873 0 0 1 1.115 2.693l-.16.291c-.415.764.42 1.6 1.185 1.184l.292-.159a1.873 1.873 0 0 1 2.692 1.116l.094.318c.246.835 1.428.835 1.674 0l.094-.319a1.873 1.873 0 0 1 2.693-1.115l.291.16c.764.415 1.6-.42 1.184-1.185l-.159-.291a1.873 1.873 0 0 1 1.116-2.693l.318-.094c.835-.246.835-1.428 0-1.674l-.319-.094a1.873 1.873 0 0 1-1.115-2.692l.16-.292c.415-.764-.42-1.6-1.185-1.184l-.291.159A1.873 1.873 0 0 1 8.93 1.945l-.094-.319zm-2.633-.283c.527-1.79 3.065-1.79 3.592 0l.094.319a.873.873 0 0 0 1.255.52l.292-.16c1.64-.892 3.434.901 2.54 2.541l-.159.292a.873.873 0 0 0 .52 1.255l.319.094c1.79.527 1.79 3.065 0 3.592l-.319.094a.873.873 0 0 0-.52 1.255l.16.292c.893 1.64-.902 3.434-2.541 2.54l-.292-.159a.873.873 0 0 0-1.255.52l-.094.319c-.527 1.79-3.065 1.79-3.592 0l-.094-.319a.873.873 0 0 0-1.255-.52l-.292.16c-1.64.893-3.433-.902-2.54-2.541l.159-.292a.873.873 0 0 0-.52-1.255l-.319-.094c-1.79-.527-1.79-3.065 0-3.592l.319-.094a.873.873 0 0 0 .52-1.255l-.16-.292c-.892-1.64.902-3.433 2.541-2.54l.292.159a.873.873 0 0 0 1.255-.52l.094-.319z"/>
+                    <path fill-rule="evenodd"
+                          d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
+                </svg>
+            </button>
+        </div>
+        <textarea id="js-textarea" name="jFs-textarea"></textarea>
     </div>
+</div>
+<div id="horizon-resizer">
+
+</div>
+
+<div>
+    <iframe id="iframe" frameborder=1></iframe>
+</div>
 <!-- 事件遮罩层-->
-    <div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
-    
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src='../node_modules/bootstrap/dist/js/bootstrap.js'></script>
-    <script src="../node_modules/codemirror/lib/codemirror.js"></script>
-    <script src="../node_modules/codemirror/mode/javascript/javascript.js"></script>
-    <script src="../node_modules/codemirror/mode/xml/xml.js"></script>
-    <script src="../node_modules/codemirror/mode/css/css.js"></script>
-    <script src="../node_modules/codemirror/mode/htmlmixed/htmlmixed.js"></script>
-    <script src="../node_modules/codemirror/addon/hint/xml-hint.js"></script>
-    <script src="../node_modules/codemirror/addon/scroll/simplescrollbars.js"></script>
-    <script src="../node_modules/codemirror/addon/hint/show-hint.js"></script>
-    <script src="../node_modules/codemirror/addon/hint/html-hint.js"></script>
-    <script src="../node_modules/codemirror/addon/hint/css-hint.js"></script>
-    <script src="../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
-    <script>
-      var html_editor = CodeMirror.fromTextArea(
+<div id="mask" style="position:fixed;top:0;left:0;height:100%;width:100%;display: none;"></div>
+<div id="alert alert-success" class="alert alert-success" role="alert"
+     style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+    <p>代码保存成功！</p>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src='../node_modules/bootstrap/dist/js/bootstrap.js'></script>
+<script src="../node_modules/codemirror/lib/codemirror.js"></script>
+<script src="../node_modules/codemirror/mode/javascript/javascript.js"></script>
+<script src="../node_modules/codemirror/mode/xml/xml.js"></script>
+<script src="../node_modules/codemirror/mode/css/css.js"></script>
+<script src="../node_modules/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="../node_modules/codemirror/addon/hint/xml-hint.js"></script>
+<script src="../node_modules/codemirror/addon/scroll/simplescrollbars.js"></script>
+<script src="../node_modules/codemirror/addon/hint/show-hint.js"></script>
+<script src="../node_modules/codemirror/addon/hint/html-hint.js"></script>
+<script src="../node_modules/codemirror/addon/hint/css-hint.js"></script>
+<script src="../node_modules/codemirror/addon/hint/javascript-hint.js"></script>
+<script>
+    var addjs = `{{ add_js|safe|transformText }}`;
+    addjs = addjs.substr(1);
+    addjs = addjs.substr(0, addjs.length - 1)
+    var temp = addjs.split(',')
+    var addJs = new Array();
+    temp.forEach(function (item, index, items) {
+        item = item.trim();
+        item = item.substr(1);
+        item = item.substr(0, item.length - 1)
+        if (item.length > 0)
+            addJs.push(item)
+    })
+    var htmlvalue = `{{ html_code|safe|transformText }}`
+    var cssvalue = `{{ css_code|safe|transformText }}`
+    var jsvalue = `{{ js_code|safe|transformText }}`
+    var html_editor = CodeMirror.fromTextArea(
         document.querySelector("#html-textarea"),
         {
-          mode: "text/html",
-          htmlMode: true,
-          styleActiveLine: true,
-          matchBrackets: true,
-          matchClosing: true,
-          lineNumbers: true,
-          theme: "monokai",
-          value: "<html>",
-          scrollbarStyle: "overlay",
-          smartIndent: false,
-          extraKeys: {
-            Ctrl: "autocomplete",
-          },
-          lineWrapping:true,
+            mode: "text/html",
+            htmlMode: true,
+            styleActiveLine: true,
+            matchBrackets: true,
+            matchClosing: true,
+            lineNumbers: true,
+            theme: "monokai",
+            value: "<html>",
+            scrollbarStyle: "overlay",
+            smartIndent: false,
+            extraKeys: {
+                Ctrl: "autocomplete",
+            },
+            lineWrapping: true,
         }
-      );
-      html_editor.on("change", function () {
+    );
+    html_editor.on("change", function () {
         // html_editor.showHint()
-      });
-      var css_editor = CodeMirror.fromTextArea(
+    });
+    var css_editor = CodeMirror.fromTextArea(
         document.querySelector("#css-textarea"),
         {
-          mode: "css",
-          htmlMode: true,
-          matchBrackets: true,
-          matchClosing: true,
-          lineNumbers: true,
-          theme: "monokai",
-          value: "11",
-          scrollbarStyle: "overlay",
-          smartIndent: false,
-          extraKeys: { Ctrl: "autocomplete" },
+            mode: "css",
+            htmlMode: true,
+            matchBrackets: true,
+            matchClosing: true,
+            lineNumbers: true,
+            theme: "monokai",
+            value: "11",
+            scrollbarStyle: "overlay",
+            smartIndent: false,
+            extraKeys: {Ctrl: "autocomplete"},
         }
-      );
-      document.querySelector('#js-textarea').value = "function myScript(){return 100;}\n"
-      var js_editor = CodeMirror.fromTextArea(
+    );
+    var js_editor = CodeMirror.fromTextArea(
         document.querySelector("#js-textarea"),
         {
-          mode: "javascript",
-          htmlMode: true,
-          matchBrackets: true,
-          matchClosing: true,
-          lineNumbers: true,
-          theme: "monokai",
-          scrollbarStyle: "overlay",
-          smartIndent: false,
-          extraKeys: { Ctrl: "autocomplete" },
+            mode: "javascript",
+            htmlMode: true,
+            matchBrackets: true,
+            matchClosing: true,
+            lineNumbers: true,
+            theme: "monokai",
+            scrollbarStyle: "overlay",
+            smartIndent: false,
+            extraKeys: {Ctrl: "autocomplete"},
         }
-      );
-      $('#run_test_btn').on('click',function(){
-         document.querySelector('#iframe').contentWindow.document.querySelector('#mocha').innerHTML = ""
-         document.querySelector('#iframe').contentWindow.mocha.run()
-         document.querySelector('#iframe').contentWindow.$('#test-result-modal').modal('toggle')
+    );
+
+    html_editor.setValue(htmlvalue)
+    css_editor.setValue(cssvalue)
+    js_editor.setValue(jsvalue)
+
+    $('#run_test_btn').on('click', function () {
+        document.querySelector('#iframe').contentWindow.document.querySelector('#mocha').innerHTML = ""
+        document.querySelector('#iframe').contentWindow.mocha.run()
+        document.querySelector('#iframe').contentWindow.$('#test-result-modal').modal('toggle')
         //doc.querySelector('#')
-      })
-      // 保存代码并显示到iframe
-      //保存功能还没实现
-      $("#save_btn").on("click", function () {
-        html_editor.save();
-        css_editor.save();
-        js_editor.save();
-        let html = $("#html-textarea").val();
+    })
+    // 保存代码并显示到iframe
+    // 保存功能还没实现
+    var addJsS = '';
+    $("#save_btn").on("click", function () {
+        let html = html_editor.getValue();
         html = html.replace(
-          /<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/g,
-          ""
+            /<html>|<\/html>|<head>|<\/head>|<body>|<\/body>/g,
+            ""
         );
-        let css = $("#css-textarea").val();
+        let css = css_editor.getValue();
         css = css.replace(/<style>|<\/style>/g, "");
-        let js = $("#js-textarea").val();
+        let js = js_editor.getValue();
+        addJs.forEach(function (item, index, items) {
+            addJsS += "<script src='" + item + "'><\/script>";
+        })
+
         doc =
-          "<html lang='en'>" +
-          "<head>" +
-          "<link href='../node_modules/mocha/mocha.css' rel='stylesheet'/>"+
-          "<link href='../node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>"+
-          "<link href='../css/project_iframe.css' rel='stylesheet'/>"+
-          "<style id='user_css'>" +
-          css +
-          "</style>" +
-          "<body>" +
-          html +
-          `<div class="modal fade bd-example-modal-xl" id="test-result-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            "<html lang='en'>" +
+            "<head>" +
+            "<link href='../node_modules/mocha/mocha.css' rel='stylesheet'/>" +
+            "<link href='../node_modules/bootstrap/dist/css/bootstrap.css' rel='stylesheet'/>" +
+            "<link href='../css/project_iframe.css' rel='stylesheet'/>" +
+            "<style id='user_css'>" +
+            css +
+            "</style>" +
+            "<body>" +
+            html +
+            `<div class="modal fade bd-example-modal-xl" id="test-result-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
            <div class="modal-dialog modal-dialog modal-xl">
            <div class="modal-content">
            <div class="modal-header">
@@ -284,151 +424,376 @@
            </div>
            </div>
            </div>
-           </div>`+
-          "<script id='user_js'>" +
-          js +
-          "<\/script>" +
-          "<script src='../node_modules/jquery/dist/jquery.min.js'><\/script>"+
-          "<script src='../js/popper.js'><\/script>"+
-          "<script src='../node_modules/bootstrap/dist/js/bootstrap.js'><\/script>"+
-          "<script src='../node_modules/mocha/mocha.js'><\/script>"+
-          "<script src='../node_modules/chai/chai.js'><\/script>"+
-          "<script type='text/javascript' src='https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js'><\/script>"+
-          "<script src='../js/project_iframe.js'><\/script>"+
-          "<script src='../js/test-project-util.js'><\/script>"+
-          "<script src='../js/test4project/{{ filename }}'><\/script>"+
-          "</body>" +
-          "</html>";
+           </div>` +
+            addJsS +
+            "<script id='user_js'>" +
+            js +
+            "<\/script>" +
+            "<script src='../node_modules/jquery/dist/jquery.min.js'><\/script>" +
+            "<script src='../js/popper.js'><\/script>" +
+            "<script src='../node_modules/bootstrap/dist/js/bootstrap.js'><\/script>" +
+            "<script src='../node_modules/mocha/mocha.js'><\/script>" +
+            "<script src='../node_modules/chai/chai.js'><\/script>" +
+            "<script type='text/javascript' src='https://cdn.bootcss.com/vConsole/3.2.0/vconsole.min.js'><\/script>" +
+            "<script src='../js/project_iframe.js'><\/script>" +
+            "<script src='../js/test-project-util.js'><\/script>" +
+            "<script src='../js/test4project/{{ filename }}'><\/script>" +
+            "</body>" +
+            "</html>";
+        console.log(doc)
         $("#iframe").attr("srcdoc", doc);
-      });
-    </script>
 
-    <script>
-        /* 代码窗口伸缩功能 */
-      var begin_x1;
-      var begin_x2;
-      var dragging1;
-      var dragging2;
-      var parent = $("#container");
-      var resizer1 = document.querySelector("#resizer1");
-      var resizer2 = document.querySelector("#resizer2");
-      var box1 = $("#box1");
-      var box2 = $("#box2");
-      var box3 = $("#box3");
-      var static_box3;
-      var static_box1;
-      $(document).on("mousedown", "#resizer1", function (e) {
+        saveCode();
+
+    });
+
+    //保存代码和js库
+    function saveCode() {
+        var formdata = {
+            "username": "{{current_user.username}}",
+            "html_code": html_editor.getValue(),
+            "css_code": css_editor.getValue(),
+            "js_code": js_editor.getValue(),
+            "add_js": addJs,
+            "project_id": "{{project_id}}"
+        }
+        $.ajax({
+            url: "{{ url_for('save_project_code') }}",
+            type: "POST",
+            data: JSON.stringify(formdata),
+            dataType: "text",
+            contentType: "application/json",
+            success: function (data) {
+                if (data == "OK") {
+                    document.getElementById("alert alert-success").style.display = "block";
+                    setTimeout(function () {
+                        document.getElementById("alert alert-success").style.display = "none";
+                    }, 1000);
+                }
+            },
+            error: function (e) {
+            }
+        })
+    }
+
+    //代码定时保存
+    window.setInterval(saveCode, 300000);
+
+    function addJsF() {
+        let search = document.getElementById('searchJs');
+        search.value = '';
+        //加载已经加入的js库
+        $("#showUl").children().filter('li').remove();
+        $.each(addJs, function (index, result) {
+            $("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+                + result + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+                "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+                "</svg></div></li>");
+        });
+        $("#showUl").append("<li> <button class=\"btn btn-info\" id=\"addcustomjs\">+ 添加一个自定义的js库 </button></li>");
+    }
+
+    //加载已经加入的js库
+    $(document).on('click', '#add_js', addJsF)
+
+    //添加一个自定义的js库
+    $(document).on('click', '#addcustomjs', function () {
+        $("#showUl").append("<li><div class=\"input-group mb-3\">\n" +
+            "  <input type=\"text\" id=\"jsvalue\"class=\"form-control\" placeholder=\"请输入Js库的地址\" aria-label=\"Recipient's username\" aria-describedby=\"button-addon2\">\n" +
+            "  <div class=\"input-group-append\">\n" +
+            "    <button class=\"btn btn-outline-secondary\" type=\"button\" id=\"button-addon2\">确定</button>\n" +
+            "  </div>\n" +
+            "</div></li>");
+    })
+
+    $(document).on('click', '#button-addon2', function () {
+        let link = $('#jsvalue').val();
+        console.log(link)
+        addJs.push(link);
+        addJsF();
+    })
+
+    //显示搜索到的js库
+    function showJs() {
+        let search = document.getElementById('searchJs');
+        searchJsJson(search.value)
+        $("#footheight").css('display', 'block');
+        $("#showUl").css('height', '70%');
+    }
+
+    $(document).on('click', '#searchJs', showJs)
+
+    //通过接口搜索js库
+    function searchJsJson(need) {
+        if (typeof (need) == "undefined")
+            var formdata = {"search": need}
+        else
+            var formdata = {"search": need, "limit": 40}
+        $.ajax({
+            url: 'https://api.cdnjs.com/libraries',
+            type: 'GET',
+            data: formdata,
+            dataType: 'json',
+            success: function (data) {
+                $("#searchUl").children().filter('li').remove();
+                var results = data.results;
+                $.each(results, function (index, result) {
+                    $("#searchUl").append("<li class='list-group-item result-li'><div class='list-group-name'><a>" +
+                        result.name + "</a></div><div class='link'>" + result.latest + "</div></li>");
+                });
+            },
+            error: function (e) {
+                console.log("error")
+            }
+        })
+    }
+
+    //点击后删除js库
+    $(document).on('click', '.added-li div svg', function () {
+        //this.parentNode.parentNode.remove()
+        let link = this.parentNode.innerHTML.split("<svg")[0];
+        //console.log(link)
+
+        addJs.forEach(function (item, index, items) {
+            if (item == link) {
+                addJs.splice(index, 1);
+            }
+        })
+        addJsF();
+    })
+    //点击后进行添加js库
+    $(document).on('click', '.result-li', function () {
+        let link = this.querySelectorAll('div')[1].innerHTML;
+        let flag = true;
+        try {
+            addJs.forEach(function (item, index, items) {
+                if (item == link) {
+                    flag = false;
+                    throw new Error("ending");
+                }
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+        if (flag) {
+            addJs.push(link);
+            addJsF();
+            //$("#showUl").append("<li class='list-group-item added-li'><div class='link'>"
+            //    + link + "<svg style='float:right; cursor:pointer' class=\"bi bi-x\" width=\"2em\" height=\"2em\" viewBox=\"0 0 16 16\" fill=\"red\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z\"/>\n" +
+            //    "  <path fill-rule=\"evenodd\" d=\"M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z\"/>\n" +
+            //    "</svg></div></li>");
+            $("#footheight").css('display', 'none');
+            $("#showUl").css('height', '240%');
+        }
+
+    })
+
+    window.onload = searchJsJson();
+
+    $(document).on('click', '#test', function () {
+        let htmltest = "<div class=\"container\">\n" +
+            "   <div id=\"title\"></div>\n" +
+            "</div>";
+        let csstest = ".container {\n" +
+            "\tmargin: 0 25%;\n" +
+            "}\n" +
+            "a.replay{\n" +
+            "\tdisplay:none!important;\n" +
+            "}";
+        let jstest = "const width = 800,\n" +
+            "height = 400,\n" +
+            "padding = 40,\n" +
+            "barWidth = width/275\n" +
+            "\n" +
+            "const svg = d3\n" +
+            "  .select(\".container\")\n" +
+            "  .append(\"svg\")\n" +
+            "  .attr(\"height\",height+padding)\n" +
+            "  .attr(\"width\",width+padding)\n" +
+            " \n" +
+            "const parseTime = d3.timeParse(\"%Y-%m-%d\");\n\n" +
+            "d3.json(\n" +
+            "  \"https://gist.githubusercontent.com/935462955/0de28ba6f0ff3d309f60a6eb58cbdcca/raw/e231d4b887e14efd6203fd6d0c08903392905539/GDP.json\",\n" +
+            "  d3.autoType\n" +
+            ").then(function (data) {\n" +
+            "data1 = data[\"data\"];\n" +
+            "d3.select(\".container\").append(\"g\");\n" +
+            "const xScale = d3.scaleTime()\n" +
+            "\t.domain(d3.extent(data1, d => parseTime(d[0])))\n" +
+            "\t.range([0+padding/2,width+padding/2])\n" +
+            "console.log(xScale(parseTime(\"1947-01-01\")))\n" +
+            "const yScale = d3.scaleLinear()\n" +
+            "\t.domain([0,d3.max(data1,d=>d[1])])\n" +
+            "\t.range([height,0])\n" +
+            "const tooltip = svg.append(\"text\")\n" +
+            "\t.attr(\"id\",\"tooltip\")\n" +
+            "const rects = svg.append(\"g\")\n" +
+            "rects.selectAll(\"rect\")\n" +
+            "\t.data(data1)\n" +
+            "\t.join(\"rect\")\n" +
+            "\t.attr(\"data-date\",d=>d[0])\n" +
+            "\t.attr(\"data-gdp\",d=>d[1])\n" +
+            "\t.attr(\"class\",\"bar\")\n" +
+            "\t.attr(\"x\",d=>xScale(parseTime(d[0])))\n" +
+            "\t.attr(\"y\",d=>yScale(d[1]))\n" +
+            "\t.attr(\"height\",d=>height - yScale(d[1]))\n" +
+            "\t.attr(\"width\",barWidth)\n" +
+            "\t.attr(\"fill\",\"blue\")\n" +
+            "\t.on(\"mouseover\",function(d){\n" +
+            "\t\ttooltip.text(d[0])\n" +
+            "\t\t.attr(\"visibility\",\"visible\")\n" +
+            "\t\t\t.attr(\"data-date\",d[0])\n" +
+            "\t})\n" +
+            "\t.on(\"mouseout\",function(d){\n" +
+            "\t\ttooltip\n" +
+            "\t\t\t.attr(\"visibility\",\"hidden\")\n" +
+            "\t})\n" +
+            "\n" +
+            "const xAxis = d3.axisBottom(xScale)\n" +
+            "svg.append(\"g\")\n" +
+            "\t.attr(\"id\",\"x-axis\")\n" +
+            "\t.attr(\"transform\",`translate(0,${height})`)\n" +
+            "\t.call(xAxis)\n" +
+            "const yAxis = d3.axisLeft(yScale)\n" +
+            "svg.append(\"g\")\n" +
+            "\t.attr(\"id\",\"y-axis\")\n" +
+            "\t.attr(\"transform\",`translate(${padding/2+20},0)`)\n" +
+            "\t.call(yAxis)\n" +
+            "});";
+
+        html_editor.setValue(htmltest)
+        css_editor.setValue(csstest)
+        js_editor.setValue(jstest)
+    })
+</script>
+
+<script>
+    /* 代码窗口伸缩功能 */
+    var begin_x1;
+    var begin_x2;
+    var dragging1;
+    var dragging2;
+    var parent = $("#container");
+    var resizer1 = document.querySelector("#resizer1");
+    var resizer2 = document.querySelector("#resizer2");
+    var box1 = $("#box1");
+    var box2 = $("#box2");
+    var box3 = $("#box3");
+    var static_box3;
+    var static_box1;
+    $(document).on("mousedown", "#resizer1", function (e) {
         begin_x1 = parseInt(e.clientX);
         dragging1 = true;
         static_box3 = parseInt((box3.width() / parent.width()) * 100);
         if (e.preventDefault) {
-          e.preventDefault();
+            e.preventDefault();
         } else {
-          e.returnValue = false;
+            e.returnValue = false;
         }
-      });
-      $(document).on("mousemove", "#container", function (e) {
+    });
+    $(document).on("mousemove", "#container", function (e) {
         if (dragging1) {
-          if (
-            resizer1.offsetWidth + resizer1.offsetLeft >
-            resizer2.offsetLeft
-          ) {
-            console.log(static_box3);
-            box1.width(100 - 3.9 - static_box3 + "%");
-            box2.width("0.1%");
-            box3.width(static_box3 + "%");
-            return false;
-          }
-          let new_x1 = parseInt(e.clientX) - parseInt(begin_x1);
-          begin_x1 = parseInt(e.clientX);
-          let new_box1_width_percent =
-            ((box1.width() + new_x1) / parent.width()) * 100;
-          let box3_width_percent = (box3.width() / parent.width()) * 100;
-          new_box2_width_percent =
-            100 - 4 - new_box1_width_percent - box3_width_percent;
-          box1.width(new_box1_width_percent + "%");
-          box2.width(new_box2_width_percent + "%");
+            if (
+                resizer1.offsetWidth + resizer1.offsetLeft >
+                resizer2.offsetLeft
+            ) {
+                console.log(static_box3);
+                box1.width(100 - 3.9 - static_box3 + "%");
+                box2.width("0.1%");
+                box3.width(static_box3 + "%");
+                return false;
+            }
+            let new_x1 = parseInt(e.clientX) - parseInt(begin_x1);
+            begin_x1 = parseInt(e.clientX);
+            let new_box1_width_percent =
+                ((box1.width() + new_x1) / parent.width()) * 100;
+            let box3_width_percent = (box3.width() / parent.width()) * 100;
+            new_box2_width_percent =
+                100 - 4 - new_box1_width_percent - box3_width_percent;
+            box1.width(new_box1_width_percent + "%");
+            box2.width(new_box2_width_percent + "%");
         }
-      });
-      $(document).on("mousedown", "#resizer2", function (e) {
+    });
+    $(document).on("mousedown", "#resizer2", function (e) {
         begin_x2 = parseInt(e.clientX);
         dragging2 = true;
         static_box1 = parseInt((box1.width() / parent.width()) * 100);
         if (e.preventDefault) {
-          e.preventDefault();
+            e.preventDefault();
         } else {
-          e.returnValue = false;
+            e.returnValue = false;
         }
-      });
-      $(document).on("mousemove", "#container", function (e) {
+    });
+    $(document).on("mousemove", "#container", function (e) {
         if (dragging2) {
-          if (
-            resizer2.offsetLeft <
-            resizer1.offsetLeft + resizer1.offsetWidth
-          ) {
-            box3.width(100 - 3.9 - static_box1 + "%");
-            box2.width("0.1%");
-            box1.width(static_box1 + "%");
-            return false;
-          }
+            if (
+                resizer2.offsetLeft <
+                resizer1.offsetLeft + resizer1.offsetWidth
+            ) {
+                box3.width(100 - 3.9 - static_box1 + "%");
+                box2.width("0.1%");
+                box1.width(static_box1 + "%");
+                return false;
+            }
 
-          let new_x2 = parseInt(e.clientX) - begin_x2;
-          begin_x2 = parseInt(e.clientX);
+            let new_x2 = parseInt(e.clientX) - begin_x2;
+            begin_x2 = parseInt(e.clientX);
 
-          let new_box3_width_percent =
-            ((box3.width() - new_x2) / parent.width()) * 100;
-          let box1_width_percent = (box1.width() / parent.width()) * 100;
-          new_box2_width_percent =
-            100 - 4 - new_box3_width_percent - box1_width_percent;
-          box3.width(new_box3_width_percent + "%");
-          box2.width(new_box2_width_percent + "%");
+            let new_box3_width_percent =
+                ((box3.width() - new_x2) / parent.width()) * 100;
+            let box1_width_percent = (box1.width() / parent.width()) * 100;
+            new_box2_width_percent =
+                100 - 4 - new_box3_width_percent - box1_width_percent;
+            box3.width(new_box3_width_percent + "%");
+            box2.width(new_box2_width_percent + "%");
         }
-      });
-      $(document).mouseup(function (e) {
-      
+    });
+    $(document).mouseup(function (e) {
+
         dragging1 = false;
         dragging2 = false;
-      });
-      var begin_y
-      var dragging3
-      var horizon_resizer = document.querySelector('#horizon-resizer') 
-      $(document).on('mousedown','#horizon-resizer',function(e){
-        $('#mask').css('display','block')
-        begin_y =  parseInt(e.clientY)
+    });
+    var begin_y
+    var dragging3
+    var horizon_resizer = document.querySelector('#horizon-resizer')
+    $(document).on('mousedown', '#horizon-resizer', function (e) {
+        $('#mask').css('display', 'block')
+        begin_y = parseInt(e.clientY)
         dragging3 = true
-         if (e.preventDefault) {
-          e.preventDefault();
+        if (e.preventDefault) {
+            e.preventDefault();
         } else {
-          e.returnValue = false;
+            e.returnValue = false;
         }
-      })
-      $(document).on('mousemove','body',function(e){
-        if(dragging3){
-          if(horizon_resizer.offsetTop < 250)
-          {
-            return false
-          }
-          let new_y = parseInt(e.clientY) - begin_y
-          begin_y =  parseInt(e.clientY)
-          old_h = document.querySelectorAll('.CodeMirror')[1].offsetHeight
-          document.querySelectorAll('.CodeMirror').forEach(d=>d.style.height = old_h + new_y +'px' )
+    })
+    $(document).on('mousemove', 'body', function (e) {
+        if (dragging3) {
+            if (horizon_resizer.offsetTop < 250) {
+                return false
+            }
+            let new_y = parseInt(e.clientY) - begin_y
+            begin_y = parseInt(e.clientY)
+            old_h = document.querySelectorAll('.CodeMirror')[1].offsetHeight
+            document.querySelectorAll('.CodeMirror').forEach(d => d.style.height = old_h + new_y + 'px')
         }
-      })
-     
+    })
+
     // document.querySelector('#iframe').contentWindow.document.body.addEventListener('mousemove',function(){
     //    $('body').mousemove()
     //  })
     //  document.querySelector('#iframe').contentWindow.document.body.addEventListener('mouseup',function(){
     //    $('body').mouseup()
     //  })
-      $(document).on('mouseup','body',function(e){
+    $(document).on('mouseup', 'body', function (e) {
         dragging3 = false
-        $('#mask').css('display','none')
-        if(horizon_resizer.offsetTop < 250){
-          document.querySelectorAll('.CodeMirror').forEach(d=>d.style.height = '250px' )
+        $('#mask').css('display', 'none')
+        if (horizon_resizer.offsetTop < 250) {
+            document.querySelectorAll('.CodeMirror').forEach(d => d.style.height = '250px')
         }
-      })
-    </script>
+    })
+</script>
 
-  </body>
+</body>
 </html>

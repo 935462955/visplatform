@@ -4,13 +4,14 @@ const mark_finish = '- [x] '
 function runtest(goal) {
     let code = window.parent.editor.getValue()//用户提交的代码
     let global = this.contentWindow
+    window.parent.saveCode()
     window.parent.toIframe()
     //  console.log(width)
     let all_pass = true
     let output_result = ``
     goal.map((test, index) => {
         try {
-            //  console.log(eval(test['teststring']))
+           // console.log(eval(test['teststring']))
             if (eval(test['teststring'])) {
                 output_result = output_result + mark_finish + '~~' + test['text'] + '~~  \n'
             } else {
@@ -27,6 +28,7 @@ function runtest(goal) {
     ).innerHTML = window.parent.marked(output_result)
     //提交通过测试
     if (all_pass) {
+
         window.parent.document.querySelector('#button_show_model').click()
     }
 }
