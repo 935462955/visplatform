@@ -4,11 +4,40 @@
     <meta charset="UTF-8">
     <title>visplatform</title>
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"/>
+    <style>
+        #goback {
+            border: 0;
+            background: none;
+            display: block;
+            text-align: center;
+            border: 2px solid #2ecc71;
+            padding: 14px 40px;
+            outline: none;
+            color: white;
+            border-radius: 24px;
+            transition: 0.25s;
+            cursor: pointer;
+            color: #007bff;
+        }
+        #user{
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            left: 85%;
+            color: #007bff;
+        }
+        #user button:hover {
+            background: #2ecc71;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row header" style="height:100px">
-
+        <div id="user">
+            <p>&nbsp;&nbsp;用户 : {{ current_user.nickname }}</p>
+            <button id='goback'>返回前台</button>
+        </div>
     </div>
     <div class="row main">
         <div class="col-2">
@@ -91,5 +120,11 @@
         <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
     </div>
 </div>
+<script>
+    $(document).on('click','#goback',function (){
+        if('{{ current_user.username }}' == 'admin')
+            window.location.href = '/'
+    })
+</script>
 </body>
 </html>
