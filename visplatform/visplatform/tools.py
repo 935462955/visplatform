@@ -1,11 +1,9 @@
 import os
-import pandas as pd
-import numpy as np
 import math
 import json
-from bson import ObjectId
 
-from visplatform.models import ModuleModel, CourseModel, ProjectModel, Concept
+
+from visplatform.models import ModuleModel, CourseModel, ProjectModel, Concept, CategoryModel
 
 
 def listdir(path):
@@ -51,21 +49,69 @@ def create_relationship():
     relationship_list.append(first.__dict__)
     relationship_list.append(second.__dict__)
 
-    modules = ModuleModel.objects
+    # modules = ModuleModel.objects
+    # for module in modules:
+    #     sub_modules = module.sub_modules
+    #     for sub_module in sub_modules:
+    #         if sub_module.type == 'code_page':
+    #             course_temp = CourseModel.objects.get(_id=sub_module.sub_id)
+    #             sub_moudule_temp = Relationship(id=str(sub_module.sub_id), name=course_temp.title,
+    #                                             parent_id=str(module._id), parent_name=module.module_name,
+    #                                             type='course')
+    #             relationship_list.append(sub_moudule_temp.__dict__)
+    #     moudule_temp = Relationship(id=str(module._id), name=module.module_name, parent_id='1',
+    #                                 parent_name='数据可视化', type='course')
+    #     relationship_list.append(moudule_temp.__dict__)
+    #
+    # courses = CourseModel.objects
+    # for course in courses:
+    #     concepts = course.concept
+    #     for concept in concepts:
+    #         if concept.id:
+    #             concept_in = Concept.objects.get(name=concept.id)
+    #             concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
+    #                                         parent_id=str(course._id), parent_name=course.title, type='course')
+    #             relationship_list.append(concept_temp.__dict__)
+    #
+    # projects = ProjectModel.objects
+    # for project in projects:
+    #     porject_temp = Relationship(id=str(project._id), name=project.title, parent_id='2',
+    #                                 parent_name='项目挑战', type='project')
+    #     relationship_list.append(porject_temp.__dict__)
+
+
+
+    category = CategoryModel.objects.first()
+    modules = category.modules
+
     for module in modules:
         sub_modules = module.sub_modules
-        for sub_module in sub_modules:
-            if sub_module.type == 'code_page':
-                course_temp = CourseModel.objects.get(_id=sub_module.sub_id)
-                sub_moudule_temp = Relationship(id=str(sub_module.sub_id), name=course_temp.title,
-                                                parent_id=str(module._id), parent=module.module_name,
-                                                type='course')
-                relationship_list.append(sub_moudule_temp.__dict__)
-        if module.module_name == "项目挑战":
-            continue
-        moudule_temp = Relationship(id=str(module._id), name=module.module_name, parent_id='1',
-                                    parent='数据可视化', type='course')
-        relationship_list.append(moudule_temp.__dict__)
+        if module.module_name == '项目挑战':
+            for sub_module in sub_modules:
+                project_temp = ProjectModel.objects.get(_id=sub_module.sub_id)
+                sub_module_temp = Relationship(id=str(sub_module.sub_id), name=project_temp.title,
+                                               parent_id='2', parent='项目挑战',
+                                               type='project')
+                relationship_list.append(sub_module_temp.__dict__)
+        else:
+            for sub_module in sub_modules:
+                if sub_module.type == 'code_page':
+                    course_temp = CourseModel.objects.get(_id=sub_module.sub_id)
+                    concepts = course_temp.concept
+                    for concept in concepts:
+                        if concept.id:
+                            concept_in = Concept.objects.get(name=concept.id)
+                            concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
+                                                        parent_id=str(course_temp._id), parent=course_temp.title,
+                                                        type='course')
+                            relationship_list.append(concept_temp.__dict__)
+                    sub_moudule_temp = Relationship(id=str(sub_module.sub_id), name=course_temp.title,
+                                                    parent_id=str(module._id), parent=module.module_name,
+                                                    type='course')
+                    relationship_list.append(sub_moudule_temp.__dict__)
+            moudule_temp = Relationship(id=str(module._id), name=module.module_name, parent_id='1',
+                                        parent='数据可视化', type='course')
+            relationship_list.append(moudule_temp.__dict__)
 
     courses = CourseModel.objects
     for course in courses:
@@ -74,14 +120,14 @@ def create_relationship():
             if concept.id:
                 concept_in = Concept.objects.get(name=concept.id)
                 concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
-                                            parent_id=str(course._id), parent=course.title, type='course')
+                                            parent_id=str(course._id), parent_name=course.title, type='course')
                 relationship_list.append(concept_temp.__dict__)
 
     projects = ProjectModel.objects
     for project in projects:
-        project_temp = Relationship(id=str(project._id), name=project.title, parent_id='2',
+        porject_temp = Relationship(id=str(project._id), name=project.title, parent_id='2',
                                     parent='项目挑战', type='project')
-        relationship_list.append(project_temp.__dict__)
+        relationship_list.append(porject_temp.__dict__)
 
     return relationship_list
 
