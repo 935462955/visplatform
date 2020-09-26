@@ -355,6 +355,20 @@
           },
           "sub_order": 1,
           "type": "project_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f6f3733369d1ba4d3d47067"
+          },
+          "sub_order": 2,
+          "type": "project_page"
+        },
+        {
+          "sub_id": {
+            "$oid": "5f6f373c369d1ba4d3d47068"
+          },
+          "sub_order": 3,
+          "type": "project_page"
         }
       ]
     },
@@ -746,7 +760,7 @@
       "unit_id": {
         "$oid": "5eebb3d952baf26e943af51c"
       },
-      "unit_title": "使用 d3.max 和 d3.min 函数在数据集中查找最小值和最大值",
+      "unit_title": "使用D3在数据集中查找最值",
       "unit_order": 27,
       "unit_type": "code_page"
     },
@@ -874,8 +888,24 @@
       "unit_id": {
         "$oid": "5f4d6003312f99f73a3944ae"
       },
-      "unit_title": "项目一: 美国历年GDP可视化",
+      "unit_title": "美国历年GDP可视化",
       "unit_order": 43,
+      "unit_type": "project_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f6f3733369d1ba4d3d47067"
+      },
+      "unit_title": "项目二",
+      "unit_order": 44,
+      "unit_type": "project_page"
+    },
+    {
+      "unit_id": {
+        "$oid": "5f6f373c369d1ba4d3d47068"
+      },
+      "unit_title": "项目三",
+      "unit_order": 45,
       "unit_type": "project_page"
     },
     {
@@ -883,15 +913,15 @@
         "$oid": "5efef9cb60df4cd4c418326b"
       },
       "unit_title": "弦图介绍",
-      "unit_order": 44,
+      "unit_order": 46,
       "unit_type": "code_page"
     },
     {
       "unit_id": {
         "$oid": "5eff41e8984f6cc210ab22e4"
       },
-      "unit_title": "使用d3.chord方法进行数据转换",
-      "unit_order": 45,
+      "unit_title": "使用chord方法进行数据转换",
+      "unit_order": 47,
       "unit_type": "code_page"
     },
     {
@@ -899,7 +929,7 @@
         "$oid": "5effecb06321bbe296777f8f"
       },
       "unit_title": "绘制弦图的圆环",
-      "unit_order": 46,
+      "unit_order": 48,
       "unit_type": "code_page"
     },
     {
@@ -907,7 +937,7 @@
         "$oid": "5f004b106321bbe296777f90"
       },
       "unit_title": "使用D3的rgb方法调整颜色的明暗",
-      "unit_order": 47,
+      "unit_order": 49,
       "unit_type": "code_page"
     },
     {
@@ -915,7 +945,7 @@
         "$oid": "5f0164ff6321bbe296777f91"
       },
       "unit_title": "使用ribbon绘制弦",
-      "unit_order": 48,
+      "unit_order": 50,
       "unit_type": "code_page"
     },
     {
@@ -923,7 +953,7 @@
         "$oid": "5eff31e7984f6cc210ab22e3"
       },
       "unit_title": "用D3创建力导向图",
-      "unit_order": 49,
+      "unit_order": 51,
       "unit_type": "code_page"
     },
     {
@@ -931,7 +961,7 @@
         "$oid": "5f0f1fe712b5e905b0c05b47"
       },
       "unit_title": "设定力导向图节点的参数",
-      "unit_order": 50,
+      "unit_order": 52,
       "unit_type": "code_page"
     },
     {
@@ -939,7 +969,7 @@
         "$oid": "5f0f1ff912b5e905b0c05b48"
       },
       "unit_title": "设定力导向图连线的参数",
-      "unit_order": 51,
+      "unit_order": 53,
       "unit_type": "code_page"
     },
     {
@@ -947,7 +977,7 @@
         "$oid": "5eff965c6321bbe296777f8d"
       },
       "unit_title": "给力导向图添加tick事件监听器",
-      "unit_order": 52,
+      "unit_order": 54,
       "unit_type": "code_page"
     },
     {
@@ -955,7 +985,7 @@
         "$oid": "5eff96786321bbe296777f8e"
       },
       "unit_title": "使力导向图可拖拽",
-      "unit_order": 53,
+      "unit_order": 55,
       "unit_type": "code_page"
     },
     {
@@ -963,7 +993,7 @@
         "$oid": "5eff942e6321bbe296777f8c"
       },
       "unit_title": "向力导向图的连线和节点上添加标签",
-      "unit_order": 54,
+      "unit_order": 56,
       "unit_type": "code_page"
     },
     {
@@ -971,7 +1001,7 @@
         "$oid": "5f21e0756a62dbaaee2dc693"
       },
       "unit_title": "让你的力导向图充满色彩",
-      "unit_order": 55,
+      "unit_order": 57,
       "unit_type": "code_page"
     },
     {
@@ -979,7 +1009,7 @@
         "$oid": "5f080ff40bc4b87ac34bc7b9"
       },
       "unit_title": "使用D3生成树形层次结构的数据",
-      "unit_order": 56,
+      "unit_order": 58,
       "unit_type": "code_page"
     },
     {
@@ -987,7 +1017,7 @@
         "$oid": "5f119011e69daf8d2215b607"
       },
       "unit_title": "使用D3创建一个矩阵树图布局",
-      "unit_order": 57,
+      "unit_order": 59,
       "unit_type": "code_page"
     },
     {
@@ -995,7 +1025,7 @@
         "$oid": "5f119602e69daf8d2215b608"
       },
       "unit_title": "使用D3构造使用层次数据构造treemap数据结构",
-      "unit_order": 58,
+      "unit_order": 60,
       "unit_type": "code_page"
     },
     {
@@ -1003,7 +1033,7 @@
         "$oid": "5f11a67fe69daf8d2215b60a"
       },
       "unit_title": "使用D3为所有叶子节点在SVG中绑定`<g>`元素",
-      "unit_order": 59,
+      "unit_order": 61,
       "unit_type": "code_page"
     },
     {
@@ -1011,7 +1041,7 @@
         "$oid": "5f12714dbcc7512a0b05140c"
       },
       "unit_title": "将每个叶子节点对应的矩形画出",
-      "unit_order": 60,
+      "unit_order": 62,
       "unit_type": "code_page"
     },
     {
@@ -1019,7 +1049,7 @@
         "$oid": "5f1273f1bcc7512a0b05140d"
       },
       "unit_title": "为矩形画上不同的颜色",
-      "unit_order": 61,
+      "unit_order": 63,
       "unit_type": "code_page"
     },
     {
@@ -1027,7 +1057,7 @@
         "$oid": "5f12c73fbcc7512a0b05140f"
       },
       "unit_title": "在矩形上添加标签",
-      "unit_order": 62,
+      "unit_order": 64,
       "unit_type": "code_page"
     },
     {
@@ -1035,7 +1065,7 @@
         "$oid": "5f2d0a0bf97310b6fbc9f9f1"
       },
       "unit_title": "隐藏超出矩形范围的信息",
-      "unit_order": 63,
+      "unit_order": 65,
       "unit_type": "code_page"
     },
     {
@@ -1043,7 +1073,7 @@
         "$oid": "5f12e6c9bcc7512a0b051410"
       },
       "unit_title": "给矩形添加标题提示",
-      "unit_order": 64,
+      "unit_order": 66,
       "unit_type": "code_page"
     }
   ]
