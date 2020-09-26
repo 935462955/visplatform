@@ -86,8 +86,6 @@ def create_relationship():
     return relationship_list
 
 
-
-
 ## 生成课程概念图
 class tree:  # 树节点
     def __init__(self, name,id,type):
