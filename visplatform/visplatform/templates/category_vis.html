@@ -106,7 +106,6 @@
             //加text
             d3.selectAll(".layer_one")
                 .append("a")
-                .attr("xlink:href", "")
                 .append("text").text(d => d.name)
                 .attr("x", d =>  d.cx)
                 .attr("y", d =>  d.cy)
@@ -114,7 +113,18 @@
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
 
-
+            function add_orign_text() {
+                d3.selectAll(".layer_one").selectAll("text").remove()
+                d3.selectAll(".layer_one")
+                    .append("text")
+                    .text(d => d[0])
+                    .attr("x", d => d[2])
+                    .attr("y", d => d[3])
+                    .attr("font-size", d => d[4] / (5 - d[1]))
+                    .attr("text-anchor", "middle")
+                    .attr("dominant-baseline", "middle")
+            }
+            add_orign_text()
 
 
             //点击事件
@@ -198,6 +208,7 @@
 
             d3.selectAll('g[data-name="项目挑战"] > circle').on("click", function (d, i) {
                 to_origin();
+                add_orign_text();
             })
 
             d3.selectAll('g[data-parent="项目挑战"] > circle').on("click", function (d, i) {
@@ -260,9 +271,6 @@
                     .duration(i.duration * 0.8)
                     .attrTween("transform", () => t => transform(currentTransform = i(t)))
             }
-
-
-
 
 
     </script>
