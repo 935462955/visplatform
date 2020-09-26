@@ -11,3 +11,4 @@ MONGODB_SETTINGS ={
 CSRF_ENABLED = True
 COURSE_UPLOAD_FOLDER = 'visplatform/data'
 PROJECT_UPLOAD_FOLDER = 'visplatform/js/test4project'
+VISUALIZATION_FOLDER  = 'visplatform/data/visualization'

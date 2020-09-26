@@ -1,8 +1,7 @@
 import os
 import math
 import json
-
-
+from visplatform import app
 from visplatform.models import ModuleModel, CourseModel, ProjectModel, Concept, CategoryModel
 
 
@@ -44,40 +43,10 @@ class Relationship:
 # 创建主界面各种关系
 def create_relationship():
     relationship_list = []
-    first = Relationship(id='1', name='数据可视化', parent_id='-1', parent='', type='course')
-    second = Relationship(id='2', name='项目挑战', parent_id='-1', parent='', type='project')
+    first = Relationship(id='1', name='数据可视化', parent_id='-1', parent='', type='code_page')
+    second = Relationship(id='2', name='项目挑战', parent_id='-1', parent='', type='project_page')
     relationship_list.append(first.__dict__)
     relationship_list.append(second.__dict__)
-
-    # modules = ModuleModel.objects
-    # for module in modules:
-    #     sub_modules = module.sub_modules
-    #     for sub_module in sub_modules:
-    #         if sub_module.type == 'code_page':
-    #             course_temp = CourseModel.objects.get(_id=sub_module.sub_id)
-    #             sub_moudule_temp = Relationship(id=str(sub_module.sub_id), name=course_temp.title,
-    #                                             parent_id=str(module._id), parent_name=module.module_name,
-    #                                             type='course')
-    #             relationship_list.append(sub_moudule_temp.__dict__)
-    #     moudule_temp = Relationship(id=str(module._id), name=module.module_name, parent_id='1',
-    #                                 parent_name='数据可视化', type='course')
-    #     relationship_list.append(moudule_temp.__dict__)
-    #
-    # courses = CourseModel.objects
-    # for course in courses:
-    #     concepts = course.concept
-    #     for concept in concepts:
-    #         if concept.id:
-    #             concept_in = Concept.objects.get(name=concept.id)
-    #             concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
-    #                                         parent_id=str(course._id), parent_name=course.title, type='course')
-    #             relationship_list.append(concept_temp.__dict__)
-    #
-    # projects = ProjectModel.objects
-    # for project in projects:
-    #     porject_temp = Relationship(id=str(project._id), name=project.title, parent_id='2',
-    #                                 parent_name='项目挑战', type='project')
-    #     relationship_list.append(porject_temp.__dict__)
 
 
 
@@ -91,7 +60,7 @@ def create_relationship():
                 project_temp = ProjectModel.objects.get(_id=sub_module.sub_id)
                 sub_module_temp = Relationship(id=str(sub_module.sub_id), name=project_temp.title,
                                                parent_id='2', parent='项目挑战',
-                                               type='project')
+                                               type='project_page')
                 relationship_list.append(sub_module_temp.__dict__)
         else:
             for sub_module in sub_modules:
@@ -103,31 +72,16 @@ def create_relationship():
                             concept_in = Concept.objects.get(name=concept.id)
                             concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
                                                         parent_id=str(course_temp._id), parent=course_temp.title,
-                                                        type='course')
+                                                        type='code_page')
                             relationship_list.append(concept_temp.__dict__)
                     sub_moudule_temp = Relationship(id=str(sub_module.sub_id), name=course_temp.title,
                                                     parent_id=str(module._id), parent=module.module_name,
-                                                    type='course')
+                                                    type='code_page')
                     relationship_list.append(sub_moudule_temp.__dict__)
             moudule_temp = Relationship(id=str(module._id), name=module.module_name, parent_id='1',
-                                        parent='数据可视化', type='course')
+                                        parent='数据可视化', type='code_page')
             relationship_list.append(moudule_temp.__dict__)
 
-    courses = CourseModel.objects
-    for course in courses:
-        concepts = course.concept
-        for concept in concepts:
-            if concept.id:
-                concept_in = Concept.objects.get(name=concept.id)
-                concept_temp = Relationship(id=str(concept_in._id), name=concept_in.name,
-                                            parent_id=str(course._id), parent_name=course.title, type='course')
-                relationship_list.append(concept_temp.__dict__)
-
-    projects = ProjectModel.objects
-    for project in projects:
-        porject_temp = Relationship(id=str(project._id), name=project.title, parent_id='2',
-                                    parent='项目挑战', type='project')
-        relationship_list.append(porject_temp.__dict__)
 
     return relationship_list
 
@@ -136,8 +90,10 @@ def create_relationship():
 
 ## 生成课程概念图
 class tree:  # 树节点
-    def __init__(self, name):
+    def __init__(self, name,id,type):
         self.name = name
+        self.id = id
+        self.type = type
         self.deepth = None
         self.children = []
         self.parent = None
@@ -161,11 +117,11 @@ def generate_drawable_data(relationship_list):
     df_xm_tree = []#项目
 
     for i in relationship_list:
-        if i['type'] == 'course':
+        if i['type'] == 'code_page':
             df_tree.append(i)
         else:
             df_xm_tree.append(i)
-    print(df_xm_tree)
+    #print(df_xm_tree)
 
     types = {'name': str, 'parent': str, '知识点类型': str}
 
@@ -182,7 +138,7 @@ def generate_drawable_data(relationship_list):
     # 初始化树
 
     for row in df_tree:
-        node = tree(row['name'])
+        node = tree(row['name'],row['id'],row['type'])
         dic[node.name] = node
     for row in df_tree:
         node = dic[row['name']]
@@ -193,9 +149,7 @@ def generate_drawable_data(relationship_list):
             node.parent = parent
             parent.children.append(node)
             # 这个if-else 用于计算每层的最大儿子数
-    for i in root.children:
-        print(i.name)
-    print(root.children)
+
    # print(pre_order(root))
 
     assin_deep(root,max_children_per_layer)
@@ -219,10 +173,7 @@ def generate_drawable_data(relationship_list):
     # 存入问文件
     L = []
     built_li(root,L)
-
     # 计算项目挑战相关
-
-
     # xmn为总项目数
     xm_n = len(df_xm_tree) - 1
 
@@ -231,7 +182,7 @@ def generate_drawable_data(relationship_list):
     Rx[1] = Rx[0] / tem
     print(Rx)
     for row in df_xm_tree:
-        node = tree(row['name'])
+        node = tree(row['name'],row['id'],row['type'])
         dic[node.name] = node
     for row in df_xm_tree:
         node = dic[row['name']]
@@ -259,7 +210,7 @@ def generate_drawable_data(relationship_list):
 
    # print(L)
 
-    filename = 'visplatform/backup/data.json'
+    filename = os.path.join(app.config['VISUALIZATION_FOLDER'], 'data.json')
     # 能够写入中文
     with open(filename, 'w', encoding='utf-8') as f_obj:
         json.dump(L, f_obj, ensure_ascii=False)
@@ -322,13 +273,13 @@ def built_li(node,L):
         parentName = node.parent.name
     else:
         parentName = "根节点"
-    Lj = [node.name, node.deepth, node.cx, node.cy, node.r, parentName, node.tx, node.ty]
+    Lj = {"name":node.name, "deepth":node.deepth, "cx":node.cx, "cy":node.cy, "r":node.r, "parent":parentName, "tx":node.tx, "ty":node.ty,"id":node.id,"type":node.type}
     L.append(Lj)
-    Li = []
+    # Li = []
     for i in node.children:
-        Li.append(i.name)
+         #Li.append(i.name)
         built_li(i,L)
-    Lj.append(Li)
+    # Lj["children"]=Li
 
 def assin_deep(node,max_children_per_layer):#先序给树的节点深度赋值
 

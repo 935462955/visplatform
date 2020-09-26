@@ -135,6 +135,15 @@ def show_category():
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
                            relationship_list=relationship_list)
 
+@app.route('/category-vis')
+@login_required
+def show_category_vis():
+    path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'data.json')
+    print(path)
+    with open(path , 'r', encoding='utf8')as fp:
+        json_data = json.load(fp)
+        print('这是文件中的json数据：', json_data)
+        return render_template('category_vis.html',dataset = json_data)
 
 @app.route('/Admin')
 def Admin():
