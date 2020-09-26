@@ -113,18 +113,19 @@
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
 
-            function add_orign_text() {
-                d3.selectAll(".layer_one").selectAll("text").remove()
+            function add_orign_a() {
+                d3.selectAll(".layer_one").selectAll("a").remove()
                 d3.selectAll(".layer_one")
+                    .append("a")
                     .append("text")
-                    .text(d => d[0])
-                    .attr("x", d => d[2])
-                    .attr("y", d => d[3])
-                    .attr("font-size", d => d[4] / (5 - d[1]))
+                    .text(d => d.name)
+                    .attr("x", d => d.cx)
+                    .attr("y", d => d.cy)
+                    .attr("font-size", d => d.r / (5 - d.deepth))
                     .attr("text-anchor", "middle")
                     .attr("dominant-baseline", "middle")
             }
-            add_orign_text()
+            add_orign_a();
 
 
             //点击事件
@@ -208,7 +209,7 @@
 
             d3.selectAll('g[data-name="项目挑战"] > circle').on("click", function (d, i) {
                 to_origin();
-                add_orign_text();
+                add_orign_a();
             })
 
             d3.selectAll('g[data-parent="项目挑战"] > circle').on("click", function (d, i) {
