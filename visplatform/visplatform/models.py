@@ -19,7 +19,6 @@ class CourseModel(db.Document):
     frame_head = db.StringField()
     frame_foot = db.StringField()
     code = db.StringField()
-    tag = db.StringField()
     concept = db.SortedListField(db.ReferenceField(Concept, reverse_delete_rule=PULL))
     meta = {
         "collection": "course",

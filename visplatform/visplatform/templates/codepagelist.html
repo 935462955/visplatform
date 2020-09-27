@@ -101,9 +101,9 @@
                 {% for course in courses %}
                     <li class="list-group-item">
                         <a href="{{ url_for('edit_course',_id = course._id) }}">{{ course.course_id }}.{{ course.title }}</a>
-                        {% if course.concepts != None %}
-                            {% for concept in course.concepts %}
-                                <span class="badge badge-secondary">{{ concept }}</span>
+                        {% if course.concept != None %}
+                            {% for concept_temp in course.concept %}
+                                <span class="badge badge-secondary">{{ concept_temp.id }}</span>
                             {% endfor %}
                         {% endif %}
                     </li>

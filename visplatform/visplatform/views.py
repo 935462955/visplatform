@@ -160,7 +160,7 @@ def add_course():
     course = CourseModel.objects.get_or_404(course_id=0)
     CourseForm = model_form(CourseModel)
     form = CourseForm(request.form)
-    Concepts = Concept.objects
+    concepts = Concept.objects
     all_id = CourseModel.objects.order_by('course_id').fields(course_id=1)
     max_id = all_id[len(all_id) - 1].course_id + 1
     if request.method == 'POST':
@@ -171,12 +171,12 @@ def add_course():
         code = form.code.data
         goal = form.goal.data
         course_id = form.course_id.data
-        tag = form.tag.data
-        concepts_temp = form.tag.data.strip().split(',')
+        concept = request.form.get('concept_temp')
+        concepts_temp = concept.strip().split(',')
         concepts_list_temp = []
         for string_temp in concepts_temp:
             flag = False
-            for concept in Concepts:
+            for concept in concepts:
                 if concept.name == string_temp:
                     flag = True
                     break
@@ -184,14 +184,13 @@ def add_course():
                 concept_save = Concept(name=string_temp)
                 concept_save.save()
             concepts_list_temp.append(string_temp)
-        course.concept = concepts_list_temp
         new_course = CourseModel(title=title, text=text, frame_head=frame_head, frame_foot=frame_foot, goal=goal,
-                                 code=code, course_id=course_id, tag=tag)
+                                 code=code, course_id=course_id, concept=concepts_list_temp)
         new_course.save(force_insert=True)
         return redirect(url_for('Admin'))
     course.course_id = max_id
     files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
-    return render_template('editcourse.html', course=course, form=form, files=files)
+    return render_template('editcourse.html', course=course, form=form, files=files, concepts=concepts)
 
 
 @app.route('/projectpage/new', methods=['POST', 'GET'])
@@ -220,7 +219,15 @@ def edit_course(_id):
     course = CourseModel.objects.get_or_404(_id=_id)
     CourseForm = model_form(CourseModel)
     form = CourseForm(request.form)
-    Concepts = Concept.objects
+    courses = CourseModel.objects
+    concepts = []
+
+    for course_temp in courses:
+        if course_temp._id != course._id:
+            concepts_temp = course_temp.concept
+            for concept_temp in concepts_temp:
+                concepts.append(concept_temp.id)
+
     # print(form.validate())
     if request.method == 'POST':
         course.title = form.title.data
@@ -230,12 +237,14 @@ def edit_course(_id):
         course.code = form.code.data
         course.course_id = form.course_id.data
         course.goal = form.goal.data
-        course.tag = form.tag.data
-        concepts_temp = form.tag.data.strip().split(',')
+
+        concepts = Concept.objects
+        concepts_temp = request.form.get('concept_temp').strip().split(',')
         concepts_list_temp = []
         for string_temp in concepts_temp:
             flag = False
-            for concept in Concepts:
+            # 如果存在相同concept则不保存
+            for concept in concepts:
                 if concept.name == string_temp:
                     flag = True
                     break
@@ -251,7 +260,7 @@ def edit_course(_id):
         return redirect(url_for('edit_course', _id=_id))
     files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
     # print(files)
-    return render_template('editcourse.html', course=course, form=form, files=files)
+    return render_template('editcourse.html', course=course, form=form, files=files, concepts = concepts)
 
 
 @app.route('/editproject/<string:_id>', methods=['POST', 'GET'])
@@ -496,27 +505,9 @@ def upgrade_project_id():
 
 @app.route('/Admin/codepage')
 def show_codepages():
-    courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, tag=1, _id=1, concept=1)
-    # course = CourseModel.objects(course_id = 1).first()
-    #
-    # for temp in course.concept:
-    #     print(temp.id)
-    # print(concepttemp.name)
-    # test = CourseModel.objects(concept__in=[concepttemp]).first()
-    # print(test.title)
-    for course in courses:
-        concepts = course.concept;
-        concepts_temp = [];
-        for temp in concepts:
-            concepts_temp.append(temp.id)
+    courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, _id=1, concept=1)
+    concepts = Concept.objects
 
-        # try:
-        #     if course.tag:
-        #         course.tag = course.tag.split(',')
-        # except:
-        #     # print(course.tag)
-        #     course.tag = [' ']
-        course.concepts = concepts_temp
     return render_template('codepagelist.html', courses=courses)
 
 
