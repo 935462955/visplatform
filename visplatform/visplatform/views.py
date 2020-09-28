@@ -130,10 +130,16 @@ def show_category():
 
     relationship_list = create_relationship()
     generate_drawable_data(relationship_list)
+    path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'data.json')
+    print(path)
+    with open(path, 'r', encoding='utf8')as fp:
+        json_data = json.load(fp)
+        print('这是文件中的json数据：', json_data)
+    vis_page = render_template('category_vis.html', dataset=json_data)
     # return render_template('category_vis.html', modules=modules, dics=dics, collapse_state=collapse_state,
     #                   relationship_list=relationship_list)
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
-                           relationship_list=relationship_list)
+                           relationship_list=relationship_list,vis_page = vis_page)
 
 @app.route('/category-vis')
 @login_required
