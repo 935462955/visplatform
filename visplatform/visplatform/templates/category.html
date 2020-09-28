@@ -51,7 +51,7 @@
             color: #007bff;
         }
 
-        #in{
+        #in {
             border: 0;
             background: none;
             display: none;
@@ -66,10 +66,63 @@
             color: #007bff;
             margin-top: 10px;
         }
+
+        .btn-group {
+            position: absolute;
+            width: 100%;
+            top: 20px;
+        }
+
+        #top {
+            width: 100%;
+            height: 100px;
+            z-index: 2000;
+        }
+
+        #vis {
+            background: white;
+            height:calc(100% - 100px);
+            overflow: hidden;
+        }
+
+        .panel {
+            min-width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            position: absolute;
+            margin-top: -150%;
+            opacity: 0;
+            z-index: 2;
+            -webkit-transition: opacity .6s ease-in-out;
+            -moz-transition: opacity .6s ease-in-out;
+            -o-transition: opacity .6s ease-in-out;
+            -ms-transition: opacity .6s ease-in-out;
+            transition: opacity .6s ease-in-out;
+        }
+
+        .panel:target {
+            opacity: 1;
+            margin-top: 0%;
+        }
+        #vis{
+
+        }
     </style>
 </head>
 <body>
-<div class="container">
+<div id="top">
+    <div class="btn-group btn-group-lg" role="group">
+        <button type="button" class="btn btn-primary btn-lg" onclick="window.location.href='#content'">传统目录</button>
+        <button type="button" class="btn btn-secondary btn-lg" onclick="window.location.href='#vis'">可视化目录</button>
+    </div>
+</div>
+<div id="vis" class="panel">
+ <iframe style="height:100%;width:100%;border:0;" scrolling="no" srcdoc="{{ vis_page }}">
+
+ </iframe>
+</div>
+
+<div class="container panel" id="content">
     <div id="user">
         <p>&nbsp;&nbsp;用户 : {{ current_user.nickname }}</p>
         <button id='logout'>退出登录</button>
@@ -178,11 +231,11 @@
         }
     })
 
-    if('{{ current_user.username }}' == 'admin')
-        $('#in').css('display','block');
+    if ('{{ current_user.username }}' == 'admin')
+        $('#in').css('display', 'block');
 
-    $(document).on('click','#in',function (){
-        if('{{ current_user.username }}' == 'admin')
+    $(document).on('click', '#in', function () {
+        if ('{{ current_user.username }}' == 'admin')
             window.location.href = 'Admin'
     })
 
