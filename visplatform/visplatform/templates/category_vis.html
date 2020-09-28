@@ -6,271 +6,307 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../node_modules/d3/d3.min.js"></script>
     <title>Document</title>
+
+    <style>
+        .linestyle{
+            stroke: #f3aeb6;
+            stroke-width: 5;
+            }
+            
+    </style>
 </head>
 
 <body>
     <script>
         var color = ['#fafafa', '#c5d2da', '#615f8e', '#ffdcbb', '#f5f5f5']
 
+        var dataset = {{ dataset | safe}}
+        var tips ={{tips_data | safe}}
+                
+        //var dataset = {{dataset | safe}}
+        //var tips ={{tips_data | safe}}
+        //console.log(dataset)
+        var h = dataset[0].r * 2;
+        var w = h;
 
-            var dataset = {{ dataset|safe }}
-            //console.log(dataset)
-            var h = dataset[0].r * 2;
-            var w = h;
+        const svg = d3.select("body")
+            .append("svg")
+            .attr("height", "98vh")
+            .attr("width", "98vw")
+            .attr("viewBox", [0, 0, w, h]);
 
-            const svg = d3.select("body")
-                .append("svg")
-                .attr("height", "98vh")
-                .attr("width", "98vw")
-                .attr("viewBox", [0, 0, w, h]);
+        const g = svg.selectAll(".layer_zero")
+            .data(dataset.filter(d => d.deepth == 0))
+            .join("g")
+            .attr("class", "layer_zero")
+            .attr("data-name", d => d.name)
+            .attr("data-parent", d => d.parent)
 
-            const g = svg.selectAll(".layer_zero")
-                .data(dataset.filter(d => d.deepth == 0))
+        g.append("circle")
+            .attr("data-name", d => d.name)
+            .attr("cx", d => d.cx)
+            .attr("cy", d => d.cy)
+            .attr("r", d => d.r)
+            .attr("fill", d => color[d.deepth])
+
+        d3.select("circle[data-name='项目挑战']").attr("fill", color[4])
+
+        d3.selectAll(".layer_zero").each(function (p, j, n) {
+
+            d3.select(this)
+                .selectAll(".layer_one")
+                .data(dataset.filter(d => d.parent == p.name))
                 .join("g")
-                .attr("class", "layer_zero")
+                .attr("class", "layer_one")
                 .attr("data-name", d => d.name)
-                .attr("data-parent", d =>  d.parent)
-
-            g.append("circle")
-                .attr("data-name", d =>d.name)
-                .attr("cx", d =>  d.cx)
-                .attr("cy", d =>  d.cy)
-                .attr("r", d =>  d.r)
+                .attr("data-parent", d => d.parent)
+                .append("circle")
+                .attr("data-name", d => d.name)
+                .attr("cx", d => d.cx)
+                .attr("cy", d => d.cy)
+                .attr("r", d => d.r)
                 .attr("fill", d => color[d.deepth])
+        })
 
-            d3.select("circle[data-name='项目挑战']").attr("fill", color[4])
+        d3.selectAll(".layer_one").each(function (p, j, n) {
+            //console.log(this,p,j,n)
+            d3.select(this)
+                .selectAll(".layer_two")
+                .data(dataset.filter(d => d.parent == p.name))
+                .join("g")
+                .attr("class", "layer_two")
+                .attr("data-name", d => d.name)
+                .attr("data-parent", d => d.parent)
+                .append("circle")
+                .attr("data-name", d => d.name)
+                .attr("cx", d => d.cx)
+                .attr("cy", d => d.cy)
+                .attr("r", d => d.r)
+                .attr("fill", d => color[d.deepth])
+        })
 
-            d3.selectAll(".layer_zero").each(function (p, j, n) {
+        d3.selectAll('.layer_two').each(function (p, j, n) {
+            //console.log(this,p,j,n)
+            d3.select(this)
+                .selectAll(".layer_three")
+                .data(dataset.filter(d => d.parent == p.name))
+                .join("g")
+                .attr("class", "layer_three")
+                .attr("data-name", d => d.name)
+                .attr("data-parent", d => d.parent)
+                .append("circle")
+                .attr("data-name", d => d.name)
+                .attr("cx", d => d.cx)
+                .attr("cy", d => d.cy)
+                .attr("r", d => d.r)
+                .attr("fill", d => color[d.deepth])
+        })
 
-                d3.select(this)
-                    .selectAll(".layer_one")
-                    .data(dataset.filter(d =>  d.parent ==  p.name))
-                    .join("g")
-                    .attr("class", "layer_one")
-                    .attr("data-name", d => d.name)
-                    .attr("data-parent", d =>  d.parent)
-                    .append("circle")
-                    .attr("data-name", d => d.name)
-                    .attr("cx", d =>  d.cx)
-                    .attr("cy", d =>  d.cy)
-                    .attr("r", d =>  d.r)
-                    .attr("fill", d => color[d.deepth])
+        // circle_ones.data(dataset,function(d){return d})
+
+        //加title
+        d3.selectAll("g")
+            .append("title")
+            .text(d => {
+                if (d.deepth > 0)
+                    return d.name
             })
 
-            d3.selectAll(".layer_one").each(function (p, j, n) {
-                //console.log(this,p,j,n)
-                d3.select(this)
-                    .selectAll(".layer_two")
-                    .data(dataset.filter(d =>  d.parent ==  p.name))
-                    .join("g")
-                    .attr("class", "layer_two")
-                    .attr("data-name", d => d.name)
-                    .attr("data-parent", d =>  d.parent)
-                    .append("circle")
-                    .attr("data-name", d => d.name)
-                    .attr("cx", d =>  d.cx)
-                    .attr("cy", d =>  d.cy)
-                    .attr("r", d =>  d.r)
-                    .attr("fill", d => color[d.deepth])
-            })
+        //加text
+        d3.selectAll(".layer_one")
+            .append("a")
+            .append("text").text(d => d.name)
+            .attr("x", d => d.cx)
+            .attr("y", d => d.cy)
+            .attr("font-size", d => d.r / (5 - d.deepth))
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
 
-            d3.selectAll('.layer_two').each(function (p, j, n) {
-                //console.log(this,p,j,n)
-                d3.select(this)
-                    .selectAll(".layer_three")
-                    .data(dataset.filter(d =>  d.parent ==  p.name))
-                    .join("g")
-                    .attr("class", "layer_three")
-                    .attr("data-name", d => d.name)
-                    .attr("data-parent", d =>  d.parent)
-                    .append("circle")
-                    .attr("data-name", d => d.name)
-                    .attr("cx", d => d.cx)
-                    .attr("cy", d =>  d.cy)
-                    .attr("r", d =>  d.r)
-                    .attr("fill", d => color[d.deepth])
-            })
-
-            // circle_ones.data(dataset,function(d){return d})
-
-            //加title
-            d3.selectAll("g")
-                .append("title")
-                .text(d => {
-                    if (d.deepth > 0)
-                        return d.name
-                })
-
-            //加text
+        function add_orign_a() {
+            d3.selectAll(".layer_one").selectAll("a").remove()
             d3.selectAll(".layer_one")
                 .append("a")
-                .append("text").text(d => d.name)
-                .attr("x", d =>  d.cx)
-                .attr("y", d =>  d.cy)
-                .attr("font-size", d =>  d.r / (5 - d.deepth))
+                .append("text")
+                .text(d => d.name)
+                .attr("x", d => d.cx)
+                .attr("y", d => d.cy)
+                .attr("font-size", d => d.r / (5 - d.deepth))
                 .attr("text-anchor", "middle")
                 .attr("dominant-baseline", "middle")
-
-            function add_orign_a() {
-                d3.selectAll(".layer_one").selectAll("a").remove()
-                d3.selectAll(".layer_one")
-                    .append("a")
-                    .append("text")
-                    .text(d => d.name)
-                    .attr("x", d => d.cx)
-                    .attr("y", d => d.cy)
-                    .attr("font-size", d => d.r / (5 - d.deepth))
-                    .attr("text-anchor", "middle")
-                    .attr("dominant-baseline", "middle")
-            }
-            add_orign_a();
+        }
+        add_orign_a();
 
 
-            //点击事件
-            d3.selectAll("circle").on('click', function (d, i, n) {
-                if (d.deepth < 3 && d.name != "项目挑战" &&  d.parent != "项目挑战") {
-                    transition(d)
-                    let parentG = d3.select(d3.event.currentTarget.parentNode)
-                    //console.log(parentG)
-                    d3.selectAll(`g[data-name='数据可视化'] > g`).selectAll("a").remove()
-                    if (d.name != "数据可视化") {
-                        if (d.deepth != 2) {
-                            parentG.append("a")
-                                .append("text").text(d => d.name)
-                                .attr("x", d => d.cx)
-                                .attr("y", d => d.cy)
-                                .attr("font-size", d => d.r / (5 - d.deepth))
-                                .attr("text-anchor", "middle")
-                                .attr("dominant-baseline", "middle")
-                        } else {
-                            parentG.append("a")
-                                .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
-                                .append("text").text(d => d.name)
-                                .attr("x", d => d.cx)
-                                .attr("y", d => d.cy)
-                                .attr("font-size", d => d.r / (5 - d.deepth))
-                                .attr("text-anchor", "middle")
-                                .attr("dominant-baseline", "middle")
-
-
-                        }
-                    }
-                    if (d.deepth != 1) {
-                        parentG
-                            .selectAll("g")
-                            .filter(function (x) {
-                                return x.parent == d.name
-                            })
-                            .append("a")
+        //点击事件
+        d3.selectAll("circle").on('click', function (d, i, n) {
+            if (d.deepth < 3 && d.name != "项目挑战" && d.parent != "项目挑战") {
+                transition(d)
+                let parentG = d3.select(d3.event.currentTarget.parentNode)
+                //console.log(parentG)
+                d3.selectAll(`g[data-name='数据可视化'] > g`).selectAll("a").remove()
+                if (d.name != "数据可视化") {
+                    if (d.deepth != 2) {
+                        parentG.append("a")
                             .append("text").text(d => d.name)
-                            .attr("x", d => {
-                                if (d.deepth == 2)
-                                    return d.cx + d.tx
-                                return d.cx
-                            })
-                            .attr("y", d => {
-                                if (d.deepth == 2)
-                                    return d.cy + d.ty
-                                return d.cy
-                            })
+                            .attr("x", d => d.cx)
+                            .attr("y", d => d.cy)
                             .attr("font-size", d => d.r / (5 - d.deepth))
                             .attr("text-anchor", "middle")
                             .attr("dominant-baseline", "middle")
-
-                    }
-                    else{
-                         parentG
-                            .selectAll("g")
-                            .filter(function (x) {
-                                return x.parent == d.name
-                            })
-                            .append("a")
+                    } else {
+                        parentG.append("a")
                             .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
                             .append("text").text(d => d.name)
-                            .attr("x", d => {
-                                if (d.deepth == 2)
-                                    return d.cx + d.tx
-                                return d.cx
-                            })
-                            .attr("y", d => {
-                                if (d.deepth == 2)
-                                    return d.cy + d.ty
-                                return d.cy
-                            })
+                            .attr("x", d => d.cx)
+                            .attr("y", d => d.cy)
                             .attr("font-size", d => d.r / (5 - d.deepth))
                             .attr("text-anchor", "middle")
                             .attr("dominant-baseline", "middle")
 
+
                     }
                 }
-            })
+                if (d.deepth != 1) {
+                    parentG
+                        .selectAll("g")
+                        .filter(function (x) {
+                            return x.parent == d.name
+                        })
+                        .append("a")
+                        .append("text").text(d => d.name)
+                        .attr("x", d => {
+                            if (d.deepth == 2)
+                                return d.cx + d.tx
+                            return d.cx
+                        })
+                        .attr("y", d => {
+                            if (d.deepth == 2)
+                                return d.cy + d.ty
+                            return d.cy
+                        })
+                        .attr("font-size", d => d.r / (5 - d.deepth))
+                        .attr("text-anchor", "middle")
+                        .attr("dominant-baseline", "middle")
 
-
-             //项目挑战点击事件
-            d3.selectAll('g[data-name="项目挑战"] > circle').on("click", function (d, i) {
-                to_origin();
-                add_orign_a();
-            })
-
-            d3.selectAll('g[data-parent="项目挑战"] > circle').on("click", function (d, i) {
-                //console.log(d3.event.target.parentNode, d)
-                to_origin();
-                let g = d3.select(d3.event.target.parentNode)
-                let cx =  d.cx
-                let cy =  d.cy
-                if (g.attr("transition-state") == "on") {
-                        g.transition()
-                        .duration(500)
-                        .attr("transform", "translate(0,0) scale(1)")
-                        .attr("transition-state", "off")
-                    d3.selectAll('g[data-parent="项目挑战"]')
-                        .attr("visibility", "visible")
                 } else {
-                    d3.selectAll('g[data-parent="项目挑战"]')
-                        .attr("visibility", "hidden")
-                    g.attr("visibility", "visible")
-                        .transition()
-                        .duration(500)
-                        .attr("transform", transform_part(cx, cy, ...currentTransform_part))
-                        .attr("transition-state", "on")
+                    parentG
+                        .selectAll("g")
+                        .filter(function (x) {
+                            return x.parent == d.name
+                        })
+                        .append("a")
+                        .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
+                        .append("text").text(d => d.name)
+                        .attr("x", d => {
+                            if (d.deepth == 2)
+                                return d.cx + d.tx
+                            return d.cx
+                        })
+                        .attr("y", d => {
+                            if (d.deepth == 2)
+                                return d.cy + d.ty
+                            return d.cy
+                        })
+                        .attr("font-size", d => d.r / (5 - d.deepth))
+                        .attr("text-anchor", "middle")
+                        .attr("dominant-baseline", "middle")
+
                 }
-            })
-
-            var currentTransform_part = [w / 2, h / 2, d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3
-                .select('g[data-parent="项目挑战"]>circle').attr("r")
-            ]; //项目挑战平移缩放中心和倍率
-            const originTransform = [w / 2, h / 2, h];
-            var currentTransform = [w / 2, h / 2, h]; //初始缩放中心和宽度
-
-
-            function transform([x, y, r]) {
-                let k = Math.min(h, w) / r
-                return `translate(${w / 2 - x * k}, ${h / 2 - y * k}) scale(${k})`;
             }
+        })
 
-            function transform_part(ox, oy, x, y, k) //初始坐标(ox,oy) 目的地坐标(x,y)  缩放比例(k)
-            {
 
-                return `translate(${x - ox * k},${y - oy * k}) scale(${k})`
-            }
+        //项目挑战点击事件
+        d3.selectAll('g[data-name="项目挑战"] > circle').on("click", function (d, i) {
+            to_origin();
+            add_orign_a();
+        })
 
-            function transition(d) {
-                var k = 2 + 0.4 * d.deepth
-                var i = d3.interpolateZoom(currentTransform, [ d.cx,  d.cy,  d.r * k]);
+        d3.selectAll('g[data-parent="项目挑战"] > circle').on("click", function (d, i) {
+            //console.log(d3.event.target.parentNode, d)
+            to_origin();
+            add_orign_a();
+            remove_tips()
+            let g = d3.select(d3.event.target.parentNode)
+            let cx = d.cx
+            let cy = d.cy
+            if (g.attr("transition-state") == "on") {
                 g.transition()
-                    .delay(250)
-                    .duration(i.duration * 0.8)
-                    .attrTween("transform", () => t => transform(currentTransform = i(t)))
+                    .duration(500)
+                    .attr("transform", "translate(0,0) scale(1)")
+                    .attr("transition-state", "off")
+                d3.selectAll('g[data-parent="项目挑战"]')
+                    .attr("visibility", "visible")
+            } else {
+                d3.selectAll('g[data-parent="项目挑战"]')
+                    .attr("visibility", "hidden")
+                g.attr("visibility", "visible")
+                    .transition()
+                    .duration(500)
+                    .attr("transform", transform_part(cx, cy, ...currentTransform_part))
+                    .attr("transition-state", "on")
             }
+        })
+        var xm_k = d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3.select('g[data-parent="项目挑战"]>circle').attr("r")//项目挑战缩放倍率
+        var currentTransform_part = [w / 2, h / 2, xm_k]; //项目挑战平移缩放中心和倍率
+        const originTransform = [w / 2, h / 2, h];
+        var currentTransform = [w / 2, h / 2, h]; //初始缩放中心和宽度
 
-            function to_origin() {
-                var i = d3.interpolateZoom(currentTransform, originTransform);
-                g.transition()
-                    .duration(i.duration * 0.8)
-                    .attrTween("transform", () => t => transform(currentTransform = i(t)))
+
+        function transform([x, y, r]) {
+            let k = Math.min(h, w) / r
+            return `translate(${w / 2 - x * k}, ${h / 2 - y * k}) scale(${k})`;
+        }
+
+        function transform_part(ox, oy, x, y, k) //初始坐标(ox,oy) 目的地坐标(x,y)  缩放比例(k)
+        {
+
+            return `translate(${x - ox * k},${y - oy * k}) scale(${k})`
+        }
+
+        function transition(d) {
+            var k = 2 + 0.4 * d.deepth
+            var i = d3.interpolateZoom(currentTransform, [d.cx, d.cy, d.r * k]);
+            g.transition()
+                .delay(250)
+                .duration(i.duration * 0.8)
+                .attrTween("transform", () => t => transform(currentTransform = i(t)))
+        }
+
+        function to_origin() {
+            var i = d3.interpolateZoom(currentTransform, originTransform);
+            g.transition()
+                .duration(i.duration * 0.8)
+                .attrTween("transform", () => t => transform(currentTransform = i(t)))
+        }
+
+        //添加项目挑战的tips
+        //var tem=d3.selectAll('g[data-parent="项目挑战"]>circle')
+        function add_tips(d){
+            var g = d3.select(d3.event.currentTarget.parentNode)
+            if(g.attr("transition-state")=="on") return
+            var tip=tips.find(x=>x.project_name==d.name).tips
+            //console.log(tip)
+            for(var i=0;i<tip.length;i++){
+                var target_c=d3.select(`g[data-name='${tip[i]}']>circle`)
+                g.append("line")
+                .attr("class","linestyle")
+                .attr("x1",d.cx)
+                .attr("y1",d.cy)
+                .attr("x2",target_c.attr("cx"))
+                .attr("y2",target_c.attr("cy"))
             }
-
-
+        }
+        function remove_tips(){
+            var g = d3.select(d3.event.currentTarget.parentNode)
+               g.selectAll("line").remove()
+        }
+        d3.selectAll('g[data-parent="项目挑战"]>circle').on("mouseover",function(d){
+            add_tips(d)
+        })
+        .on("mouseout",function(d){
+            remove_tips()
+        })
     </script>
 </body>
 

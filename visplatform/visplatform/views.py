@@ -142,8 +142,12 @@ def show_category_vis():
     print(path)
     with open(path , 'r', encoding='utf8')as fp:
         json_data = json.load(fp)
-        print('这是文件中的json数据：', json_data)
-        return render_template('category_vis.html',dataset = json_data)
+        #print('这是文件中的json数据：', json_data)
+    path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'tips.json')
+    with open(path , 'r', encoding='utf8')as fp:
+        tips_data = json.load(fp)
+        #print(tips_data)
+    return render_template('category_vis.html',dataset = json_data,tips_data=tips_data)
 
 @app.route('/Admin')
 def Admin():
