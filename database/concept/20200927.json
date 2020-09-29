@@ -1,0 +1,381 @@
+[{
+  "_id": {
+    "$oid": "5f6b1215ba624b1c64b9829d"
+  },
+  "name": "select()"
+},{
+  "_id": {
+    "$oid": "5f6b1215ba624b1c64b9829e"
+  },
+  "name": "append()"
+},{
+  "_id": {
+    "$oid": "5f6b1215ba624b1c64b9829f"
+  },
+  "name": "text()"
+},{
+  "_id": {
+    "$oid": "5f6b1215ba624b1c64b982a0"
+  },
+  "name": "d3.Selections"
+},{
+  "_id": {
+    "$oid": "5f6b135539d80b86206b530a"
+  },
+  "name": "selectAll()"
+},{
+  "_id": {
+    "$oid": "5f6b544fe814b59796609d06"
+  },
+  "name": ""
+},{
+  "_id": {
+    "$oid": "5f6b5452e814b59796609d07"
+  },
+  "name": "data()"
+},{
+  "_id": {
+    "$oid": "5f6b5452e814b59796609d08"
+  },
+  "name": "enter()"
+},{
+  "_id": {
+    "$oid": "5f6b5458e814b59796609d09"
+  },
+  "name": "回调函数"
+},{
+  "_id": {
+    "$oid": "5f6b545be814b59796609d0a"
+  },
+  "name": "style()"
+},{
+  "_id": {
+    "$oid": "5f6b546ae814b59796609d0b"
+  },
+  "name": "attr()"
+},{
+  "_id": {
+    "$oid": "5f6b5488e814b59796609d0c"
+  },
+  "name": "<rect>"
+},{
+  "_id": {
+    "$oid": "5f6b54b4e814b59796609d0d"
+  },
+  "name": "pie()"
+},{
+  "_id": {
+    "$oid": "5f6c03b8428ddc6806345350"
+  },
+  "name": "<text>"
+},{
+  "_id": {
+    "$oid": "5f6c03c3428ddc6806345351"
+  },
+  "name": "<title>"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345352"
+  },
+  "name": "transition()"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345353"
+  },
+  "name": "ease()"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345354"
+  },
+  "name": "duration()"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345355"
+  },
+  "name": "delay()"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345356"
+  },
+  "name": "d3.Transitions"
+},{
+  "_id": {
+    "$oid": "5f6c03c7428ddc6806345357"
+  },
+  "name": "d3.Eases"
+},{
+  "_id": {
+    "$oid": "5f6c03cb428ddc6806345358"
+  },
+  "name": "<circle>"
+},{
+  "_id": {
+    "$oid": "5f6c03d7428ddc6806345359"
+  },
+  "name": "scaleLinear()"
+},{
+  "_id": {
+    "$oid": "5f6c03d7428ddc680634535a"
+  },
+  "name": "d3.Scales"
+},{
+  "_id": {
+    "$oid": "5f6c03e3428ddc680634535b"
+  },
+  "name": "max()"
+},{
+  "_id": {
+    "$oid": "5f6c03e3428ddc680634535c"
+  },
+  "name": "min()"
+},{
+  "_id": {
+    "$oid": "5f6c03e3428ddc680634535d"
+  },
+  "name": "d3.Arrays"
+},{
+  "_id": {
+    "$oid": "5f6c03f1428ddc680634535e"
+  },
+  "name": "json()"
+},{
+  "_id": {
+    "$oid": "5f6c03f1428ddc680634535f"
+  },
+  "name": "csv()"
+},{
+  "_id": {
+    "$oid": "5f6c03f1428ddc6806345360"
+  },
+  "name": "autoType"
+},{
+  "_id": {
+    "$oid": "5f6c03f6428ddc6806345361"
+  },
+  "name": "arc"
+},{
+  "_id": {
+    "$oid": "5f6c03fa428ddc6806345362"
+  },
+  "name": "svg.viewBox"
+},{
+  "_id": {
+    "$oid": "5f6c03ff428ddc6806345363"
+  },
+  "name": "path"
+},{
+  "_id": {
+    "$oid": "5f6c03ff428ddc6806345364"
+  },
+  "name": "selection.join"
+},{
+  "_id": {
+    "$oid": "5f6c0403428ddc6806345365"
+  },
+  "name": "transform"
+},{
+  "_id": {
+    "$oid": "5f6c0409428ddc6806345366"
+  },
+  "name": "interpolate()"
+},{
+  "_id": {
+    "$oid": "5f6c0409428ddc6806345367"
+  },
+  "name": "quantize()"
+},{
+  "_id": {
+    "$oid": "5f6c040c428ddc6806345368"
+  },
+  "name": "d3.scaleOrdinal()"
+},{
+  "_id": {
+    "$oid": "5f6c040c428ddc6806345369"
+  },
+  "name": "d3.interpolateSpectral()"
+},{
+  "_id": {
+    "$oid": "5f6c0410428ddc680634536a"
+  },
+  "name": "stack()"
+},{
+  "_id": {
+    "$oid": "5f6c0414428ddc680634536b"
+  },
+  "name": "scaleTime()"
+},{
+  "_id": {
+    "$oid": "5f6c0414428ddc680634536c"
+  },
+  "name": " Date()"
+},{
+  "_id": {
+    "$oid": "5f6c0418428ddc680634536d"
+  },
+  "name": "extent"
+},{
+  "_id": {
+    "$oid": "5f6c041c428ddc680634536e"
+  },
+  "name": "area()"
+},{
+  "_id": {
+    "$oid": "5f6c044d428ddc680634536f"
+  },
+  "name": "rgb()"
+},{
+  "_id": {
+    "$oid": "5f6c044d428ddc6806345370"
+  },
+  "name": "darker()"
+},{
+  "_id": {
+    "$oid": "5f6c044d428ddc6806345371"
+  },
+  "name": "d3-color"
+},{
+  "_id": {
+    "$oid": "5f6c0456428ddc6806345372"
+  },
+  "name": "d3.forceSimulation()"
+},{
+  "_id": {
+    "$oid": "5f6c0477428ddc6806345373"
+  },
+  "name": "tick()"
+},{
+  "_id": {
+    "$oid": "5f6c0477428ddc6806345374"
+  },
+  "name": "forceSimulation.on()"
+},{
+  "_id": {
+    "$oid": "5f6c047b428ddc6806345375"
+  },
+  "name": "drag()"
+},{
+  "_id": {
+    "$oid": "5f6c04aa428ddc6806345376"
+  },
+  "name": "d3.hierarchy()"
+},{
+  "_id": {
+    "$oid": "5f6c04af428ddc6806345377"
+  },
+  "name": "d3.treemap()"
+},{
+  "_id": {
+    "$oid": "5f6c04be428ddc6806345378"
+  },
+  "name": "leaves();${}"
+},{
+  "_id": {
+    "$oid": "5f6c04cf428ddc6806345379"
+  },
+  "name": "d3.schemeCategory10;d3.scaleOrdinal()"
+},{
+  "_id": {
+    "$oid": "5f6c04d4428ddc680634537a"
+  },
+  "name": "format()"
+},{
+  "_id": {
+    "$oid": "5f6c04d8428ddc680634537b"
+  },
+  "name": "clipPath"
+},{
+  "_id": {
+    "$oid": "5f6c04dc428ddc680634537c"
+  },
+  "name": "ancestors();reverse();map()"
+},{
+  "_id": {
+    "$oid": "5f70308abd6ecef5178756b3"
+  },
+  "name": "zzzz"
+},{
+  "_id": {
+    "$oid": "5f70309abd6ecef5178756b5"
+  },
+  "name": "zzzzzz"
+},{
+  "_id": {
+    "$oid": "5f7052508dd520364d1c25d3"
+  },
+  "name": "Eases"
+},{
+  "_id": {
+    "$oid": "5f7052508dd520364d1c25d4"
+  },
+  "name": "Transitions"
+},{
+  "_id": {
+    "$oid": "5f7052678dd520364d1c25d5"
+  },
+  "name": "Scales()"
+},{
+  "_id": {
+    "$oid": "5f7052848dd520364d1c25d6"
+  },
+  "name": "Arrays"
+},{
+  "_id": {
+    "$oid": "5f70529b8dd520364d1c25d7"
+  },
+  "name": "interpolateSpectral()"
+},{
+  "_id": {
+    "$oid": "5f70529b8dd520364d1c25d8"
+  },
+  "name": "scaleOrdinal()"
+},{
+  "_id": {
+    "$oid": "5f7052fc8dd520364d1c25d9"
+  },
+  "name": "hierarchy()"
+},{
+  "_id": {
+    "$oid": "5f70530b8dd520364d1c25da"
+  },
+  "name": "forceSimulation()"
+},{
+  "_id": {
+    "$oid": "5f7053218dd520364d1c25db"
+  },
+  "name": "treemap()"
+},{
+  "_id": {
+    "$oid": "5f7053378dd520364d1c25dc"
+  },
+  "name": "leaves()"
+},{
+  "_id": {
+    "$oid": "5f7053378dd520364d1c25dd"
+  },
+  "name": "${}"
+},{
+  "_id": {
+    "$oid": "5f70535f8dd520364d1c25de"
+  },
+  "name": "schemeCategory10"
+},{
+  "_id": {
+    "$oid": "5f7053948dd520364d1c25df"
+  },
+  "name": "ancestors()"
+},{
+  "_id": {
+    "$oid": "5f7053948dd520364d1c25e0"
+  },
+  "name": "reverse()"
+},{
+  "_id": {
+    "$oid": "5f7053948dd520364d1c25e1"
+  },
+  "name": "map()"
+},{
+  "_id": {
+    "$oid": "5f7053c08dd520364d1c25e2"
+  },
+  "name": "viewBox"
+}]

@@ -106,12 +106,13 @@
             left: 0;
             height: 50%
         }
-       #editor4{
-        border: 1px solid lightgray;
-		margin: auto;
-		height: 200px;
-		width: 100%;
-       }
+
+        #editor4 {
+            border: 1px solid lightgray;
+            margin: auto;
+            height: 200px;
+            width: 100%;
+        }
 
         .h2_title {
             color: #04be02;
@@ -130,14 +131,15 @@
             height: 100%;
             z-index: 9;
         }
-        #file_toolbar{
 
-            border:solid 1px black;
+        #file_toolbar {
+
+            border: solid 1px black;
             position: fixed;
             z-index: 999;
-            right:0;
-            width:15vw;
-            height:100vh;
+            right: 0;
+            width: 15vw;
+            height: 100vh;
             background-color: #F5F5F2;
         }
     </style>
@@ -146,39 +148,48 @@
 
 
 <div class="container-fluid" style="height: 100%;">
-<div id="file_toolbar" style="overflow: scroll;display:none" >
-    <h2>上传文件
-    <svg id="svg_closefile"class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
-    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
-    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
-    </svg>
-    </h2>
-    <hr>
-    <form id="form_upload" action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
-        <p>文件：<input type="file" name="upload_file" id="input_file"></p>
-        <p>
-        <label >文件名</label>
-        <input type="text" class="form-control" id="input_filename" name="file_name"></p>
-        <p><button id="submit_upload" type="button" class="btn btn-secondary">提交</button></p>
-    </form>
-    <hr>
-    <div id="div_file_list">
-    <ul>
-    {% for file in files %}
-        <li>{{ file }}<span class="badge badge-danger" style="cursor:pointer;" onclick="delete_file(this)">删除</span></li>
-    {% endfor %}
-    </ul>
+    <div id="file_toolbar" style="overflow: scroll;display:none">
+        <h2>上传文件
+            <svg id="svg_closefile" class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg" style="cursor:pointer">
+                <path fill-rule="evenodd"
+                      d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd"
+                      d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+            </svg>
+        </h2>
+        <hr>
+        <form id="form_upload" action="{{ url_for('upload_file') }}" method="POST" enctype="multipart/form-data">
+            <p>文件：<input type="file" name="upload_file" id="input_file"></p>
+            <p>
+                <label>文件名</label>
+                <input type="text" class="form-control" id="input_filename" name="file_name"></p>
+            <p>
+                <button id="submit_upload" type="button" class="btn btn-secondary">提交</button>
+            </p>
+        </form>
+        <hr>
+        <div id="div_file_list">
+            <ul>
+                {% for file in files %}
+                    <li>{{ file }}<span class="badge badge-danger" style="cursor:pointer;" onclick="delete_file(this)">删除</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
     <div class="row header">
         <a class="submit-btn" href="{{ url_for('Admin') }}">返回列表</a>
         <a class="submit-btn" id="submit">提交运行</a>
         <button id="save" class="submit-btn">保存</button>
         <button id="button_fileopen" class="submit-btn">
-            <svg class="bi bi-paperclip" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
-</svg>
-            文件</button>
+            <svg class="bi bi-paperclip" width="1.3em" height="1.3em" viewBox="0 0 16 16" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd"
+                      d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>
+            </svg>
+            文件
+        </button>
     </div>
     <div class="row main">
         <div class="col-4 middle">
@@ -205,7 +216,7 @@
     <div class="row main2" style="height:100%">
         <div class="col-12" style="height:100%;">
             <h2 class="h2_title">教案编辑</h2>
-               <label for="input_title">Title</label>
+            <label for="input_title">Title</label>
             <div class="input-group mb-3">
                 <input type="text" id="input_title" class="form-control" placeholder="{{ course.title }}"
                        aria-label="Title" aria-describedby="basic-addon1">
@@ -214,27 +225,48 @@
             <div class="input-group mb-3">
                 <input type="text" class="form-control" id="input_course_id" placeholder="{{ course.course_id }}">
             </div>
-            <label for="input_tag">标签(使用符号","分隔)</label>
-             <div class="input-group mb-3">
-                <input type="text" class="form-control" id="input_tag">
+            <label for="input_concept">标签(使用符号","分隔)</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="input_concept">
             </div>
             <label for="edittext">Description and tasks</label>
             <textarea id="edittext" style="width:100%; height:100%;"></textarea>
             <div class="input-group mb-3">
-            <label for="editor4">Test Cases</label>
-            <pre id="editor4"></pre>
+                <label for="editor4">Test Cases</label>
+                <pre id="editor4"></pre>
             </div>
         </div>
         <form method="POST" style="display: none" id="form">
             <!--启动CSRF-->
-
             {% for item in form %}
                 {{ item }}
             {% endfor %}
+            <textarea id="concept_temp" name="concept_temp"></textarea>
             <p>
                 <button style="float: right" type="submit">登录</button>
             </p>
         </form>
+    </div>
+
+    <!-- 提示concept重复 Modal -->
+    <div class="modal fade" id="tipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">提示</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="concept-content" class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -251,7 +283,7 @@
 <script>hljs.initHighlightingOnLoad();</script>
 
 <script>
-    const fields = ['course_id', 'text', 'code', 'frame_head', 'frame_foot','goal']
+    const fields = ['course_id', 'text', 'code', 'frame_head', 'frame_foot', 'goal']
     marked.setOptions({
         renderer: new marked.Renderer(),
         highlight: function (code, language) {
@@ -327,11 +359,18 @@
     });
     const uniqueId = simplemde.options.autosave.uniqueId
     var course_id = {{ course.course_id }}
-    document.querySelector("#input_course_id").value = course_id
+        document.querySelector("#input_course_id").value = course_id
     document.querySelector("#input_title").value = `{{ course.title|safe|transformText }}`
-    {% if course.tag != None %}
-    document.querySelector("#input_tag").value = `{{ course.tag |safe|transformText}}`
+
+    {% if course.concept != None %}
+        let temp = '';
+        {% for concept_temp in course.concept %}
+            temp += '{{ concept_temp.id }},'
+        {% endfor %}
+        temp = temp.substring(0, temp.length - 1)
+        document.querySelector("#input_concept").value = temp
     {% endif %}
+
     console.log($(`#input_title`).val())
     var editorvalue1 = `{{ course.frame_head|safe|transformText }}`
     var editorvalue2 = `{{ course.frame_foot|safe|transformText }}`
@@ -376,9 +415,8 @@
                     localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, simplemde.value());
                 } else if (field == 'course_id') {
                     localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, course_id);
-                }
-                else if(field == "goal"){
-                     localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor4.getValue());
+                } else if (field == "goal") {
+                    localStorage.setItem(field + "_" + simplemde.options.autosave.uniqueId, editor4.getValue());
                 }
             }
         }
@@ -401,8 +439,7 @@
                         editor3.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId));
                     } else if (field == "text") {
                         simplemde.value(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId))
-                    }
-                    else if(field == "goal"){
+                    } else if (field == "goal") {
                         editor4.setValue(localStorage.getItem(field + "_" + simplemde.options.autosave.uniqueId))
                     }
                 }
@@ -431,64 +468,88 @@
     submit.addEventListener('click', toIframe)
     const savebutton = document.querySelector('#save')
     savebutton.addEventListener('click', function () {
-        document.querySelector('#frame_head').innerHTML = editor1.getValue()
-        document.querySelector('#frame_foot').innerHTML = editor2.getValue()
-        document.querySelector('#code').innerHTML = editor3.getValue()
-        document.querySelector('#text').innerHTML = simplemde.value()
-        document.querySelector('#title').innerHTML = document.querySelector("#input_title").value
-        document.querySelector('#course_id').value = document.querySelector("#input_course_id").value
-        document.querySelector('#goal').innerHTML = editor4.getValue()
-        document.querySelector("#tag").innerHTML = document.querySelector("#input_tag").value
-        remove_save()
-        document.querySelector('#form').submit()
+        let flag = false;
+        let same = '';
+        let concepts = document.querySelector("#input_concept").value
+        let concepts_list = concepts.split(',');
+        for (let temp of concepts_list) {
+            {% for concept_temp in concepts %}
+                if ('{{ concept_temp }}' == temp && temp != '' && '{{ concept_temp }}' != '') {
+                    same = temp;
+                    flag = true;
+                    break;
+                }
+            {% endfor %}
+            if (flag)
+                break;
+        }
+
+        if (flag) {
+            console.log(same);
+            $('#concept-content').html('项目的标签' + same + '存在冲突</br>请修改后再保存')
+            $('#tipModal').modal('show');
+        } else {
+            document.querySelector('#frame_head').innerHTML = editor1.getValue()
+            document.querySelector('#frame_foot').innerHTML = editor2.getValue()
+            document.querySelector('#code').innerHTML = editor3.getValue()
+            document.querySelector('#text').innerHTML = simplemde.value()
+            document.querySelector('#title').innerHTML = document.querySelector("#input_title").value
+            document.querySelector('#course_id').value = document.querySelector("#input_course_id").value
+            document.querySelector('#goal').innerHTML = editor4.getValue()
+            document.querySelector("#concept_temp").innerHTML = document.querySelector("#input_concept").value
+            remove_save()
+            document.querySelector('#form').submit()
+        }
     })
     const submit_upload = document.querySelector("#submit_upload")
-    submit_upload.addEventListener('click',function(){
+    submit_upload.addEventListener('click', function () {
         $.ajax({
-            url:"{{ url_for('upload_file') }}",
-            type:"post",
-            data:new FormData(document.querySelector("#form_upload")),
+            url: "{{ url_for('upload_file') }}",
+            type: "post",
+            data: new FormData(document.querySelector("#form_upload")),
             dataType: 'json',
-            processData:false,
-            contentType:false,
-            success:function(data){
-                  $('#div_file_list').html(data['html'])
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#div_file_list').html(data['html'])
             },
-            error:function(e){
+            error: function (e) {
             }
         })
 
     })
     const input_file = document.querySelector('#input_file')
-    input_file.addEventListener('change',function(){
-            document.querySelector("#input_filename").value = input_file.files[0].name  //AddFile 结果
+    input_file.addEventListener('change', function () {
+        document.querySelector("#input_filename").value = input_file.files[0].name  //AddFile 结果
     })
-    function delete_file(obj){
-         $.ajax({
-            url:"{{ url_for('delete_file') }}",
-            type:"post",
-            data:obj.parentNode.innerText.slice(0,-2),
+
+    function delete_file(obj) {
+        $.ajax({
+            url: "{{ url_for('delete_file') }}",
+            type: "post",
+            data: obj.parentNode.innerText.slice(0, -2),
             dataType: 'html',
-            processData:false,
-            contentType:false,
-            success:function(data){
-                  $('#div_file_list').html(data)
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#div_file_list').html(data)
             },
-            error:function(e){
+            error: function (e) {
             }
         })
 
     }
+
     const svg_closefile = document.querySelector('#svg_closefile')
-    svg_closefile.addEventListener('click',function(){
+    svg_closefile.addEventListener('click', function () {
         $('#file_toolbar').css('display', 'none')
     })
-    const  button_fileopen = document.querySelector('#button_fileopen')
-    button_fileopen.addEventListener('click',function(){
-        if($('#file_toolbar').css('display') == 'none')
-            $('#file_toolbar').css('display','block')
+    const button_fileopen = document.querySelector('#button_fileopen')
+    button_fileopen.addEventListener('click', function () {
+        if ($('#file_toolbar').css('display') == 'none')
+            $('#file_toolbar').css('display', 'block')
         else
-            $('#file_toolbar').css('display','none')
+            $('#file_toolbar').css('display', 'none')
     })
 
     toIframe()
