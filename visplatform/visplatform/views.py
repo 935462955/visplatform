@@ -16,9 +16,9 @@ from visplatform.tools import create_relationship, generate_drawable_data
 @app.route('/')
 @login_required
 def index():
-    anchor = request.cookies.get('anchor', 'nolinear_category')
+    anchor = request.cookies.get('anchor', 'linear_category')
+    print(anchor)
     if anchor == 'linear_category':
-    #anchor = request.cookies.get('anchor', '')  # 锚点
         return redirect(url_for('show_category', _anchor='content'))
     else:
         return redirect(url_for('show_category', _anchor='vis'))
@@ -141,9 +141,7 @@ def show_category():
     with open(path , 'r', encoding='utf8')as fp:
         tips_data = json.load(fp)
 
-    anchor = request.cookies.get('anchor', '')
-    if anchor == '':
-        return redirect(url_for('index'))
+
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
                            dataset = json_data,tips_data=tips_data)
 
