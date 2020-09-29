@@ -116,16 +116,16 @@ def generate_drawable_data(relationship_list):
             df_xm_tree.append(i)
     # print(df_xm_tree)
 
-    types = {'name': str, 'parent': str, '知识点类型': str}
+    #types = {'name': str, 'parent': str, '知识点类型': str}
 
     # dic字典 通过节点名查找到节点
     dic = {}
 
     # 前一个节点的父亲节点
-    pre_parent = 0
+    #pre_parent = 0
     # t用于记录上一个节点的父亲节点的儿子数
     # 如果当前节点的父亲与上一个节点的父亲相同则t+1,否则更新当前节点所在层的最大儿子数
-    t = 0
+    #t = 0
     # 每一层最大的儿子数
     max_children_per_layer = {}
     # 初始化树
@@ -173,7 +173,7 @@ def generate_drawable_data(relationship_list):
     Rx = [(R[0] - (2 + tr) * R[1]) / 1.2, 0]
     tem = 1 / math.sin(math.pi / (xm_n * 1.5)) + 1 + tr
     Rx[1] = Rx[0] / tem
-    print(Rx)
+    #print(Rx)
     for row in df_xm_tree:
         node = tree(row['name'], row['id'], row['type'])
         dic[node.name] = node
