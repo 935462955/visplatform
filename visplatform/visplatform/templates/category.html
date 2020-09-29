@@ -340,19 +340,23 @@
         })
 
     //加text
-    d3.selectAll(".layer_one")
-        .append("a")
-        .append("text").text(d => d.name)
-        .attr("x", d => d.cx)
-        .attr("y", d => d.cy)
-        .attr("font-size", d => d.r / (5 - d.deepth))
-        .attr("text-anchor", "middle")
-        .attr("dominant-baseline", "middle")
 
     function add_orign_a() {
         d3.selectAll(".layer_one").selectAll("a").remove()
         d3.selectAll(".layer_one")
+            .filter(d=>d.parent != "项目挑战")
             .append("a")
+            .append("text")
+            .text(d => d.name)
+            .attr("x", d => d.cx)
+            .attr("y", d => d.cy)
+            .attr("font-size", d => d.r / (5 - d.deepth))
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "middle")
+        d3.selectAll(".layer_one")
+            .filter(d=>d.parent == "项目挑战")
+            .append("a")
+            .attr("xlink:href",d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
             .append("text")
             .text(d => d.name)
             .attr("x", d => d.cx)
@@ -475,7 +479,7 @@
         }
     })
     var xm_k = d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3.select('g[data-parent="项目挑战"]>circle').attr("r")//项目挑战缩放倍率
-    var currentTransform_part = [w / 2, h / 2, xm_k]; //项目挑战平移缩放中心和倍率
+    var currentTransform_part = [w / 2  , h / 2, xm_k]; //项目挑战平移缩放中心和倍率
     const originTransform = [w / 2, h / 2, h];
     var currentTransform = [w / 2, h / 2, h]; //初始缩放中心和宽度
 
@@ -490,6 +494,7 @@
 
         return `translate(${x - ox * k},${y - oy * k}) scale(${k})`
     }
+
 
     function transition(d) {
         var k = 2 + 0.4 * d.deepth
@@ -511,7 +516,19 @@
     //var tem=d3.selectAll('g[data-parent="项目挑战"]>circle')
     function add_tips(d){
         var g = d3.select(d3.event.currentTarget.parentNode)
-        if(g.attr("transition-state")=="on") return
+        if(g.attr("transition-state")=="on"){
+            var tip=tips.find(x=>x.project_name==d.name).tips
+            for(var i=0;i<tip.length;i++){
+            var target_c=d3.select(`g[data-name='${tip[i]}']>circle`)
+            //console.log(target_c,target_c.attr("cy")-(h/2),h/2,xm_k)
+            g.append("line")
+            .attr("class","linestyle")
+            .attr("x1",d.cx)
+            .attr("y1",d.cy)
+            .attr("x2",(target_c.attr("cx")-(w/2))/xm_k + d.cx) //相对屏幕中心缩放后的偏移+圆心坐标
+            .attr("y2",(target_c.attr("cy")-(h/2))/xm_k + d.cy) //https://www.w3cplus.com/html5/svg-transformations.html
+        }
+        }
         var tip=tips.find(x=>x.project_name==d.name).tips
         //console.log(tip)
         for(var i=0;i<tip.length;i++){

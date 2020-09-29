@@ -12,7 +12,7 @@
             stroke: #f3aeb6;
             stroke-width: 5;
             }
-            
+
     </style>
 </head>
 
@@ -22,7 +22,7 @@
 
         var dataset = {{ dataset | safe}}
         var tips ={{tips_data | safe}}
-                
+
         //var dataset = {{dataset | safe}}
         //var tips ={{tips_data | safe}}
         //console.log(dataset)
@@ -113,19 +113,14 @@
             })
 
         //加text
-        d3.selectAll(".layer_one")
-            .append("a")
-            .append("text").text(d => d.name)
-            .attr("x", d => d.cx)
-            .attr("y", d => d.cy)
-            .attr("font-size", d => d.r / (5 - d.deepth))
-            .attr("text-anchor", "middle")
-            .attr("dominant-baseline", "middle")
+
+
 
         function add_orign_a() {
             d3.selectAll(".layer_one").selectAll("a").remove()
             d3.selectAll(".layer_one")
                 .append("a")
+                .attr("xlink:href","#")
                 .append("text")
                 .text(d => d.name)
                 .attr("x", d => d.cx)
