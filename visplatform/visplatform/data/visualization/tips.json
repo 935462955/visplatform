@@ -1,0 +1,17 @@
+[{
+    "project_name": "美国历年GDP可视化",
+    "tips": ["select()",
+        "append()",
+        "selectAll()",
+        "data()",
+        "enter()",
+        "attr()",
+        "<text>",
+        "text()",
+        "<rect>",
+        "scaleLinear()",
+        "call()",
+        "axisLeft()",
+        "axisBottom"
+    ]
+}]
