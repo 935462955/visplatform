@@ -160,7 +160,7 @@
                     {% endif %}
                     {% for sub_module in module.sub_modules %}
                         <li class="list-group-item" id="id_{{ sub_module.sub_id }}">
-                            <a href="{{ url_for('show_course',_id = sub_module.sub_id, type = sub_module.type,order=sub_module.order) }}">
+                            <a href="{{ url_for('show_course',_id = sub_module.sub_id, type = sub_module.type,order=sub_module.order,come_from = 'linear_category') }}">
                                 {{ dics[sub_module.sub_id] }}
                             </a>
 
@@ -178,8 +178,7 @@
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../node_modules/d3/d3.min.js"></script>
 <script>
-    var l = {{  relationship_list|safe}}
-        console.log(l)
+
 
     $(document).on('click', '#logout', function () {
         window.location.href = 'logout';
@@ -250,7 +249,7 @@
 
     var dataset = {{ dataset | safe}}
     var tips ={{tips_data | safe}}
-            
+
     //var dataset = {{dataset | safe}}
     //var tips ={{tips_data | safe}}
     //console.log(dataset)
@@ -383,7 +382,7 @@
                         .attr("dominant-baseline", "middle")
                 } else {
                     parentG.append("a")
-                        .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
+                        .attr("xlink:href", d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
                         .append("text").text(d => d.name)
                         .attr("x", d => d.cx)
                         .attr("y", d => d.cy)
@@ -423,7 +422,7 @@
                         return x.parent == d.name
                     })
                     .append("a")
-                    .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
+                    .attr("xlink:href", d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
                     .append("text").text(d => d.name)
                     .attr("x", d => {
                         if (d.deepth == 2)
