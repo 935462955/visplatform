@@ -185,7 +185,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">重命名</h5>
+                    <h5 class="modal-title" id="renameModalLabel">重命名</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -193,7 +193,7 @@
                 <div class="modal-body">
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="名称" aria-label="Modulename"
-                               aria-describedby="basic-addon1" id="Modulenewname">
+                               aria-describedby="basic-addon1" id="Modulenewname" value="">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -380,15 +380,7 @@
 
     var renameId;
 
-    $(document).on('click', '.module-operation', function () {
-        let op = this.getAttribute("data-operation")
-        if (op == 'rename_module') {
-            let target_id = $(this).parents('.module-li').children('ul').children('.list-group').attr('id').slice(3)
-            renameId = target_id;
-            $('#renameModal').modal('show')
 
-        }
-    })
 
     $(document).on('click', '#Surerename', function () {
         $.ajax({
@@ -432,6 +424,15 @@
                 error: function (e) {
                 }
             })
+
+        }
+        else if (op == 'rename_module') {
+            let target_id = $(this).parents('.module-li').children('ul').children('.list-group').attr('id').slice(3)
+            let target_name = $(this).parents('.module-li').children('ul').children('div').children('span').text()
+            console.log(target_name)
+            renameId = target_id;
+            $('#Modulenewname').val(target_name)
+            $('#renameModal').modal('show')
 
         }
     })
