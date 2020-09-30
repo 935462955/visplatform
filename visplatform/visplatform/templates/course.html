@@ -133,7 +133,15 @@
 </head>
 <body>
 <div class="header">
-    <a id="a_home" href="{{ url_for('index') }}">课程</a>
+    <a id="a_home" href="{{ url_for('index') }}">
+        <svg style="margin-top: -5px" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-square" fill="currentColor"
+             xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path fill-rule="evenodd"
+                  d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+        </svg>
+    </a>
 </div>
 <div class="row main">
     <div class="col-4 left" style="height: 100%;">
@@ -180,8 +188,9 @@
         </div>
     </div>
 </div>
-<div id = "alert alert-success" class="alert alert-success" role="alert" style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
-  <p>代码保存成功！</p>
+<div id="alert alert-success" class="alert alert-success" role="alert"
+     style="display:none; position: fixed;top: 10%;left: 45%; height: 50px">
+    <p>代码保存成功！</p>
 </div>
 
 
@@ -228,9 +237,11 @@
             dataType: "text",
             contentType: "application/json",
             success: function (data) {
-                if(data == "OK"){
-                    document.getElementById("alert alert-success").style.display="block";
-                    setTimeout(function (){document.getElementById("alert alert-success").style.display="none";},1000);
+                if (data == "OK") {
+                    document.getElementById("alert alert-success").style.display = "block";
+                    setTimeout(function () {
+                        document.getElementById("alert alert-success").style.display = "none";
+                    }, 1000);
                 }
                 return false;
             },
@@ -240,7 +251,7 @@
     }
 
     //定时保存代码(1分钟)
-    window.setInterval(saveCode,300000);
+    window.setInterval(saveCode, 300000);
 
     var editor = ace.edit("editor", {
         theme: "ace/theme/monokai",
@@ -255,7 +266,8 @@
     var editorvalue = `{{ course.code|safe|transformText }}`
     var frame_head = `{{ course.frame_head|safe|transformText}}`
     var frame_foot = `{{ course.frame_foot|safe|transformText }}`
-    var goal = {{ goal|safe }}
+    var goal =
+    {{ goal|safe }}
     var preview = document.querySelector("#preview")
     const submit_part = `\r\r\n-----\r\r\n##### 代码提交与反馈:\r\r\n<a class="submit-btn" id="submit" >提交运行<\/a>
           <a class="submit-btn" id="code-restore" onclick="codeRestore()" style="margin-left: 30px;color: red!important;">代码还原<\/a>  \n`
@@ -266,7 +278,7 @@
          init_test_part = init_test_part + mark_todo +test['text'] + '  '
     })*/
     //代码还原
-    function codeRestore(){
+    function codeRestore() {
         var originalCode = `{{ original_code|safe|transformText }}`
         editor.setValue(originalCode);
     }
@@ -335,7 +347,7 @@
     preview.addEventListener("mouseover", showButton.bind(this, fullscreen2));
     preview.addEventListener("mouseleave", hiddenButton.bind(this, fullscreen2));
     editor3.addEventListener("keyup", function (e) {
-       toIframe()
+        toIframe()
     })
 
 </script>

@@ -31,9 +31,11 @@
             background-color: #007bff;
 
         }
-        .draggable--over a{
-            color:white;
+
+        .draggable--over a {
+            color: white;
         }
+
         .modal-li-active, .modal-type-active {
             background-color: deepskyblue;
         }
@@ -57,28 +59,29 @@
 
     </div>
     <div class="row main"> <!-- flash消息-->
-         <div class="alert alert-success alert-dismissible fade show" role="alert" style="display:none;margin-left:50%;position: fixed;z-index:1000" >
+        <div class="alert alert-success alert-dismissible fade show" role="alert"
+             style="display:none;margin-left:50%;position: fixed;z-index:1000">
             发布成功！
-            <button type="button" class="close"  aria-label="Close" onclick="$('.alert').css('display','none')">
+            <button type="button" class="close" aria-label="Close" onclick="$('.alert').css('display','none')">
                 <span aria-hidden="true">&times;</span>
             </button>
-         </div>
+        </div>
         <div class="col-2">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-modules-tab"  href="#v-pills-modules" role="tab"
+                <a class="nav-link active" id="v-pills-modules-tab" href="#v-pills-modules" role="tab"
                    aria-controls="v-pills-modules" aria-selected="true">目录</a>
-                <a class="nav-link" id="v-pills-codepage-tab"  href="{{ url_for('show_codepages') }}" role="tab"
+                <a class="nav-link" id="v-pills-codepage-tab" href="{{ url_for('show_codepages') }}" role="tab"
                    aria-controls="v-pills-codepage" aria-selected="false">编程课程</a>
-                <a class="nav-link" id="v-pills-messages-tab"  href="{{ url_for('show_projectpages') }}" role="tab"
+                <a class="nav-link" id="v-pills-messages-tab" href="{{ url_for('show_projectpages') }}" role="tab"
                    aria-controls="v-pills-messages" aria-selected="false">项目挑战</a>
-                <a class="nav-link" id="v-pills-settings-tab"  href="#v-pills-settings" role="tab"
+                <a class="nav-link" id="v-pills-settings-tab" href="#v-pills-settings" role="tab"
                    aria-controls="v-pills-settings" aria-selected="false">Settings</a>
             </div>
         </div>
         <div class="col-8">
 
 
-                    <div class="header-bar" style="display: flex;flex-direction:row-reverse">
+            <div class="header-bar" style="display: flex;flex-direction:row-reverse">
                 <div class="dropdown" style="padding-top:3px">
                     <button style="padding:0" class="btn" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -95,14 +98,15 @@
                         <a class="dropdown-item " href="#">Something else here</a>
                     </div>
                 </div>
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-module-modal">+单元</button>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#add-module-modal">+单元
+                </button>
                 <button class="btn btn-success" type="button" id="btn-publish">发布</button>
             </div>
             <ul class="module-ul" style="padding: 0">
-                  {{ module_li(modules,dics) }}
+                {{ module_li(modules,dics) }}
             </ul>
-                <!--  添加单元模态框 -->
-               <div class="modal fade" id="add-module-modal" tabindex="-1" role="dialog" aria-labelledby="addModuleLabel"
+            <!--  添加单元模态框 -->
+            <div class="modal fade" id="add-module-modal" tabindex="-1" role="dialog" aria-labelledby="addModuleLabel"
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -116,8 +120,9 @@
                             <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-10">
-                                            <label for="">单元名称</label>
-    <input type="text" class="form-control"  id="new-module-title" style="margin-bottom: 10px">
+                                        <label for="">单元名称</label>
+                                        <input type="text" class="form-control" id="new-module-title"
+                                               style="margin-bottom: 10px">
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +140,8 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">把子模块添加到<span id="modal-title" data-module=""></span></h5>
+                            <h5 class="modal-title" id="exampleModalLabel">把子模块添加到<span id="modal-title"
+                                                                                        data-module=""></span></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -171,6 +177,31 @@
 
         </div>
         <div class="col-2"></div>
+    </div>
+
+    <!-- 模块重命名 Modal -->
+    <div class="modal fade" id="renameModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">重命名</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="名称" aria-label="Modulename"
+                               aria-describedby="basic-addon1" id="Modulenewname">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="Surerename">确定</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
@@ -302,22 +333,22 @@
         module_source = null
         module_source_id = null
     })
-    $(document).on('show.bs.collapse','.list-group',function(){ //折叠箭头
+    $(document).on('show.bs.collapse', '.list-group', function () { //折叠箭头
         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
-         if (path.attr("data-state") == "right") {
+        if (path.attr("data-state") == "right") {
             path.attr("d", "M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z")
             path.attr("data-state", "down")
         }
     })
-    $(document).on('hide.bs.collapse','.list-group',function(){ //折叠箭头
-         let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
-         if (path.attr("data-state") == "down") {
-           path.attr("d", "M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z")
+    $(document).on('hide.bs.collapse', '.list-group', function () { //折叠箭头
+        let path = $(this).siblings('div').children('.arrow').children('svg').children('path')
+        if (path.attr("data-state") == "down") {
+            path.attr("d", "M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z")
             path.attr("data-state", "right")
         }
     })
 
-    $(document).on('click','.add_sub_module_btn', function () { //模态框标题
+    $(document).on('click', '.add_sub_module_btn', function () { //模态框标题
         let container = document.querySelector('#modal-title')
         console.log(this)
         container.setAttribute('data-module', this.getAttribute("data-module"))
@@ -346,6 +377,40 @@
             }
         })
     }.bind(i)))
+
+    var renameId;
+
+    $(document).on('click', '.module-operation', function () {
+        let op = this.getAttribute("data-operation")
+        if (op == 'rename_module') {
+            let target_id = $(this).parents('.module-li').children('ul').children('.list-group').attr('id').slice(3)
+            renameId = target_id;
+            $('#renameModal').modal('show')
+
+        }
+    })
+
+    $(document).on('click', '#Surerename', function () {
+        $.ajax({
+            url: "{{ url_for('update_modules') }}",
+            type: "post",
+            data: JSON.stringify({
+                'type': 'rename',
+                'target_id': renameId,
+                'new_name': $("#Modulenewname").val()
+            }),
+            dataType: 'text',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('#renameModal').modal('hide')
+                window.location.reload()
+            },
+            error: function (e) {
+            }
+        })
+    })
+
     $(document).on('click', '.module-operation', function () {//删除模块
         let op = this.getAttribute("data-operation")
         if (op == 'delete_module') {
@@ -446,17 +511,16 @@
         let li = document.querySelectorAll('.modal-sub-list')
         li.forEach(i => i.classList.remove('modal-li-active'))
     })//关闭模态框后重置li状态
-    $('#add-modal-btn').on('click',function(){
+    $('#add-modal-btn').on('click', function () {
         let title = document.querySelector('#new-module-title').value
-        if(title != "")
-        {
-             $.ajax({
+        if (title != "") {
+            $.ajax({
                 url: "{{ url_for('update_modules') }}",
                 type: "post",
                 async: false,
                 data: JSON.stringify({
                     'type': 'add_module',
-                    'module_title':title
+                    'module_title': title
                 }),
                 dataType: 'html',
                 processData: false,
@@ -471,24 +535,26 @@
             })
         }
     })
-    $('#btn-publish').on('click',function(){
+    $('#btn-publish').on('click', function () {
         $.ajax({
-                url: "{{ url_for('update_modules') }}",
-                type: "post",
-                data: JSON.stringify({
-                    'type': 'publish',
-                }),
-                dataType: 'text',
-                processData: false,
-                contentType: false,
-                success: function (data) {
-                    $('.alert').css('display','block')
-                    setTimeout(function(){$('.alert').css('display','none')},3000)
-                },
-                error: function (e) {
+            url: "{{ url_for('update_modules') }}",
+            type: "post",
+            data: JSON.stringify({
+                'type': 'publish',
+            }),
+            dataType: 'text',
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('.alert').css('display', 'block')
+                setTimeout(function () {
+                    $('.alert').css('display', 'none')
+                }, 3000)
+            },
+            error: function (e) {
 
-                }
-            })
+            }
+        })
     })
 </script>
 </body>
