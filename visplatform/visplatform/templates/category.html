@@ -529,16 +529,18 @@
             .attr("y2",(target_c.attr("cy")-(h/2))/xm_k + d.cy) //https://www.w3cplus.com/html5/svg-transformations.html
         }
         }
-        var tip=tips.find(x=>x.project_name==d.name).tips
-        //console.log(tip)
-        for(var i=0;i<tip.length;i++){
-            var target_c=d3.select(`g[data-name='${tip[i]}']>circle`)
-            g.append("line")
-            .attr("class","linestyle")
-            .attr("x1",d.cx)
-            .attr("y1",d.cy)
-            .attr("x2",target_c.attr("cx"))
-            .attr("y2",target_c.attr("cy"))
+        else {
+            var tip = tips.find(x => x.project_name == d.name).tips
+            //console.log(tip)
+            for (var i = 0; i < tip.length; i++) {
+                var target_c = d3.select(`g[data-name='${tip[i]}']>circle`)
+                g.append("line")
+                    .attr("class", "linestyle")
+                    .attr("x1", d.cx)
+                    .attr("y1", d.cy)
+                    .attr("x2", target_c.attr("cx"))
+                    .attr("y2", target_c.attr("cy"))
+            }
         }
     }
     function remove_tips(){
