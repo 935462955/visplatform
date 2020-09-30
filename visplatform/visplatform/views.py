@@ -33,7 +33,7 @@ def show_404():
 @login_required
 def show_course(_id):
     type = request.args.get('type')
-    come_from = request.args.get('come_from','nolinear_category')
+    come_from = request.args.get('come_from', 'nolinear_category')
     order = request.args.get('order', 1, int)
     units = CategoryModel.objects.first_or_404().units
 
@@ -75,7 +75,7 @@ def show_course(_id):
     except:
         return redirect(url_for('index'))
     response.set_cookie('anchor', come_from, max_age=7 * 24 * 3600)
-   # response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)  # 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
+    # response.set_cookie('anchor', 'id_' + _id, max_age=7 * 24 * 3600)  # 记录被点击的课程位置，当从课程返回到目录时直接根据锚点定位到用户原先浏览的位置
     return response
 
 
@@ -138,26 +138,27 @@ def show_category():
         json_data = json.load(fp)
 
     path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'tips.json')
-    with open(path , 'r', encoding='utf8')as fp:
+    with open(path, 'r', encoding='utf8')as fp:
         tips_data = json.load(fp)
 
-
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
-                           dataset = json_data,tips_data=tips_data)
+                           dataset=json_data, tips_data=tips_data)
+
 
 @app.route('/category-vis')
 @login_required
 def show_category_vis():
     path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'data.json')
     print(path)
-    with open(path , 'r', encoding='utf8')as fp:
+    with open(path, 'r', encoding='utf8')as fp:
         json_data = json.load(fp)
-        #print('这是文件中的json数据：', json_data)
+        # print('这是文件中的json数据：', json_data)
     path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'tips.json')
-    with open(path , 'r', encoding='utf8')as fp:
+    with open(path, 'r', encoding='utf8')as fp:
         tips_data = json.load(fp)
-        #print(tips_data)
-    return render_template('category_vis.html',dataset = json_data,tips_data=tips_data)
+        # print(tips_data)
+    return render_template('category_vis.html', dataset=json_data, tips_data=tips_data)
+
 
 @app.route('/Admin')
 def Admin():
@@ -274,7 +275,7 @@ def edit_course(_id):
         return redirect(url_for('edit_course', _id=_id))
     files = tools.listdir(app.config['COURSE_UPLOAD_FOLDER'])
     # print(files)
-    return render_template('editcourse.html', course=course, form=form, files=files, concepts = concepts)
+    return render_template('editcourse.html', course=course, form=form, files=files, concepts=concepts)
 
 
 @app.route('/editproject/<string:_id>', methods=['POST', 'GET'])
@@ -351,7 +352,8 @@ def show_modules():
             order += 1
     return render_template('modules.html', modules=modules, dics=dics)
 
-#所有与目录发布页面更新有关的功能
+
+# 所有与目录发布页面更新有关的功能
 @app.route('/Admin/modules/update', methods=['POST'])
 def update_modules():
     if request.method == 'POST':
@@ -462,9 +464,14 @@ def update_modules():
             # 生成可视化绘图数据
             relationship = tools.create_relationship()
             tools.generate_drawable_data(relationship)
+        elif data['type'] == 'rename':  # 重命名模块
+            module = ModuleModel.objects.get_or_404(_id=data['target_id'])
+            module.module_name = data['new_name']
+            module.save()
     return 'success'
 
-#目录发布模块给模块添加子模块时需要异步获取子模块信息
+
+# 目录发布模块给模块添加子模块时需要异步获取子模块信息
 @app.route('/Admin/modules/fetch', methods=['POST'])
 def get_sub_module():
     if request.method == 'POST':
@@ -478,7 +485,8 @@ def get_sub_module():
 
     return '1'
 
-#更新课程id
+
+# 更新课程id
 @app.route('/Admin/codepage/update')
 def upgrade_course_id():
     start = request.args.get('start_num')
@@ -498,7 +506,8 @@ def upgrade_course_id():
         flash('序号已更新', 'success')
     return redirect(url_for('Admin'))
 
-#更新项目id
+
+# 更新项目id
 @app.route('/Admin/projectpage/update')
 def upgrade_project_id():
     start = request.args.get('start_num')
@@ -518,7 +527,8 @@ def upgrade_project_id():
         flash('序号已更新', 'success')
     return redirect(url_for('show_projectpages'))
 
-#后台课程管理页面
+
+# 后台课程管理页面
 @app.route('/Admin/codepage')
 def show_codepages():
     courses = CourseModel.objects.order_by('course_id').fields(title=1, course_id=1, _id=1, concept=1)
@@ -526,7 +536,8 @@ def show_codepages():
 
     return render_template('codepagelist.html', courses=courses)
 
-#后台项目管理页面
+
+# 后台项目管理页面
 @app.route('/Admin/projectpage')
 def show_projectpages():
     projects = ProjectModel.objects().order_by('project_id').fields(title=1, project_id=1, _id=1)
@@ -680,12 +691,14 @@ def save_project_code():
 
     return "OK"
 
-#处理http404错误
+
+# 处理http404错误
 @app.errorhandler(404)
 def miss(e):
     return render_template('404.html'), 404
 
-#处理http500错误
+
+# 处理http500错误
 @app.errorhandler(500)
 def error(e):
     return render_template('500.html'), 500
