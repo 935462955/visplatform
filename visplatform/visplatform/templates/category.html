@@ -109,7 +109,7 @@
 
         .linestyle{
             stroke: #f3aeb6;
-            stroke-width: 5;
+            stroke-width: 3;
             }
 
     </style>
@@ -461,6 +461,7 @@
         let g = d3.select(d3.event.target.parentNode)
         let cx = d.cx
         let cy = d.cy
+        //on表示已经放大  off和None表示为原大小
         if (g.attr("transition-state") == "on") {
             g.transition()
                 .duration(500)
@@ -468,6 +469,7 @@
                 .attr("transition-state", "off")
             d3.selectAll('g[data-parent="项目挑战"]')
                 .attr("visibility", "visible")
+            remove_tips();
         } else {
             d3.selectAll('g[data-parent="项目挑战"]')
                 .attr("visibility", "hidden")
@@ -476,8 +478,10 @@
                 .duration(500)
                 .attr("transform", transform_part(cx, cy, ...currentTransform_part))
                 .attr("transition-state", "on")
+            on_add_tips(d);
         }
     })
+    //项目挑战缩放倍率
     var xm_k = d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3.select('g[data-parent="项目挑战"]>circle').attr("r")//项目挑战缩放倍率
     var currentTransform_part = [w / 2  , h / 2, xm_k]; //项目挑战平移缩放中心和倍率
     const originTransform = [w / 2, h / 2, h];
@@ -514,45 +518,56 @@
 
     //添加项目挑战的tips
     //var tem=d3.selectAll('g[data-parent="项目挑战"]>circle')
-    function add_tips(d){
+    function add_tips(d) {
         var g = d3.select(d3.event.currentTarget.parentNode)
-        if(g.attr("transition-state")=="on"){
-            var tip=tips.find(x=>x.project_name==d.name).tips
-            for(var i=0;i<tip.length;i++){
-            var target_c=d3.select(`g[data-name='${tip[i]}']>circle`)
-            //console.log(target_c,target_c.attr("cy")-(h/2),h/2,xm_k)
-            g.append("line")
-            .attr("class","linestyle")
-            .attr("x1",d.cx)
-            .attr("y1",d.cy)
-            .attr("x2",(target_c.attr("cx")-(w/2))/xm_k + d.cx) //相对屏幕中心缩放后的偏移+圆心坐标
-            .attr("y2",(target_c.attr("cy")-(h/2))/xm_k + d.cy) //https://www.w3cplus.com/html5/svg-transformations.html
-        }
-        }
-        else {
-            var tip = tips.find(x => x.project_name == d.name).tips
-            //console.log(tip)
+        var tip = tips.find(x => x.project_name == d.name).tips
+
             for (var i = 0; i < tip.length; i++) {
+            var target_c = d3.select(`g[data-name='${tip[i]}']>circle`)
+            g.append("line")
+                .attr("class", "linestyle")
+                .attr("x1", d.cx)
+                .attr("y1", d.cy)
+                .attr("x2", target_c.attr("cx"))
+                .attr("y2", target_c.attr("cy"))
+        }
+
+        //var tip=tips.find(x=>x.project_name==d.name).tips
+        //console.log(tip)
+
+    }
+    function on_add_tips(d){
+        var g = d3.select(d3.event.currentTarget.parentNode)
+        var tip = tips.find(x => x.project_name == d.name).tips
+        for (var i = 0; i < tip.length; i++) {
                 var target_c = d3.select(`g[data-name='${tip[i]}']>circle`)
+                //console.log(target_c,target_c.attr("cy")-(h/2),h/2,xm_k)
                 g.append("line")
                     .attr("class", "linestyle")
                     .attr("x1", d.cx)
                     .attr("y1", d.cy)
-                    .attr("x2", target_c.attr("cx"))
-                    .attr("y2", target_c.attr("cy"))
+                    .attr("x2", (target_c.attr("cx") - (w / 2)) / xm_k + d.cx) //相对屏幕中心缩放后的偏移+圆心坐标
+                    .attr("y2", (target_c.attr("cy") - (h / 2)) / xm_k + d.cy) //https://www.w3cplus.com/html5/svg-transformations.html
             }
-        }
     }
     function remove_tips(){
         var g = d3.select(d3.event.currentTarget.parentNode)
            g.selectAll("line").remove()
     }
-    d3.selectAll('g[data-parent="项目挑战"]>circle').on("mouseover",function(d){
-        add_tips(d)
-    })
-    .on("mouseout",function(d){
-        remove_tips()
-    })
+    d3.selectAll('g[data-parent="项目挑战"]>circle')
+        .on("mouseover", function (d) {
+            var g = d3.select(d3.event.currentTarget.parentNode)
+            if(g.attr("transition-state") != "on"){
+                //console.log(d)
+                add_tips(d)
+            }
+        })
+        .on("mouseout", function (d) {
+            var g = d3.select(d3.event.currentTarget.parentNode)
+            if(g.attr("transition-state") != "on"){
+                remove_tips()
+            }
+        })
 </script>
 </body>
 </html>
