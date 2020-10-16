@@ -18,16 +18,18 @@
     <input type="text" name="" placeholder="Nickname" id="nickname">
     <input type="text" name="" placeholder="Username" id="username">
     <input type="password" name="" placeholder="Password" id="password">
-    <input id="first" type="button" value="注册">
-    <input id="second" type="button" value="登录">
+    <input type="password" name="" placeholder="Comfirm Password" id="password2">
+    <input id="login" type="button" value="返回">
+    <input id="register" type="button" value="确定">
 </form>
 
 <script>
-    $(document).on('click', '#first', function () {
+    $(document).on('click', '#register', function () {
         var formdata = {
+            "nickname": $("#nickname").val(),
             "username": $("#username").val(),
             "password": $("#password").val(),
-            "nickname": $("#nickname").val()
+            "password2": $("#password2").val()
         }
         //这里是一个json,通过id和.val()函数获取input填写的值
         $.ajax({
@@ -38,10 +40,10 @@
             contentType: "application/json",
             success: function (result) {//后台返回结果一个json，包含result和msg两个字段
                 if (result.result == "OK") {
-                    toastr["success"]("注册成功")
-                    window.location.href = "/login";
+                    toastr.success("注册成功")
+                    setTimeout( function() { window.location.href = "/login"; }, 1000);
                 } else if (result.result == "NO") {
-                    toastr["error"](result.msg)
+                    toastr.error(result.msg)
                 }
             },
             error: function () {
@@ -50,9 +52,14 @@
         })
 
     })
-    $(document).on('click', '#second', function () {
+    $(document).on('click', '#login', function () {
         window.location.href = "/login";
     })
+    $(document).keydown(function (event) {
+        if (event.keyCode == 13) {
+        $('#register').click();
+        }
+    });
 </script>
 </body>
 
