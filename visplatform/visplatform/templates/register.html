@@ -19,12 +19,12 @@
     <input type="text" name="" placeholder="Username" id="username">
     <input type="password" name="" placeholder="Password" id="password">
     <input type="password" name="" placeholder="Comfirm Password" id="password2">
-    <input id="login" type="button" value="返回">
-    <input id="register" type="button" value="确定">
+    <input id="first" type="button" value="返回">
+    <input id="second" type="button" value="确定">
 </form>
 
 <script>
-    $(document).on('click', '#register', function () {
+    $(document).on('click', '#second', function () {
         var formdata = {
             "nickname": $("#nickname").val(),
             "username": $("#username").val(),
@@ -52,7 +52,7 @@
         })
 
     })
-    $(document).on('click', '#login', function () {
+    $(document).on('click', '#first', function () {
         window.location.href = "/login";
     })
     $(document).keydown(function (event) {
