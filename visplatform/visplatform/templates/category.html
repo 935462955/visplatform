@@ -7,7 +7,7 @@
     <style>
         html,
         body, li {
-            background-color: #f5f5f2 !important;
+            background-color: #e8e8e8;
         }
 
         ul li {
@@ -77,12 +77,12 @@
             width: 100%;
             height: 8vh;
             z-index: 2000;
-           
+
         }
 
         #vis {
             background: white;
-            height:100vh;
+            height: 100vh;
             overflow: hidden;
         }
 
@@ -100,14 +100,51 @@
             -ms-transition: opacity .6s ease-in-out;
             transition: opacity .6s ease-in-out;
         }
-        
+
         .panel:target {
             opacity: 1;
             margin-top: 0%;
         }
-     
 
-        .linestyle{
+        .topModule div {
+            border: 0px !important;
+            font-size: 20px;
+            color: #0079a1;
+        }
+
+        .topModule {
+            border-bottom: solid #DDD 1px;
+        }
+
+        .topModule div:hover {
+            background-color: #74777b;
+            opacity: 0.6;
+        }
+
+        .topModule {
+            cursor: pointer;
+        }
+
+        .topModule li {
+            background-color: #EEE;
+        }
+
+
+        .list-group-item:hover {
+            background-color: #74777b;
+            opacity: 0.6;
+        }
+
+        #whole {
+            background: #EEE;
+            padding-top: 20px;
+        }
+
+        .list-group-item {
+            border: 0px !important;
+        }
+
+        .linestyle {
             stroke: #f3aeb6;
             stroke-width: 3;
             }
@@ -116,9 +153,13 @@
 </head>
 <body>
 <div id="top" style="display:flex ">
-    
-        <button type="button" class="btn btn-primary btn-lg" style="height: 100%;width:50%" onclick="window.location.href='#content'">线性目录</button>
-        <button type="button" class="btn btn-secondary btn-lg" style="height: 100%;width:50%" onclick="window.location.href='#vis'">可视化目录</button>
+
+    <button type="button" class="btn btn-primary btn-lg" style="height: 100%;width:50%"
+            onclick="window.location.href='#content'">线性目录
+    </button>
+    <button type="button" class="btn btn-secondary btn-lg" style="height: 100%;width:50%"
+            onclick="window.location.href='#vis'">可视化目录
+    </button>
 </div>
 
 <div id="vis" class="panel">
@@ -132,12 +173,12 @@
         <button id='in'>进入后台</button>
     </div>
     <div class="row" style="width: 50% ; margin-left:25%; margin-top:5vh">
-        <div class="col-12">
+        <div class="col-12" id="whole">
 
             <h2 style="color:#67c23a"> 用D3实现数据可视化</h2>
             {% for module in modules %}
-                <div>
-                    <div style="padding:12px 20px;border:1px solid; background-color: #f5f5f5">
+                <div class="topModule">
+                    <div style="padding:12px 20px;border:1px solid;">
                         <a class="arrow" data-toggle="collapse" href="#id_{{ module._id }}" role="button">
                             <!-- 折叠箭头 -->
                             <svg class="bi bi-caret-right-fill" width="1em" height="1em" viewBox="0 0 16 16"
@@ -177,7 +218,6 @@
 <script src="../node_modules/d3/d3.min.js"></script>
 <script>
 
-
     $(document).on('click', '#logout', function () {
         window.location.href = 'logout';
     })
@@ -186,6 +226,9 @@
         if (path.attr("data-state") == "right") {
             path.attr("d", "M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z")
             path.attr("data-state", "down")
+            let parent = this.parentNode.children[0];
+            parent.style.background = '#FFC000';
+            parent.style.color = 'white';
             let id = $(this).attr('id').slice(3)
             //console.log(id)
             $.ajax({
@@ -211,6 +254,9 @@
         if (path.attr("data-state") == "down") {
             path.attr("d", "M12.14 8.753l-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z")
             path.attr("data-state", "right")
+            let parent = this.parentNode.children[0];
+            parent.style.background = '#EEE';
+            parent.style.color = '#0079a1';
             let id = $(this).attr('id').slice(3)
             //console.log(id)
             $.ajax({
@@ -239,13 +285,31 @@
             window.location.href = '{{url_for("Admin")}}'
     })
 
+    var topModules = $('.topModule');
+    for (let i = 0; i < topModules.length; i++) {
+        let match = /show/i
+        if (match.test(topModules[i].children[1].className)) {
+            topModules[i].children[0].style.background = '#FFC000'
+            topModules[i].children[0].style.color = 'white'
+        }
+    }
+
+    $(".list-group-item").click(function () {
+        $("a", this)[0].click();
+    });
+
+    $(".topModule div").click(function () {
+        $("a", this)[0].click();
+    });
 </script>
 
 <script>
     var color = ['#fafafa', '#c5d2da', '#615f8e', '#ffdcbb', '#f5f5f5']
 
-    var dataset = {{ dataset | safe}}
-    var tips ={{tips_data | safe}}
+    var dataset =
+    {{ dataset | safe}}
+    var tips =
+    {{tips_data | safe}}
 
     //var dataset = {{dataset | safe}}
     //var tips ={{tips_data | safe}}
@@ -341,7 +405,7 @@
     function add_orign_a() {
         d3.selectAll(".layer_one").selectAll("a").remove()
         d3.selectAll(".layer_one")
-            .filter(d=>d.parent != "项目挑战")
+            .filter(d => d.parent != "项目挑战")
             .append("a")
             .append("text")
             .text(d => d.name)
@@ -351,9 +415,9 @@
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
         d3.selectAll(".layer_one")
-            .filter(d=>d.parent == "项目挑战")
+            .filter(d => d.parent == "项目挑战")
             .append("a")
-            .attr("xlink:href",d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
+            .attr("xlink:href", d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
             .append("text")
             .text(d => d.name)
             .attr("x", d => d.cx)
@@ -362,6 +426,7 @@
             .attr("text-anchor", "middle")
             .attr("dominant-baseline", "middle")
     }
+
     add_orign_a();
 
 
@@ -480,7 +545,7 @@
     })
     //项目挑战缩放倍率
     var xm_k = d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3.select('g[data-parent="项目挑战"]>circle').attr("r")//项目挑战缩放倍率
-    var currentTransform_part = [w / 2  , h / 2, xm_k]; //项目挑战平移缩放中心和倍率
+    var currentTransform_part = [w / 2, h / 2, xm_k]; //项目挑战平移缩放中心和倍率
     const originTransform = [w / 2, h / 2, h];
     var currentTransform = [w / 2, h / 2, h]; //初始缩放中心和宽度
 
@@ -515,7 +580,7 @@
 
     //添加项目挑战的tips
     //var tem=d3.selectAll('g[data-parent="项目挑战"]>circle')
-    function add_tips(d) {
+    function add_tips(d){
         var g = d3.select(d3.event.currentTarget.parentNode)
         var tip = tips.find(x => x.project_name == d.name).tips
 
