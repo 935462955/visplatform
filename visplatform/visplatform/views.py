@@ -17,7 +17,7 @@ from visplatform.tools import create_relationship, generate_drawable_data
 @login_required
 def index():
     anchor = request.cookies.get('anchor', 'linear_category')
-    print(anchor)
+    #print(anchor)
     if anchor == 'linear_category':
         return redirect(url_for('show_category', _anchor='content'))
     else:
@@ -130,6 +130,7 @@ def show_category():
         collapse_state[str(module._id)] = request.cookies.get(str(module._id), 'fold')  # 折叠状态
         dics.update(tools.get_sub_module_details(module.sub_modules))
         for sub in module.sub_modules:  # 统计所有课程的顺序
+
             sub.order = order
             order += 1
 
@@ -140,7 +141,6 @@ def show_category():
     path = os.path.join(app.config['VISUALIZATION_FOLDER'], 'tips.json')
     with open(path, 'r', encoding='utf8')as fp:
         tips_data = json.load(fp)
-
     return render_template('category.html', modules=modules, dics=dics, collapse_state=collapse_state,
                            dataset=json_data, tips_data=tips_data)
 
@@ -568,17 +568,24 @@ def register():
             "result": "NO"
         }
         param = json.loads(request.data.decode("utf-8"))  # 解析数据
-        username = param.get("username", "")  # 获取对应参数
+        nickname = param.get("nickname", "")    # 获取对应参数
+        username = param.get("username", "")
         password = param.get("password", "")
-        nickname = param.get("nickname", "")
+        password2 = param.get("password2", "")
+        if not nickname:
+            err_msg["msg"] = "请输入昵称"
+            return jsonify(err_msg)
         if not username:
-            err_msg["msg"] = "缺少帐号"
+            err_msg["msg"] = "请输入用户名"
             return jsonify(err_msg)
         if not password:
-            err_msg["msg"] = "缺少密码"
+            err_msg["msg"] = "请输入密码"
             return jsonify(err_msg)
-        if not nickname:
-            err_msg["msg"] = "缺少用户名"
+        if not password2:
+            err_msg["msg"] = "请再次输入密码"
+            return jsonify(err_msg)
+        if password != password2:
+            err_msg["msg"] = "两次输入密码不一致"
             return jsonify(err_msg)
         user = User.objects(username=username)  # 用username查找user，判断是否注册
         if not user:  # 没注册
@@ -606,14 +613,14 @@ def login():
         username = param.get("username", "")
         password = param.get("password", "")
         if not username:
-            err_msg["msg"] = "缺少帐号"
+            err_msg["msg"] = "请输入帐号"
             return jsonify(err_msg)
         if not password:
-            err_msg["msg"] = "缺少密码"
+            err_msg["msg"] = "请输入密码"
             return jsonify(err_msg)
         user = User.objects(username=username).first()  # 用username找user判断是否注册
         if not user:
-            err_msg["msg"] = "帐号尚未注册"
+            err_msg["msg"] = "帐号不存在"
             return jsonify(err_msg)
         if not user.verify_password(password):  # 密码验证
             err_msg["msg"] = "密码错误"

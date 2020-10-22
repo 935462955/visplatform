@@ -38,7 +38,9 @@
             success: function (result) {
                 if (result.result == "OK") {
                     toastr["success"]("登录成功")
-                    setTimeout(next_url(result.next_url), 3000);//定时函数，为了显示提示
+                    //定时函数，为了显示提示
+                    //要执行的代码必须写在函数中 否则会立即执行 没有延迟
+                    setTimeout(function(){ next_url(result.next_url) }, 1000);
                 } else if (result.result == "NO") {
                     toastr["error"](result.msg)
                 }
@@ -49,6 +51,12 @@
         })
         return false;
     })
+
+    $(document).keydown(function (event) {
+        if (event.keyCode == 13) {
+        $('#second').click();
+        }
+    });
 
     function next_url(url) {
         window.location.href = url;
