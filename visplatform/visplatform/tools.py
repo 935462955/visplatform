@@ -104,8 +104,10 @@ def pre_order(node):  # 先序遍历树
     for i in node.children:
         pre_order(i)
 
-
-def generate_drawable_data(relationship_list):
+# 全局变量
+gap_angle = 0.4 #保留的不分配给子圆的角度
+#
+def generate_drawable_data(relationship_list):#relationship_list 是一棵树
     df_tree = []  # 课程
     df_xm_tree = []  # 项目
 
@@ -129,31 +131,33 @@ def generate_drawable_data(relationship_list):
     # 每一层最大的儿子数
     max_children_per_layer = {}
     # 初始化树
-
+    # 初始化树节点，加入字典
     for row in df_tree:
         node = tree(row['name'], row['id'], row['type'])
         dic[node.name] = node
+    #依据字典构造树结构
     for row in df_tree:
         node = dic[row['name']]
-        if row['parent'] == '':
+        if row['parent'] == '':#找到根节点
             root = node
-        else:
+        else:#建立孩子父亲关系
             parent = dic[row['parent']]
             node.parent = parent
             parent.children.append(node)
             # 这个if-else 用于计算每层的最大儿子数
 
-    # print(pre_order(root))
 
+    #计算每层最多孩子节点数
     assin_deep(root, max_children_per_layer)
 
-    # print(max_children_per_layer)
+
 
     # 计算圆的半径
     # R[0]为最大圆半径,R[1]为第二层圆半径
     R = [2000, 0, 0, 0]
     # 内圆离外圆的距离为内圆半径r的tr倍数
     tr = 0.2
+
     for i in range(1, 3):
         cal_R_in(i, R, tr, max_children_per_layer)
     cal_R_on(3, R, max_children_per_layer)
@@ -163,7 +167,7 @@ def generate_drawable_data(relationship_list):
     # print(root.r)
     # pre_order1(root)
 
-    # 存入问文件
+    # 存入文件
     L = []
     built_li(root, L)
     # 计算项目挑战相关
@@ -207,15 +211,16 @@ def generate_drawable_data(relationship_list):
         json.dump(L, f_obj, ensure_ascii=False)
 
 
-# 计算在大圆内圆的半径,index为深度
+# 计算在大圆内，圆的半径,index为深度
 # ny_k越大内圆越小
-def cal_R_in(index, R, tr, max_children_per_layer, ny_k=1.3):
+def cal_R_in(index, R, tr, max_children_per_layer, ny_k=1.3): # r = Rsinθ/(1+sinθ) 。  ny_k 越大，每个圆对应的theta角越小
+
     pre_r = R[index - 1]
-    tem = 1 / math.sin(math.pi / (max_children_per_layer[index - 1] * ny_k)) + 1 + tr
+    tem = 1 / math.sin((math.pi - gap_angle/2) / (max_children_per_layer[index - 1] * ny_k)) + 1 + tr  # R - r - d = r/sinθ ,  d 是小圆 和 大圆边界的距离， d = tr * r
     R[index] = pre_r / tem
 
 
-# 计算在大圆上圆的半径
+# 计算在大圆上，圆的半径
 # sy_k越大上圆越小
 def cal_R_on(index, R, max_children_per_layer, sy_k=2.8):
     R[index] = R[index - 1] * math.sin(math.pi / (max_children_per_layer[index - 1] * sy_k))
@@ -226,26 +231,29 @@ def cal_R_on(index, R, max_children_per_layer, sy_k=2.8):
 def cal_pos(node, x, y, n, k, R, root, tr):
     # 当前节点的半径由深度决定
     node.r = R[node.deepth]
-    if node == root:
+    if node == root: #左上角坐标为(0,0) 根节点坐标为(R[0],R[0])
         # 根节点的坐标为传入的x，y
         node.cx = x
         node.cy = y
     elif node.deepth == 3:
         # 计算在圆上的圆的坐标
-        angle = (1 + 1 / n) * k * (2 * math.pi) / (n + 1)
+        angle = (1 + 1 / n) * k * (2 * math.pi) / (n + 1)  # (2 * math.pi / n ) * k
         tem = node.parent.r
         node.cx = x + tem * math.sin(angle)
         node.cy = y - tem * math.cos(angle)
     else:
         # 计算在圆内圆的坐标
-        angle = (1 + 1 / n) * k * (2 * math.pi) / (n + 1)
-        tem = node.parent.r - (1 + tr) * node.r
+
+        angle = (1 + 1 / n) * k * (2 * math.pi - gap_angle) / (n + 1) # (2 * math.pi / n ) * k
+        tem = node.parent.r - (1 + tr) * node.r  # R-d-r
         node.cx = x + tem * math.sin(angle)
         node.cy = y - tem * math.cos(angle)
+        #计算第二层的文字坐标 pos_text = (cx+tx , cy+ty)
+        #根据相似三角形计算坐标
         temx = node.cx - node.parent.cx
         temy = node.cy - node.parent.cy
-        temr = (node.r + node.parent.r) * 0.95  # 最后一个参数是小圆的文本与大圆的圆心距的比例
-        temk = temr / math.sqrt(temx * temx + temy * temy)
+        temr = (node.r + node.parent.r) * 0.76  # 最后一个参数是小圆的文本与大圆的圆心距的比例
+        temk = temr / math.sqrt(temx * temx + temy * temy)# 两个三角形的斜边比例
         node.tx = temk * temx - temx
         node.ty = temk * temy - temy
     # 先序遍历计算孩子的坐标
@@ -271,7 +279,7 @@ def built_li(node, L):
     # Lj["children"]=Li
 
 
-def assin_deep(node, max_children_per_layer):  # 先序给树的节点深度赋值
+def assin_deep(node, max_children_per_layer):  # 先序给树的节点深度赋值 并保存每层中孩子数最多的那个节点所拥有的孩子数
 
     if node.parent == None:
         node.deepth = 0

@@ -145,8 +145,8 @@
         }
 
         .linestyle {
-            stroke: #f3aeb6;
-            stroke-width: 3;
+          stroke: #f3aeb6;
+            stroke-width: 5;
             }
 
     </style>
@@ -216,6 +216,7 @@
 <script src="../node_modules/jquery/dist/jquery.js"></script>
 <script src="../node_modules/bootstrap/dist/js/bootstrap.js"></script>
 <script src="../node_modules/d3/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-annotation/2.5.1/d3-annotation.min.js"></script>
 <script>
 
     $(document).on('click', '#logout', function () {
@@ -394,11 +395,9 @@
 
     //加title
     d3.selectAll("g")
+        .filter(d => d.deepth && d.deepth > 0)
         .append("title")
-        .text(d => {
-            if (d.deepth > 0)
-                return d.name
-        })
+        .text(d => d.name)
 
     //加text
 
@@ -429,6 +428,32 @@
 
     add_orign_a();
 
+
+    function generate_annotation(d)
+    {
+        return {
+              note: {
+                            label: " ",
+                            title: d.name,
+                            wrap: 270,
+                                  },
+
+                            chapter: 1,
+                            extra_rad: 24 ,
+                            className: "note-right note-legend",
+                            did:d.id,
+                            dtype:d.type,
+                            x: d.cx,
+                            y: d.cy ,
+                            dx: d.tx,
+                            dy: d.ty,
+                            color:"#615F8E"
+        }
+    }
+    var makeAnnotations = d3.annotation()
+                    .type(d3.annotationCallout)
+
+    const annotation_group = svg.append("g").attr("class","annotation-group")
 
     //点击事件
     d3.selectAll("circle").on('click', function (d, i, n) {
@@ -481,7 +506,50 @@
                     .attr("text-anchor", "middle")
                     .attr("dominant-baseline", "middle")
 
-            } else {
+            }else {
+                let a_group = parentG
+                    .selectAll("g")
+                    .filter(function (x) {
+                        return x.parent == d.name
+                    })
+                    .append("a")
+                    .attr("transform",d=>`translate(${d.cx-30},${d.cy-20})`)
+                    .attr("xlink:href", d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
+                    a_group.append("text").attr("weight","bold")
+                        .attr("fill","white")
+                        .attr("transform","translate(0,-10)")
+                        .text("查看课程")
+                    a_group
+                    .append("svg")
+                    .attr("width","200")
+                    .attr("height","200")
+                    .attr("viewBox","0,0,50,50")
+                    .append("path")
+                    .attr("d", "M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z")
+                    .attr("fill-rule","evenodd")
+                    .attr("stroke","white")
+
+                /* parentG
+                    .selectAll("g")
+                    .filter(function (x) {
+                        return x.parent == d.name
+                    })
+                    .append("a")
+                    .attr("xlink:href", d => `/course/${d.id}?type=${d.type}&come_from='nolinear_category'`)
+                    .append("text").text("进入")
+                    .attr("stroke","#615F8E")
+                    .attr("x", d => {
+                        return d.cx
+                    })
+                    .attr("y", d => {
+                        return d.cy
+                    })
+                    .attr("font-size", d => d.r / (5 - d.deepth))
+                    .attr("text-anchor", "middle")
+                    .attr("dominant-baseline", "middle")
+*/
+            }
+            /*else {
                 parentG
                     .selectAll("g")
                     .filter(function (x) {
@@ -504,9 +572,35 @@
                     .attr("text-anchor", "middle")
                     .attr("dominant-baseline", "middle")
 
+            }*/
+            if(d.deepth == 1) {
+
+                annotations = dataset.filter(x => x.parent == d.name).map(generate_annotation)
+                makeAnnotations.annotations(annotations);
+                makeAnnotations.update()
+
+                annotation_group
+                .style("opacity",0)
+                .attr("transform", transform([d.cx, d.cy, d.r * 2]))
+                .transition()
+                .duration(3000)
+                .style("opacity",1)
+                annotation_group.call(makeAnnotations)
+
+
+
             }
+            else{
+                 annotations = []
+                 makeAnnotations.annotations(annotations)
+                 makeAnnotations.update()
+                 annotation_group.call(makeAnnotations)
+
+            }
+
         }
     })
+
 
 
     //项目挑战点击事件
@@ -542,6 +636,7 @@
                 .attr("transition-state", "on")
             on_add_tips(d);
         }
+
     })
     //项目挑战缩放倍率
     var xm_k = d3.select('g[data-name="项目挑战"]>circle').attr("r") / d3.select('g[data-parent="项目挑战"]>circle').attr("r")//项目挑战缩放倍率
@@ -563,7 +658,7 @@
 
 
     function transition(d) {
-        var k = 2 + 0.4 * d.deepth
+        var k = 2 + 0.4 * d.deepth //缩放比例，k值越大，缩放越小
         var i = d3.interpolateZoom(currentTransform, [d.cx, d.cy, d.r * k]);
         g.transition()
             .delay(250)
