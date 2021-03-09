@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
     <script>
         var color = ['#fafafa', '#c5d2da', '#615f8e', '#ffdcbb', '#f5f5f5']
 
@@ -34,6 +35,7 @@
             .attr("height", "98vh")
             .attr("width", "98vw")
             .attr("viewBox", [0, 0, w, h]);
+
 
         const g = svg.selectAll(".layer_zero")
             .data(dataset.filter(d => d.deepth == 0))
@@ -169,21 +171,14 @@
                         })
                         .append("a")
                         .append("text").text(d => d.name)
-                        .attr("x", d => {
-                            if (d.deepth == 2)
-                                return d.cx + d.tx
-                            return d.cx
-                        })
-                        .attr("y", d => {
-                            if (d.deepth == 2)
-                                return d.cy + d.ty
-                            return d.cy
-                        })
+                        .attr("x", d => d.cx)
+                        .attr("y", d => d.cy)
                         .attr("font-size", d => d.r / (5 - d.deepth))
                         .attr("text-anchor", "middle")
                         .attr("dominant-baseline", "middle")
 
-                } else {
+                }
+                else {
                     parentG
                         .selectAll("g")
                         .filter(function (x) {
@@ -192,20 +187,38 @@
                         .append("a")
                         .attr("xlink:href", d => `/course/${d.id}?type=${d.type}`)
                         .append("text").text(d => d.name)
-                        .attr("x", d => {
-                            if (d.deepth == 2)
-                                return d.cx + d.tx
-                            return d.cx
-                        })
-                        .attr("y", d => {
-                            if (d.deepth == 2)
-                                return d.cy + d.ty
-                            return d.cy
-                        })
+                        .attr("x", d =>  d.cx + d.tx)
+                        .attr("y", d =>  d.cy + d.ty)
                         .attr("font-size", d => d.r / (5 - d.deepth))
                         .attr("text-anchor", "middle")
                         .attr("dominant-baseline", "middle")
 
+                }
+                if(d.deepth == 1)
+                {
+                    var annotations =  [
+                        {
+                            note: {
+                        label: "Around the right half of the large circle you can see in which chapter the Clow cards were captured. Sakura was already in possession of Windy and Wood at the start of chapter 1",
+                        title: "Clow Cards",
+                        wrap: 270,
+                    },
+                    chapter: 1,
+                    extra_rad: 24 ,
+                    className: "note-right note-legend",
+                    x: d.cx ,
+                    y: d.cy ,
+                    cx: 55 ,
+                    cy: -686 ,
+                    dx: 5 ,
+                    dy: -5
+                }
+                    ]
+                    var makeAnnotations = d3.annotation()
+                    .type(d3.annotationLabel)
+                    .annotations(annotations);
+                    const annotation_group = svg.append("g").attr("class","annotation-group")
+                    annotation_group.call(makeAnnotations)
                 }
             }
         })

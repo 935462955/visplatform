@@ -315,13 +315,13 @@
     //var dataset = {{dataset | safe}}
     //var tips ={{tips_data | safe}}
     //console.log(dataset)
-    var h = dataset[0].r * 2;
+    var h = dataset[0].r * 2 ;
     var w = h;
 
     const svg = d3.select("#vis")
         .append("svg")
-        .attr("height", "96vh")
-        .attr("width", "96vw")
+        .attr("height", "98vh")
+        .attr("width", "100vw") // 调整视图大小
         .attr("viewBox", [0, 0, w, h]);
 
     const g = svg.selectAll(".layer_zero")
@@ -401,7 +401,7 @@
 
     //加text
 
-    function add_orign_a() {
+    function add_orign_a() { //添加课程连接
         d3.selectAll(".layer_one").selectAll("a").remove()
         d3.selectAll(".layer_one")
             .filter(d => d.parent != "项目挑战")
@@ -433,16 +433,16 @@
     {
         return {
               note: {
-                            label: " ",
-                            title: d.name,
-                            wrap: 270,
+
+                            label: d.name,
+                            wrap: 150,
+                            align:"dynamic"
                                   },
 
-                            chapter: 1,
-                            extra_rad: 24 ,
                             className: "note-right note-legend",
                             did:d.id,
                             dtype:d.type,
+
                             x: d.cx,
                             y: d.cy ,
                             dx: d.tx,
@@ -578,10 +578,24 @@
                 annotations = dataset.filter(x => x.parent == d.name).map(generate_annotation)
                 makeAnnotations.annotations(annotations);
                 makeAnnotations.update()
+            /*    var t1 = d.r * ( 2 + scale_rate * d.deepth)
+                var scale_k1  = Math.min(h, w) / t1
+                var t2 = t1
 
+                if(annotations.length)
+                {
+                    let first_node = annotations[0]
+                    let R = Math.sqrt((first_node.x-d.cx) ** 2 + (first_node.y - d.cy) **2)
+                    let r = first_node.dr
+                    console.log(R,r,r/R)
+                    let scale_k2 = scale_k1 + r/R
+                    console.log(scale_k1,scale_k2)
+                    var t2 = Math.min(h,w)/scale_k2
+                }*/
+                var offset_rate = 0.5 // 连线的一端偏离圆心的距离参数 值越大越远
                 annotation_group
                 .style("opacity",0)
-                .attr("transform", transform([d.cx, d.cy, d.r * 2]))
+                .attr("transform", transform([d.cx, d.cy,  d.r * ( 2 + scale_rate * d.deepth - offset_rate)  ])) //
                 .transition()
                 .duration(3000)
                 .style("opacity",1)
@@ -604,27 +618,26 @@
 
 
     //项目挑战点击事件
-    d3.selectAll('g[data-name="项目挑战"] > circle').on("click", function (d, i) {
-        to_origin();
-        add_orign_a();
-    })
+
 
     d3.selectAll('g[data-parent="项目挑战"] > circle').on("click", function (d, i) {
         //console.log(d3.event.target.parentNode, d)
-        to_origin();
-        add_orign_a();
+       // to_origin();
+        add_orign_a()
         remove_tips()
         let g = d3.select(d3.event.target.parentNode)
         let cx = d.cx
         let cy = d.cy
         //on表示已经放大  off和None表示为原大小
         if (g.attr("transition-state") == "on") {
+             console.log(1)
             g.transition()
                 .duration(500)
                 .attr("transform", "translate(0,0) scale(1)")
                 .attr("transition-state", "off")
             d3.selectAll('g[data-parent="项目挑战"]')
                 .attr("visibility", "visible")
+            console.log(1)
             remove_tips();
         } else {
             d3.selectAll('g[data-parent="项目挑战"]')
@@ -656,9 +669,9 @@
         return `translate(${x - ox * k},${y - oy * k}) scale(${k})`
     }
 
-
+    var scale_rate = 1 //默认0.4  值越小 放大效果越强
     function transition(d) {
-        var k = 2 + 0.4 * d.deepth //缩放比例，k值越大，缩放越小
+        var k = 2 + scale_rate * d.deepth //缩放比例，k值越大，缩放越小
         var i = d3.interpolateZoom(currentTransform, [d.cx, d.cy, d.r * k]);
         g.transition()
             .delay(250)
@@ -666,7 +679,7 @@
             .attrTween("transform", () => t => transform(currentTransform = i(t)))
     }
 
-    function to_origin() {
+    function to_origin() { //回到初始缩放
         var i = d3.interpolateZoom(currentTransform, originTransform);
         g.transition()
             .duration(i.duration * 0.8)
